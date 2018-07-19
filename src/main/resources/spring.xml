@@ -18,7 +18,7 @@ http://www.springframework.org/schema/context/spring-context-4.2.xsd
 
     <!-- 引入属性文件 classpath就是resource下-->
     <!--<context:property-placeholder local-override="true" location="classpath:config.properties"  ignore-unresolvable="true"/>-->
-    <bean id="propertyConfigurer" class="com.uifuture.ssm.config.EncryptPropertyPlaceholderConfigurer">
+    <bean id="propertyConfigurer" class="com.ssm.config.EncryptPropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
                 <value>classpath:config.properties</value>

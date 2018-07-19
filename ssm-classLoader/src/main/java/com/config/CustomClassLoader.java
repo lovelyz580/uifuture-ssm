@@ -2,7 +2,7 @@
  * fshows.com
  * Copyright (C) 2013-2018 All Rights Reserved.
  */
-package com.uifuture.config;
+package com.config;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;

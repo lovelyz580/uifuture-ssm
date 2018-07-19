@@ -1,6 +1,6 @@
-package com.uifuture.ssm.dao;
+package com.ssm.dao;
 
-import com.uifuture.ssm.entity.Ip;
+import com.ssm.entity.Ip;
 import org.springframework.stereotype.Repository;
 
 @Repository

@@ -2,9 +2,9 @@
  * fshows.com
  * Copyright (C) 2013-2018 All Rights Reserved.
  */
-package com.uifuture.ssm.config;
+package com.ssm.config;
 
-import com.uifuture.ssm.util.AES;
+import com.ssm.util.AES;
 
 import java.io.IOException;
 import java.util.Properties;

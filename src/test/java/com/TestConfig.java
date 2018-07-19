@@ -2,7 +2,7 @@
  * fshows.com
  * Copyright (C) 2013-2018 All Rights Reserved.
  */
-package com.uifuture;
+package com;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import org.apache.log4j.Logger;
