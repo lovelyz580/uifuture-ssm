@@ -14,10 +14,10 @@ import com.uifuture.staticproxy.target.AliPay;
  */
 public class Store {
     public static void main(String[] args) {
-        ProxyPay proxyPay = new ProxyPay();
-        proxyPay.pay();
+        PayProxy payProxy = new PayProxy();
+        payProxy.pay();
         System.out.println("-----------------");
-        ProxyPay proxyPay2 = new ProxyPay(new AliPay("store"));
-        proxyPay2.pay();
+        PayProxy payProxy2 = new PayProxy(new AliPay("store"));
+        payProxy2.pay();
     }
 }

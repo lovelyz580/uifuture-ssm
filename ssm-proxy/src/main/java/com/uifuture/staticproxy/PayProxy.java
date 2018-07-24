@@ -13,15 +13,15 @@ import com.uifuture.staticproxy.target.Pay;
  * @author chenhx
  * @version ProxyPay.java, v 0.1 2018-07-24 下午 8:20
  */
-public class ProxyPay implements Pay {
+public class PayProxy implements Pay {
     private Pay pay;
 
-    public ProxyPay() {
+    public PayProxy() {
         //帮助消费者进行一些操作
         pay = new AliPay("proxyPay");
     }
 
-    public ProxyPay(AliPay aliPay) {
+    public PayProxy(AliPay aliPay) {
         //当然，可以直接将支付传过来，这样就可以使用消费者自己的
         this.pay = aliPay;
     }
