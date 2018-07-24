@@ -2,7 +2,7 @@
  * fshows.com
  * Copyright (C) 2013-2018 All Rights Reserved.
  */
-package com.entity;
+package com.uifuture.entity;
 
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;

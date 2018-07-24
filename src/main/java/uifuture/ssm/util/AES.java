@@ -1,4 +1,4 @@
-package com.ssm.util;
+package uifuture.ssm.util;
 
 
 import javax.crypto.BadPaddingException;

@@ -2,7 +2,7 @@
  * fshows.com
  * Copyright (C) 2013-2018 All Rights Reserved.
  */
-package com.config;
+package com.uifuture.config;
 
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
@@ -36,7 +36,7 @@ public class CustomClassLoader extends ClassLoader {
      */
     public static void main(String[] args) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
         //注意，这里的是class文件的路径
-        CustomClassLoader customClassLoader = new CustomClassLoader("D:\\github\\uifutureSSM\\ssm-classLoader\\target\\classes\\");
+        CustomClassLoader customClassLoader = new CustomClassLoader("D:\\github\\uifuture-ssm\\ssm-classLoader\\target\\classes\\");
         Class loadClass = customClassLoader.findClass("com.uifuture.entity.User");
         Object object = loadClass.newInstance();
         System.out.println(object);

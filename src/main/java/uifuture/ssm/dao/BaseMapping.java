@@ -1,4 +1,4 @@
-package com.ssm.dao;
+package uifuture.ssm.dao;
 
 import org.springframework.stereotype.Repository;
 

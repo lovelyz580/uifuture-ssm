@@ -11,6 +11,7 @@
     <modules>
         <module>ssm-classLoader</module>
         <module>ssm-reflection-demo</module>
+        <module>ssm-proxy</module>
     </modules>
 
     <properties>

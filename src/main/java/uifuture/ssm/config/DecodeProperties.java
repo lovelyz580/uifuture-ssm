@@ -2,7 +2,7 @@
  * fshows.com
  * Copyright (C) 2013-2018 All Rights Reserved.
  */
-package com.ssm.config;
+package uifuture.ssm.config;
 
 import com.ssm.util.AES;
 
