@@ -22,7 +22,7 @@ public class BeanUtilsNoGenerics {
         Object obj = cls.newInstance();
         //2 再用类反射对新new的对象设置属性值(必须遵守Java设置规范)--即通过setter方法设置
         //2.1遍历出所有该类声明的属性
-        Field fields[] = cls.getDeclaredFields();
+        Field[] fields = cls.getDeclaredFields();
         for (Field fld : fields) {
             //获取该fld对象所代表的属性名
             String fldName = fld.getName();
@@ -56,7 +56,7 @@ public class BeanUtilsNoGenerics {
      * @param args
      */
     public static void main(String[] args) throws ReflectiveOperationException {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(16);
         map.put("name", "test");
         map.put("age", 21);
         map.put("address", "浙江杭州");

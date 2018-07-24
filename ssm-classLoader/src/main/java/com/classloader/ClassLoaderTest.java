@@ -2,7 +2,7 @@
  * fshows.com
  * Copyright (C) 2013-2018 All Rights Reserved.
  */
-package com.classLoader;
+package com.classloader;
 
 /**
  * 用来演示类加载器的顺序
