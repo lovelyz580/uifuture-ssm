@@ -4,6 +4,8 @@
  */
 package com.uifuture.staticproxy;
 
+import com.uifuture.staticproxy.target.AliPay;
+
 /**
  * 消费者
  *

@@ -2,7 +2,7 @@
  * fshows.com
  * Copyright (C) 2013-2018 All Rights Reserved.
  */
-package com.uifuture.staticproxy;
+package com.uifuture.staticproxy.target;
 
 /**
  * 接口  支付的通用接口方法
