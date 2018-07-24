@@ -15,9 +15,9 @@ import com.uifuture.staticproxy.target.AliPay;
 public class Store {
     public static void main(String[] args) {
         PayProxy payProxy = new PayProxy();
-        payProxy.pay();
+        payProxy.pay("proxy");
         System.out.println("-----------------");
-        PayProxy payProxy2 = new PayProxy(new AliPay("store"));
-        payProxy2.pay();
+        PayProxy payProxy2 = new PayProxy(new AliPay());
+        payProxy2.pay("store");
     }
 }

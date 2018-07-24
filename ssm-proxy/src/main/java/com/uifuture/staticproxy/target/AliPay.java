@@ -10,14 +10,8 @@ package com.uifuture.staticproxy.target;
  * @version Alipay.java, v 0.1 2018-07-24 下午 8:19
  */
 public class AliPay implements Pay {
-    private String operation;
-
-    public AliPay(String operation) {
-        this.operation = operation;
-    }
-
     @Override
-    public void pay() {
+    public void pay(String operation) {
         System.out.println("进行支付,操作：" + operation);
     }
 }

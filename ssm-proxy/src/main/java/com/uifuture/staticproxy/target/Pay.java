@@ -11,5 +11,5 @@ package com.uifuture.staticproxy.target;
  * @version Pay.java, v 0.1 2018-07-24 下午 8:19
  */
 public interface Pay {
-    void pay();
+    void pay(String operation);
 }

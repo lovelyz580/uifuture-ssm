@@ -18,7 +18,7 @@ public class PayProxy implements Pay {
 
     public PayProxy() {
         //帮助消费者进行一些操作
-        pay = new AliPay("proxyPay");
+        pay = new AliPay();
     }
 
     public PayProxy(AliPay aliPay) {
@@ -27,9 +27,9 @@ public class PayProxy implements Pay {
     }
 
     @Override
-    public void pay() {
+    public void pay(String operation) {
         System.out.println("代理前...");
-        pay.pay();
+        pay.pay(operation);
         System.out.println("代理后...");
     }
 }
