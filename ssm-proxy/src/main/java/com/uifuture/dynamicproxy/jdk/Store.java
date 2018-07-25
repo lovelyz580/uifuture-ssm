@@ -2,11 +2,11 @@
  * fshows.com
  * Copyright (C) 2013-2018 All Rights Reserved.
  */
-package com.uifuture.dynamicproxy;
+package com.uifuture.dynamicproxy.jdk;
 
-import com.uifuture.dynamicproxy.target.AliPay;
-import com.uifuture.dynamicproxy.target.Pay;
-import com.uifuture.dynamicproxy.target.WxPay;
+import com.uifuture.dynamicproxy.jdk.target.AliPay;
+import com.uifuture.dynamicproxy.jdk.target.Pay;
+import com.uifuture.dynamicproxy.jdk.target.WxPay;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Proxy;

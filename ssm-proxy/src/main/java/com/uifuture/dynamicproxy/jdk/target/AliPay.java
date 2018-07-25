@@ -2,7 +2,7 @@
  * fshows.com
  * Copyright (C) 2013-2018 All Rights Reserved.
  */
-package com.uifuture.dynamicproxy.target;
+package com.uifuture.dynamicproxy.jdk.target;
 
 
 /**

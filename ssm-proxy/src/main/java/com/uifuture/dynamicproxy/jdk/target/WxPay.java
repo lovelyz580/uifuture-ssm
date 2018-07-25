@@ -2,7 +2,7 @@
  * fshows.com
  * Copyright (C) 2013-2018 All Rights Reserved.
  */
-package com.uifuture.dynamicproxy.target;
+package com.uifuture.dynamicproxy.jdk.target;
 
 /**
  * 委托类 - 另一种支付方式
