@@ -10,5 +10,8 @@ SSM书籍配套项目
 2.2 ssm-reflection-demo  
 类反射  
 
+2.3 ssm-proxy
+动态代理
+
 
 #### 参与贡献
