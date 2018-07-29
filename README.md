@@ -1,4 +1,4 @@
-# superior-java-blogs
+# uifuture-ssm
 
 #### 项目介绍
 SSM书籍配套项目
