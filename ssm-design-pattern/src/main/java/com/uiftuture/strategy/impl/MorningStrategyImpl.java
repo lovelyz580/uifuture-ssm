@@ -14,7 +14,7 @@ import java.math.BigDecimal;
  * @author chenhx
  * @version MorningStrategyImpl.java, v 0.1 2018-07-30 下午 10:12
  */
-public class MorningStrategyImpl implements Strategy {
+public class MorningStrategyImpl extends Strategy {
     /**
      * 在实际应用中，可能还会有另外的一系列操作
      *
