@@ -9,3 +9,5 @@
     3.2.2  工厂方法模式（Factory Method Pattern）  method  
     3.2.3  抽象工厂模式（Abstract Factory）  abstractfactory   
 3.4  策略模式(Strategy Pattern)  strategy    
+3.5  模板模式（Template Pattern）  template    
+
