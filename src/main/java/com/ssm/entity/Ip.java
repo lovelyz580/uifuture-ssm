@@ -7,12 +7,12 @@ import lombok.Data;
  */
 @Data
 public class Ip extends BaseEntity {
-    //�û�id
-    private Integer userId;//���id
-    //ip��ַ
-    private String ip; //��¼ip
-    //��¼ʱ��
-    private long loginTime; //��¼ʱ��
+    //用户Id
+    private Integer userId;
+    //ip地址
+    private String ip;
+    //登录时间
+    private long loginTime;
 
     public Ip() {
     }
