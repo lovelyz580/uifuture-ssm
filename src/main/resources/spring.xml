@@ -35,7 +35,7 @@ http://www.springframework.org/schema/context/spring-context-4.2.xsd
     <!--</bean>-->
 
     <!-- 包自动扫描 不扫描Controller注解-->
-    <context:component-scan base-package="com.uifuture.ssm">
+    <context:component-scan base-package="com.ssm">
         <context:exclude-filter type="annotation"
                                 expression="org.springframework.stereotype.Controller"/>
     </context:component-scan>
@@ -46,7 +46,7 @@ http://www.springframework.org/schema/context/spring-context-4.2.xsd
         <property name="dataSource" ref="dataSource"/>
         <property name="mapperLocations">
             <list>
-                <value>classpath*:com/uifuture/ssm/mapping/*.xml</value>
+                <value>classpath*:com/ssm/mapping/*.xml</value>
             </list>
         </property>
     </bean>

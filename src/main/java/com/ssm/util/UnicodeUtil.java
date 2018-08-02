@@ -2,7 +2,7 @@
  * fshows.com
  * Copyright (C) 2013-2018 All Rights Reserved.
  */
-package uifuture.ssm.util;
+package com.ssm.util;
 
 import java.io.UnsupportedEncodingException;
 import java.util.regex.Matcher;
