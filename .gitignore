@@ -15,6 +15,9 @@
 *.iws
 *.iml
 *.ipr
+*.class
+*.log
+**/classes/
 
 ### maven ###
 .mvn

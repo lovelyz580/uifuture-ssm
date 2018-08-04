@@ -13,6 +13,7 @@
         <module>ssm-reflection-demo</module>
         <module>ssm-proxy</module>
         <module>ssm-design-pattern</module>
+        <module>ssm-spring-mvc</module>
     </modules>
 
     <properties>
