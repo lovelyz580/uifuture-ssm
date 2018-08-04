@@ -17,7 +17,7 @@
 *.ipr
 *.class
 *.log
-**/classes/
+*/classes/artifacts/
 
 ### maven ###
 .mvn
