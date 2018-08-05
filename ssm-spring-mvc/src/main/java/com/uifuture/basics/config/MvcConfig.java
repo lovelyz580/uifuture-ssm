@@ -7,9 +7,14 @@ package com.uifuture.basics.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author chenhx
@@ -32,5 +37,20 @@ public class MvcConfig {
         viewResolver.setSuffix(".jsp");
         viewResolver.setViewClass(JstlView.class);
         return viewResolver;
+    }
+
+    /**
+     * 进行json解析 JSON转换器
+     *
+     * @return
+     */
+    @Bean
+    public MappingJackson2HttpMessageConverter getMappingJackson2HttpMessageConverter() {
+        MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
+        //设置数据格式
+        List<MediaType> list = new ArrayList<>();
+        list.add(MediaType.APPLICATION_JSON_UTF8);
+        mappingJackson2HttpMessageConverter.setSupportedMediaTypes(list);
+        return mappingJackson2HttpMessageConverter;
     }
 }
