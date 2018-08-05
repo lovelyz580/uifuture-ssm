@@ -41,7 +41,7 @@ public class MvcConfig {
 
     /**
      * 进行json解析 JSON转换器
-     *
+     * 不进行写也是可以进行自动转换的。如果有其他的定制需求，比如日期转换等等，可以使用到该方法。
      * @return
      */
     @Bean
@@ -49,7 +49,7 @@ public class MvcConfig {
         MappingJackson2HttpMessageConverter mappingJackson2HttpMessageConverter = new MappingJackson2HttpMessageConverter();
         //设置数据格式
         List<MediaType> list = new ArrayList<>();
-        list.add(MediaType.APPLICATION_JSON_UTF8);
+        list.add(MediaType.ALL);
         mappingJackson2HttpMessageConverter.setSupportedMediaTypes(list);
         return mappingJackson2HttpMessageConverter;
     }
