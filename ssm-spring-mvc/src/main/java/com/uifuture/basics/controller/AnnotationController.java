@@ -7,11 +7,14 @@ package com.uifuture.basics.controller;
 import com.uifuture.basics.form.User;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Date;
 
 /**
  * SpringMVC中常用注解的演示
@@ -73,5 +76,18 @@ public class AnnotationController {
     public @ResponseBody
     String testPathVariable(@PathVariable("str") String name) {
         return name;
+    }
+
+    @RequestMapping("/testCookieValue")
+    @ResponseBody
+    public String testCookieValue(@CookieValue("JSESSIONID") String jsessionId) {
+        System.out.println("jsessionId=" + jsessionId);
+        return jsessionId;
+    }
+
+    @RequestMapping("/testDate")
+    @ResponseBody
+    public Date testDate() {
+        return new Date();
     }
 }
