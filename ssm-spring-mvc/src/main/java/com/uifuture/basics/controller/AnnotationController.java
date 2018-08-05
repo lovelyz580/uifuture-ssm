@@ -7,6 +7,7 @@ package com.uifuture.basics.controller;
 import com.uifuture.basics.form.User;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -60,5 +61,17 @@ public class AnnotationController {
     public User testRequestBody(@RequestBody User user) {
         System.out.println("-----user=" + user);
         return user;
+    }
+
+    /**
+     * 演示PathVariable注解
+     *
+     * @param name
+     * @return
+     */
+    @RequestMapping(value = "/{str}")
+    public @ResponseBody
+    String testPathVariable(@PathVariable("str") String name) {
+        return name;
     }
 }
