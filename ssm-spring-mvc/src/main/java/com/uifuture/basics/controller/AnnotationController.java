@@ -5,14 +5,22 @@
 package com.uifuture.basics.controller;
 
 import com.uifuture.basics.form.User;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * SpringMVC中常用注解的演示
@@ -81,5 +89,33 @@ public class AnnotationController {
     public String testCookieValue(@CookieValue("JSESSIONID") String jsessionId) {
         System.out.println("jsessionId=" + jsessionId);
         return jsessionId;
+    }
+
+    /**
+     * 该参数会在InitBinder注解的方法中进行转换
+     * 将string类型，例如2018-08-05 20:19:20 会解析成Date对象
+     *
+     * @param date
+     * @return
+     */
+    @GetMapping("/testDate")
+    @ResponseBody
+    public String testDate(@RequestParam("data") Date date) {
+        System.out.println("--------------data=" + date);
+        return "data:" + date;
+    }
+
+    /**
+     * InitBinder注解用于Date类型的转换
+     * ServletRequestDataBinder类是WebDataBinder的子类
+     *
+     * @param binder
+     */
+    @InitBinder
+    public void initBinder(ServletRequestDataBinder binder) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        //指定日期/时间解析规则是否宽松
+        dateFormat.setLenient(false);
+        binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
     }
 }
