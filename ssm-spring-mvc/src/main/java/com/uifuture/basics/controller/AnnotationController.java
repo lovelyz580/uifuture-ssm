@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.Date;
-
 /**
  * SpringMVC中常用注解的演示
  *
@@ -83,11 +81,5 @@ public class AnnotationController {
     public String testCookieValue(@CookieValue("JSESSIONID") String jsessionId) {
         System.out.println("jsessionId=" + jsessionId);
         return jsessionId;
-    }
-
-    @RequestMapping("/testDate")
-    @ResponseBody
-    public Date testDate() {
-        return new Date();
     }
 }
