@@ -91,6 +91,14 @@ public class AnnotationController {
         return jsessionId;
     }
 
+    @RequestMapping("/testRequestParam")
+    @ResponseBody
+    public String testRequestParam(@RequestParam(value = "name", defaultValue = "springmvc") String username) {
+        System.out.println("usernam=" + username);
+        return username;
+    }
+
+
     /**
      * 该参数会在InitBinder注解的方法中进行转换
      * 将string类型，例如2018-08-05 20:19:20 会解析成Date对象
@@ -117,5 +125,33 @@ public class AnnotationController {
         //指定日期/时间解析规则是否宽松
         dateFormat.setLenient(false);
         binder.registerCustomEditor(Date.class, new CustomDateEditor(dateFormat, true));
+    }
+
+    /**
+     * 对象转换成json格式数据返回到前端
+     *
+     * @param user
+     * @return
+     */
+    @PostMapping(value = "/testUserToJson"
+            , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public User testUserToJson(@RequestBody User user) {
+        System.out.println("-----user=" + user);
+        return user;
+    }
+
+    /**
+     * 对象转换成xml格式数据返回到前端
+     *
+     * @param user
+     * @return
+     */
+    @PostMapping(value = "/testUserToXml"
+            , produces = MediaType.APPLICATION_XML_VALUE)
+    @ResponseBody
+    public User testUserToXml(@RequestBody User user) {
+        System.out.println("-----user=" + user);
+        return user;
     }
 }

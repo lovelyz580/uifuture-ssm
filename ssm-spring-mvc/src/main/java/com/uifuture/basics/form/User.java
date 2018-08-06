@@ -4,10 +4,13 @@
  */
 package com.uifuture.basics.form;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
 /**
  * @author chenhx
  * @version User.java, v 0.1 2018-08-05 下午 5:35
  */
+@XmlRootElement
 public class User {
     private String name;
     private Integer age;
