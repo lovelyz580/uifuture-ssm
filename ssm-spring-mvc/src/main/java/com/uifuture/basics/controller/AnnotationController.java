@@ -154,4 +154,16 @@ public class AnnotationController {
         System.out.println("-----user=" + user);
         return user;
     }
+
+    /**
+     * 测试异常处理
+     *
+     * @return
+     */
+    @RequestMapping(value = "/errorDemo")
+    @ResponseBody
+    public String errorDemo() {
+        System.out.println("异常处理演示");
+        throw new RuntimeException("测试运行时异常处理");
+    }
 }
