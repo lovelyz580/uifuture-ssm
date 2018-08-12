@@ -20,6 +20,11 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 @ComponentScan("com.uifuture.basics")
 public class MvcConfig implements WebMvcConfigurer {
+    /**
+     * 注册JSP页面视图解析器
+     *
+     * @return
+     */
     @Bean
     public InternalResourceViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();

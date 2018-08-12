@@ -42,4 +42,14 @@ public class IndexController {
         logger.info("获取信息");
         return "username:chenhx";
     }
+
+    /**
+     * 测试RequestToViewNameTranslator
+     *
+     * @return
+     */
+    @RequestMapping("/testRequestToViewNameTranslator")
+    public void testRequestToViewNameTranslator() {
+        logger.info("testRequestToViewNameTranslator");
+    }
 }
