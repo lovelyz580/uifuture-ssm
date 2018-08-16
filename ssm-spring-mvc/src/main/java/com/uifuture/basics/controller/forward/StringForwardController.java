@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @version ForwardController.java, v 0.1 2018-08-15 下午 8:41
  */
 @Controller
-@RequestMapping("forward")
+@RequestMapping("stringForward")
 public class StringForwardController {
     private Logger logger = LoggerFactory.getLogger(StringForwardController.class);
 
@@ -30,6 +30,8 @@ public class StringForwardController {
     public ModelAndView login(String username) {
         logger.info("login...username={}", username);
         ModelAndView modelAndView = new ModelAndView("forward/login");
+        //映射到页面，有没有斜杠都是一样的,就和RequestMapping注解中路径最前面，有没有斜杠都行
+//        ModelAndView modelAndView = new ModelAndView("/forward/login");
         modelAndView.addObject("username", username);
         return modelAndView;
     }
@@ -43,7 +45,7 @@ public class StringForwardController {
     @RequestMapping(value = "/backslashForward")
     public String backslashForward() {
         logger.info("backslashForward...");
-        return "forward:/forward/login";
+        return "forward:/stringForward/login";
     }
 
     /**
