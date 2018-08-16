@@ -64,9 +64,9 @@ public class ModelAndViewForwardController {
     public ModelAndView testForward2(String username) {
         logger.info("testForward2...username={}", username);
         ModelAndView model = new ModelAndView("forward:login");
-        //使用此种方式是无法将值传递到下一个请求方法中。因为这里的ModelAndView是模型视图，而不是在请求中的数据。
-        //转发只会对于请求数据进行转发
-        model.addObject("username", username);
+        //使用此种方式也是可以将值传递到下一个请求方法中。
+        //实际就是Springm MVC内部使用ModelMap（本质上就是HashMap）进行维护key-value。简单的理解为request.setAttribute即可。建议使用该种方式
+        model.addObject("username", "springmvc");
         return model;
     }
 }
