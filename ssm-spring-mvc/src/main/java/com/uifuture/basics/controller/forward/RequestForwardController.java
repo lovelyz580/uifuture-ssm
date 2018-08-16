@@ -33,7 +33,7 @@ public class RequestForwardController {
      * @return
      */
     @RequestMapping(value = "/login")
-    public ModelAndView login2(HttpServletRequest request, @RequestParam String username) {
+    public ModelAndView login(HttpServletRequest request, @RequestParam String username) {
         logger.info("RequestForwardController.login...request.getAttribute(\"username\")={},username={},request.getParameter(\"username\")={}", request.getAttribute("username"), username, request.getParameter("username"));
         ModelAndView modelAndView = new ModelAndView("/forward/login");
         modelAndView.addObject("username", request.getAttribute("username"));
