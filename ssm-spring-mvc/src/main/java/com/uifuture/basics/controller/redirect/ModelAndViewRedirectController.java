@@ -18,7 +18,7 @@ import java.util.Map;
 
 /**
  * 使用ModelAndView实现重定向
- * 7.1.2
+ * 7.1.6
  * @author chenhx
  * @version ModelAndViewRedirectController.java, v 0.1 2018-08-17 上午 12:26
  */
@@ -36,7 +36,7 @@ public class ModelAndViewRedirectController {
     public ModelAndView login(String username) {
         logger.info("login...username={}", username);
         ModelAndView modelAndView = new ModelAndView("/redirect/login");
-        modelAndView.addObject("name", username);
+        modelAndView.addObject("username", username);
         return modelAndView;
     }
 
@@ -49,8 +49,7 @@ public class ModelAndViewRedirectController {
     @RequestMapping(value = "/testRedirect")
     public ModelAndView testRedirect(String username) {
         logger.info("testRedirect...username={}", username);
-        ModelAndView modelAndView = new ModelAndView("redirect:/modelAndViewRedirect/login");
-        return modelAndView;
+        return new ModelAndView("redirect:/modelAndViewRedirect/login?username=" + username);
     }
 
     /**
@@ -101,8 +100,7 @@ public class ModelAndViewRedirectController {
         //使用addFlashAttribute，也就是将参数存到了FlashMap中，也就是我们前面6.9所介绍的重定向管理有关。
         //参数先保存在Session中，等待下一次请求访问，缓存时间180秒，并且在访问后会进行删除。
         attributes.addFlashAttribute("password", "1234");
-        ModelAndView modelAndView = new ModelAndView("redirect:/modelAndViewRedirect/login3");
-        return modelAndView;
+        return new ModelAndView("redirect:/modelAndViewRedirect/login3");
     }
 
     /**
@@ -130,8 +128,7 @@ public class ModelAndViewRedirectController {
     public ModelAndView testRedirect4(RedirectAttributes attributes, String username) {
         logger.info("testRedirect4...username={}", username);
         attributes.addFlashAttribute("username", username);
-        ModelAndView modelAndView = new ModelAndView("redirect:/modelAndViewRedirect/login4");
-        return modelAndView;
+        return new ModelAndView("redirect:/modelAndViewRedirect/login4");
     }
 
 }
