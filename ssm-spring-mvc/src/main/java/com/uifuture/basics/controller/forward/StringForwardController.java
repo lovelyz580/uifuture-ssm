@@ -12,7 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 演示通过ViewResolver进行请求转发
- *
+ * 7.1.1
  * @author chenhx
  * @version ForwardController.java, v 0.1 2018-08-15 下午 8:41
  */

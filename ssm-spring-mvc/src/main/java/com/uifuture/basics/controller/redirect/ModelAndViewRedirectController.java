@@ -18,7 +18,7 @@ import java.util.Map;
 
 /**
  * 使用ModelAndView实现重定向
- *
+ * 7.1.2
  * @author chenhx
  * @version ModelAndViewRedirectController.java, v 0.1 2018-08-17 上午 12:26
  */
@@ -71,7 +71,7 @@ public class ModelAndViewRedirectController {
 
     /**
      * 演示重定向传递参数
-     * ModelAttribute注解中的name必须填写，负责获取重定向传递的参数。
+     * ModelAttribute注解中的name（参数名称）必须填写，负责获取重定向传递的参数。
      *
      * @param name
      * @return
@@ -87,6 +87,8 @@ public class ModelAndViewRedirectController {
     }
 
     /**
+     * 演示使用ModelAttribute注解来负责接收参数
+     * 并进行使用addAttribute和addFlashAttribute方式的不同
      * @param attributes
      * @param username
      * @return
@@ -103,6 +105,12 @@ public class ModelAndViewRedirectController {
         return modelAndView;
     }
 
+    /**
+     * 不在方法参数上进行绑定参数，使用RequestContextUtils类的getInputFlashMap方法传递request进行获取传递的参数
+     *
+     * @param request
+     * @return
+     */
     @RequestMapping(value = "/login4")
     public ModelAndView login4(HttpServletRequest request) {
         Map<String, ?> map = RequestContextUtils.getInputFlashMap(request);
@@ -112,6 +120,12 @@ public class ModelAndViewRedirectController {
         return modelAndView;
     }
 
+    /**
+     * 演示使用RequestContextUtils进行获取传递过去的参数值
+     * @param attributes
+     * @param username
+     * @return
+     */
     @RequestMapping(value = "/testRedirect4")
     public ModelAndView testRedirect4(RedirectAttributes attributes, String username) {
         logger.info("testRedirect4...username={}", username);
