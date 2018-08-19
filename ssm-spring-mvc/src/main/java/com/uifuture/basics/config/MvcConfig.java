@@ -94,7 +94,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/cacheController/index")
                 //设置视图名称 - 对应文件路径
                 .setViewName("/cache/index");
-        //映射文件上传页面
+        //映射文件上传的页面
         registry.addViewController("/file/upload").setViewName("/upload/index");
     }
 }
