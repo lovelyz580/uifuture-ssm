@@ -17,6 +17,7 @@ import org.springframework.web.servlet.resource.GzipResourceResolver;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+
 /**
  * ComponentScan - 启用Controller Bean的自动检测
  * @author chenhx
@@ -95,6 +96,6 @@ public class MvcConfig implements WebMvcConfigurer {
                 //设置视图名称 - 对应文件路径
                 .setViewName("/cache/index");
         //映射文件上传的页面
-        registry.addViewController("/file/upload").setViewName("/upload/index");
+        registry.addViewController("/upload/index").setViewName("/upload/index");
     }
 }
