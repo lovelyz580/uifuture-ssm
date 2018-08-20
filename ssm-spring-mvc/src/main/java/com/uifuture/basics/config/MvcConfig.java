@@ -97,5 +97,6 @@ public class MvcConfig implements WebMvcConfigurer {
                 .setViewName("/cache/index");
         //映射文件上传的页面
         registry.addViewController("/upload/index").setViewName("/upload/index");
+        registry.addViewController("/download").setViewName("/download");
     }
 }
