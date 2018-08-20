@@ -134,11 +134,12 @@ public class FileController {
             //循环写入输出流 每次读取10MB，防止内存溢出
             byte[] b = new byte[1024 * 1024 * 10];
             int length;
+            //遍历读取输入流与写到response的输出流中
             while ((length = inputStream.read(b)) > 0) {
                 os.write(b, 0, length);
             }
-            // 这里主要关闭。一定要调用flush()方法
             inputStream.close();
+            // 这里注意关闭。一定要调用flush()方法
             os.flush();
             os.close();
         } catch (SocketException e) {
