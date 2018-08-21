@@ -7,14 +7,18 @@ package com.uifuture.basics.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.ui.context.support.ResourceBundleThemeSource;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.resource.GzipResourceResolver;
 import org.springframework.web.servlet.resource.PathResourceResolver;
+import org.springframework.web.servlet.theme.SessionThemeResolver;
+import org.springframework.web.servlet.theme.ThemeChangeInterceptor;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
@@ -27,6 +31,53 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 @ComponentScan("com.uifuture.basics")
 public class MvcConfig implements WebMvcConfigurer {
+
+    /**
+     * 配置拦截器
+     * 这里只是配置主题切换拦截器，可以使用addInterceptor方法配置多个拦截器
+     *
+     * @return
+     */
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        ThemeChangeInterceptor themeChangeInterceptor = new ThemeChangeInterceptor();
+        //设置主题名的参数名称为themeName，默认的名称为theme。这样可以在URL上传递一个名称为themeName的参数来指定使用的主题名称
+        themeChangeInterceptor.setParamName("themeName");
+        //addPathPatterns指定拦截路径，未指定的话拦截所有。excludePathPatterns方法指定不拦截路径
+        registry.addInterceptor(themeChangeInterceptor).addPathPatterns("/theme");
+    }
+
+    /**
+     * 配置主题解析器
+     * 主题解析器只能配置一个
+     * 当未配置主题解析器时，使用默认主题解析器（FixedThemeResolver）的默认主题
+     * 注意，方法名称就是Bean的名称
+     *
+     * @return
+     */
+    @Bean
+    public SessionThemeResolver themeResolver() {
+        SessionThemeResolver sessionThemeResolver = new SessionThemeResolver();
+        //配置默认的theme名称.在不进行指定默认的主题时，默认的名称为”theme”。在这里会进行查找WEB-INF/classes/theme/default.properties主题文件
+        sessionThemeResolver.setDefaultThemeName("default");
+        return sessionThemeResolver;
+    }
+
+    /**
+     * 加载主题资源
+     * 配置主题资源路径
+     *
+     * @return
+     */
+    @Bean
+    public ResourceBundleThemeSource themeSource() {
+        ResourceBundleThemeSource resourceBundleThemeSource = new ResourceBundleThemeSource();
+        //配置主题名的前缀路径,注意最后的"/"不能少，因为会拼接主题名称的
+        resourceBundleThemeSource.setBasenamePrefix("theme.");
+        return resourceBundleThemeSource;
+    }
+
+
     /**
      * 文件上传解析器
      *
@@ -99,5 +150,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/upload/index").setViewName("/upload/index");
         //映射下载页面
         registry.addViewController("/download").setViewName("/download");
+        //映射到主题切换演示页面
+        registry.addViewController("/theme").setViewName("/theme");
     }
 }
