@@ -7,7 +7,6 @@ package com.uifuture.basics.exception;
 import com.uifuture.basics.commons.ResultModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.web.servlet.HandlerExceptionResolver;
@@ -26,7 +25,6 @@ import java.util.Map;
  * @author chenhx
  * @version ExceptionResolver.java, v 0.1 2018-08-22 下午 9:05
  */
-@Configuration
 public class ExceptionResolver implements HandlerExceptionResolver {
     private static Logger logger = LoggerFactory.getLogger(ExceptionResolver.class);
 

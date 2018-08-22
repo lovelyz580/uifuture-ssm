@@ -11,35 +11,35 @@ import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * 演示异常的抛出Controller
  * 章节:8.1
- *
  * @author chenhx
  * @version ExceptionController.java, v 0.1 2018-08-22 下午 9:29
  */
 @Controller
-@RequestMapping("exception")
+@RequestMapping("/exception")
 public class ExceptionController {
-
     private Logger logger = LoggerFactory.getLogger(ExceptionController.class);
-
     /**
      * 根据传进来的code不同，抛出不同的运行时异常
      *
      * @param code
      * @return
      */
-    @RequestMapping("${code}")
+    @RequestMapping("/code/{code}")
+    @ResponseBody
     public String exception(@PathVariable("code") Integer code) {
         logger.info("code={}", code);
         if (code.equals(1)) {
             throw new HttpMessageNotWritableException("code等于1，抛出BindException异常");
         } else if (code.equals(2)) {
             throw new HttpMessageNotReadableException("code等于2，抛出HttpMessageNotReadableException异常");
+        } else if (code.equals(3)) {
+            throw new RuntimeException("code等于3，其他的运行时异常");
         }
-        throw new RuntimeException("其他的运行时异常");
+        return "success";
     }
-
 }

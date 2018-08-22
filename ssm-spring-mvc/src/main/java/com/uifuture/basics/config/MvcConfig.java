@@ -4,12 +4,14 @@
  */
 package com.uifuture.basics.config;
 
+import com.uifuture.basics.exception.ExceptionResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.ui.context.support.ResourceBundleThemeSource;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -22,6 +24,8 @@ import org.springframework.web.servlet.theme.ThemeChangeInterceptor;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
+import java.util.List;
+
 /**
  * ComponentScan - 启用Controller Bean的自动检测
  * @author chenhx
@@ -31,6 +35,17 @@ import org.springframework.web.servlet.view.JstlView;
 @EnableWebMvc
 @ComponentScan("com.uifuture.basics")
 public class MvcConfig implements WebMvcConfigurer {
+
+    /**
+     * 配置异常处理器链
+     *
+     * @param resolvers
+     */
+    @Override
+    public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
+        //将ExceptionResolver添加到异常处理器集合中
+        resolvers.add(new ExceptionResolver());
+    }
 
     /**
      * 配置拦截器
