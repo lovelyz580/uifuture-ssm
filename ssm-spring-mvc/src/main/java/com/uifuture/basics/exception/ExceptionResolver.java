@@ -20,6 +20,7 @@ import java.util.Map;
 /**
  * 全局异常处理类
  * 实现HandlerExceptionResolver接口
+ * 只处理程序运行过程中的异常
  * 章节:8.1.1
  *
  * @author chenhx
