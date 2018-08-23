@@ -14,5 +14,6 @@ To change this template use File | Settings | File Templates.
 <pre>定制的HttpMessageNotReadableException异常页面</pre>
 <br/>
 ${data.code},${data.message}
+${exception}
 </body>
 </html>

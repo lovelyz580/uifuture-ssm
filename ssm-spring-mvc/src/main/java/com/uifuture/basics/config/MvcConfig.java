@@ -4,7 +4,6 @@
  */
 package com.uifuture.basics.config;
 
-import com.uifuture.basics.exception.ExceptionResolver;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -17,6 +16,7 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.resource.GzipResourceResolver;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 import org.springframework.web.servlet.theme.SessionThemeResolver;
@@ -25,6 +25,7 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
 import java.util.List;
+import java.util.Properties;
 
 /**
  * ComponentScan - 启用Controller Bean的自动检测
@@ -37,16 +38,35 @@ import java.util.List;
 public class MvcConfig implements WebMvcConfigurer {
 
     /**
-     * 配置异常处理器链
+     * 配置SimpleMappingExceptionResolver异常拦截解析器
      *
+     * @return
+     */
+    public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
+        SimpleMappingExceptionResolver simpleMappingExceptionResolver = new SimpleMappingExceptionResolver();
+        Properties mappings = new Properties();
+        //配置拦截映射,异常与视图对应
+        mappings.put("HttpMessageNotWritableException", "error/httpMessageNotWritableException");
+        mappings.put("HttpMessageNotReadableException", "error/httpMessageNotReadableException");
+        //设置默认的视图，也就是未进行配置异常映射的，其他异常会跳转到该页面
+        simpleMappingExceptionResolver.setDefaultErrorView("error/otherError");
+        simpleMappingExceptionResolver.setExceptionMappings(mappings);
+        return simpleMappingExceptionResolver;
+    }
+
+    /**
+     * 配置异常处理器链
      * @param resolvers
      */
     @Override
     public void configureHandlerExceptionResolvers(List<HandlerExceptionResolver> resolvers) {
-        //将ExceptionResolver添加到异常处理器集合中
-        resolvers.add(new ExceptionResolver());
+        //将ExceptionResolver添加到异常处理器集合中,章节:8.1.1
+        //由于使用了SimpleMappingExceptionResolver，讲下面的配置ExceptionResolver全局异常拦截进行屏蔽
+        //如果没有进行屏蔽，那么会优先匹配先添加的异常拦截器
+//        resolvers.add(new ExceptionResolver());
+        //配置SimpleMappingExceptionResolver异常拦截器
+        resolvers.add(simpleMappingExceptionResolver());
     }
-
     /**
      * 配置拦截器
      * 这里只是配置主题切换拦截器，可以使用addInterceptor方法配置多个拦截器
