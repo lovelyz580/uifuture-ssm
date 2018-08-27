@@ -4,14 +4,21 @@
  */
 package com.uifuture.basics.controller;
 
+import com.uifuture.basics.commons.ResultModel;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.http.converter.HttpMessageNotWritableException;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 演示异常的抛出Controller
@@ -23,6 +30,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping("/exception")
 public class ExceptionController {
     private Logger logger = LoggerFactory.getLogger(ExceptionController.class);
+
+    /**
+     * 配置拦截本类中HttpMessageNotReadableException异常
+     *
+     * @param request
+     * @param ex
+     * @return
+     */
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ModelAndView httpMessageNotReadableExceptionHandler(HttpServletRequest request, HttpMessageNotReadableException ex) {
+        logger.error("异常信息:{}", ex.getMessage());
+        Map<String, Object> model = new HashMap<>(4);
+        model.put("data", ResultModel.error("[ExceptionHandler]" + ex.getMessage()));
+        return new ModelAndView("error/httpMessageNotReadableException", model);
+    }
+
     /**
      * 根据传进来的code不同，抛出不同的运行时异常
      *

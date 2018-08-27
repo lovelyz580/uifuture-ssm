@@ -65,7 +65,7 @@ public class MvcConfig implements WebMvcConfigurer {
         //如果没有进行屏蔽，那么会优先匹配先添加的异常拦截器
 //        resolvers.add(new ExceptionResolver());
         //配置SimpleMappingExceptionResolver异常拦截器
-        resolvers.add(simpleMappingExceptionResolver());
+//        resolvers.add(simpleMappingExceptionResolver());
     }
     /**
      * 配置拦截器
