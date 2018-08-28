@@ -4,6 +4,7 @@
  */
 package com.uifuture.basics.config;
 
+import com.uifuture.basics.filter.SensitiveWordFilter;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
@@ -52,5 +53,10 @@ public class WebInitializer implements WebApplicationInitializer {
                 new CharacterEncodingFilter("UTF-8", true, true));
         //映射Filter
         dynamic.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
+
+        //注册Filter,敏感字过滤器
+        FilterRegistration.Dynamic sensitiveWordDynamic = servletContext.addFilter("sensitiveWordFilter", new SensitiveWordFilter());
+        //映射Filter
+        sensitiveWordDynamic.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
     }
 }
