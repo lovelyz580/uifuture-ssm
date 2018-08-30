@@ -33,7 +33,7 @@ public class ModelAndViewForwardController {
     public ModelAndView login2(HttpServletRequest request, @RequestParam String username) {
         logger.info("login...request.getAttribute(\"username\")={},username={},request.getParameter(\"username\")={}", request.getAttribute("username"), username, request.getParameter("username"));
         ModelAndView modelAndView = new ModelAndView("/forward/login");
-        modelAndView.addObject("username", request.getAttribute("username"));
+        modelAndView.addObject("username", request.getParameter("username"));
         return modelAndView;
     }
 

@@ -4,10 +4,10 @@
  */
 package com.uifuture.basics.config;
 
-import com.uifuture.basics.filter.SensitiveWordFilter;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
 import javax.servlet.DispatcherType;
@@ -54,9 +54,17 @@ public class WebInitializer implements WebApplicationInitializer {
         //映射Filter
         dynamic.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
 
-        //注册Filter,敏感字过滤器
-        FilterRegistration.Dynamic sensitiveWordDynamic = servletContext.addFilter("sensitiveWordFilter", new SensitiveWordFilter());
+//        //注册Filter,敏感字过滤器
+//        FilterRegistration.Dynamic sensitiveWordDynamic = servletContext.addFilter("sensitiveWordFilter", new SensitiveWordFilter());
+//        //映射Filter
+//        sensitiveWordDynamic.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
+
+        //注册DelegatingFilterProxy,并且设置targetBeanName的值为sensitiveWordServiceFilter
+        DelegatingFilterProxy delegatingFilterProxy = new DelegatingFilterProxy("sensitiveWordServiceFilter");
+        //配置此参数为true将此filter的生命周期交由server容器管理，包括执行其init，destroy方法
+        delegatingFilterProxy.setTargetFilterLifecycle(true);
+        FilterRegistration.Dynamic filterRegistration = servletContext.addFilter("delegatingFilterProxy", delegatingFilterProxy);
         //映射Filter
-        sensitiveWordDynamic.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
+        filterRegistration.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
     }
 }
