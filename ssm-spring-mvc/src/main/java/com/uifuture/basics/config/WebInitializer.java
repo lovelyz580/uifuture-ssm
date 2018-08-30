@@ -4,7 +4,7 @@
  */
 package com.uifuture.basics.config;
 
-import com.uifuture.basics.filter.WhitelistFilter;
+import com.uifuture.basics.filter.SensitiveWordFilter;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
@@ -55,7 +55,7 @@ public class WebInitializer implements WebApplicationInitializer {
         dynamic.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
 
         //注册Filter,敏感字过滤器
-        FilterRegistration.Dynamic sensitiveWordDynamic = servletContext.addFilter("sensitiveWordFilter", new WhitelistFilter());
+        FilterRegistration.Dynamic sensitiveWordDynamic = servletContext.addFilter("sensitiveWordFilter", new SensitiveWordFilter());
         //映射Filter
         sensitiveWordDynamic.addMappingForUrlPatterns(EnumSet.of(DispatcherType.REQUEST), true, "/*");
     }
