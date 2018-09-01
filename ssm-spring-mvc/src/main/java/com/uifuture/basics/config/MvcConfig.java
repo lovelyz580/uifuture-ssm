@@ -239,5 +239,7 @@ public class MvcConfig implements WebMvcConfigurer {
         registry.addViewController("/download").setViewName("/download");
         //映射到主题切换演示页面
         registry.addViewController("/theme").setViewName("/theme");
+        //国际化页面展示
+        registry.addViewController("/i18n/index").setViewName("/i18n/index");
     }
 }
