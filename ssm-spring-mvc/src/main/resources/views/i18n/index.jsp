@@ -8,12 +8,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>${title}</title>
+    <title><spring:message code="title" scope="session"></spring:message></title>
 </head>
 <body>
-<h1><spring:message code="welcome"></spring:message></h1>
-<spring:message code="name"></spring:message>
-<a href="<c:url value='/i18n/index?localeName=zh' />">中文</a>
-<a href="<c:url value='/i18n/index?localeName=en' />">英文</a>
+<h1><spring:message code="welcome" scope="session"></spring:message></h1>
+<spring:message code="name" scope="session"></spring:message><br/>
+<a href="<c:url value='/i18n/index?localeName=zh_CN' />">中文</a>
+<a href="<c:url value='/i18n/index?localeName=en_US' />">English</a>
 </body>
 </html>
