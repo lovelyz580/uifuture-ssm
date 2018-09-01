@@ -4,13 +4,12 @@
  */
 package com.uifuture.basics.form;
 
-import javax.xml.bind.annotation.XmlRootElement;
-
 /**
+ * 实体类上加上XmlRootElement注解，表示ResponseBody注解的方法返回该对象。以XML格式字符串返回。默认是返回JSON字符串
  * @author chenhx
  * @version User.java, v 0.1 2018-08-05 下午 5:35
  */
-@XmlRootElement
+//@XmlRootElement
 public class User {
     private String name;
     private Integer age;

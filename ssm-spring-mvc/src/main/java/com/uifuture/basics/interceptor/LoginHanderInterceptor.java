@@ -32,7 +32,7 @@ public class LoginHanderInterceptor implements HandlerInterceptor {
         User user = (User) request.getSession().getAttribute("user");
         if (user == null) {
             //用户尚未登录
-            return false;
+//            return false;
         }
         return true;
     }
