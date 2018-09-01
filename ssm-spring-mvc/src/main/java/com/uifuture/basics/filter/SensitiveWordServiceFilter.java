@@ -73,6 +73,9 @@ public class SensitiveWordServiceFilter extends OncePerRequestFilter {
         @Override
         public String getParameter(String name) {
             String str = super.getParameter(name);
+            if (str == null) {
+                return str;
+            }
             List<String> list = sensitiveWordService.selectAllSensitiveWord();
             for (String word : list) {
                 str = str.replaceAll(word, "*");

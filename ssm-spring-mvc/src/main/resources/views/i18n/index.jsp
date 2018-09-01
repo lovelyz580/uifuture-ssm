@@ -11,9 +11,9 @@
     <title>${title}</title>
 </head>
 <body>
-<h1><spring:message code="welcome" scope="session"></spring:message></h1>
-<spring:message code="name" scope="session"></spring:message>
-<a href="<c:url value='/i18n/index?locale=zh' />">中文</a>
-<a href="<c:url value='/i18n/index?locale=en' />">英文</a>
+<h1><spring:message code="welcome"></spring:message></h1>
+<spring:message code="name"></spring:message>
+<a href="<c:url value='/i18n/index?localeName=zh' />">中文</a>
+<a href="<c:url value='/i18n/index?localeName=en' />">英文</a>
 </body>
 </html>

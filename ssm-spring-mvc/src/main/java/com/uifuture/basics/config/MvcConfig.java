@@ -61,18 +61,16 @@ public class MvcConfig implements WebMvcConfigurer {
     @Bean
     public ReloadableResourceBundleMessageSource messageSource() {
         ReloadableResourceBundleMessageSource reloadResourceBundleMessageSource = new ReloadableResourceBundleMessageSource();
-        Properties properties = new Properties();
         //前缀名称,"."相当与目录分隔符 - 资源包基名(globalization/i18n),默认为i18n.properties文件
         //如果为中文环境，为i18n_zh_CN.properties文件
-        properties.setProperty("basename", "classpath:globalization.i18n");
+        reloadResourceBundleMessageSource.setBasename("classpath:globalization.i18n");
         //编码
-        properties.setProperty("defaultEncoding", "utf-8");
+        reloadResourceBundleMessageSource.setDefaultEncoding("utf-8");
         //缓存时间，单位S,也就是隔多久检查一次文件是否修改，如果修改，则进行动态加载。默认为-1，不进行动态更新
-        properties.setProperty("cacheSeconds", "10");
+        reloadResourceBundleMessageSource.setCacheSeconds(10);
         //  设置“useCodeAsDefaultMessage”，默认为false，当Spring在ResourceBundle中找不到messageKey的话，
         // 就抛出NoSuchMessageException，把它设置为True，则找不到不会抛出异常，而是使用messageKey作为返回值。
-        properties.setProperty("useCodeAsDefaultMessage", "true");
-        reloadResourceBundleMessageSource.setFileEncodings(properties);
+        reloadResourceBundleMessageSource.setUseCodeAsDefaultMessage(true);
         return reloadResourceBundleMessageSource;
     }
 
