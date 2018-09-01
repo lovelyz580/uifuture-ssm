@@ -19,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
+import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.resource.GzipResourceResolver;
 import org.springframework.web.servlet.resource.PathResourceResolver;
@@ -126,7 +127,11 @@ public class MvcConfig implements WebMvcConfigurer {
         //addPathPatterns - 添加需要拦截的路径。excludePathPatterns - 不进行拦截的路径
         registry.addInterceptor(loginHanderInterceptor).addPathPatterns("/*").excludePathPatterns("/login");
 
-
+        //注册国际化拦截器
+        LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
+        //配置国际化语言参数的名称为locale。如不指定，默认的为locale
+        localeChangeInterceptor.setParamName("localeName");
+        registry.addInterceptor(localeChangeInterceptor);
     }
 
     /**
