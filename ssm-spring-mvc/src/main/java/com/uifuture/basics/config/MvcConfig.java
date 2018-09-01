@@ -8,6 +8,7 @@ import com.uifuture.basics.interceptor.LoginHanderInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.ui.context.support.ResourceBundleThemeSource;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
+import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 import org.springframework.web.servlet.resource.GzipResourceResolver;
 import org.springframework.web.servlet.resource.PathResourceResolver;
 import org.springframework.web.servlet.theme.SessionThemeResolver;
@@ -37,6 +39,43 @@ import java.util.Properties;
 @EnableWebMvc
 @ComponentScan("com.uifuture.basics")
 public class MvcConfig implements WebMvcConfigurer {
+
+    /**
+     * 通过SessionLocaleResolver解析器来实现国际化
+     *
+     * @return
+     */
+    @Bean
+    public SessionLocaleResolver localeResolver() {
+        SessionLocaleResolver sessionLocaleResolver = new SessionLocaleResolver();
+        return sessionLocaleResolver;
+    }
+
+    /**
+     * 加载国际化资源
+     * 配置国际化资源路径
+     *
+     * @return
+     */
+    @Bean
+    public ReloadableResourceBundleMessageSource messageSource() {
+        ReloadableResourceBundleMessageSource reloadResourceBundleMessageSource = new ReloadableResourceBundleMessageSource();
+        Properties properties = new Properties();
+        //前缀名称,"."相当与目录分隔符 - 资源包基名(globalization/i18n),默认为i18n.properties文件
+        //如果为中文环境，为i18n_zh_CN.properties文件
+        properties.setProperty("basename", "classpath:globalization.i18n");
+        //编码
+        properties.setProperty("defaultEncoding", "utf-8");
+        //缓存时间，单位S,也就是隔多久检查一次文件是否修改，如果修改，则进行动态加载。默认为-1，不进行动态更新
+        properties.setProperty("cacheSeconds", "10");
+        //  设置“useCodeAsDefaultMessage”，默认为false，当Spring在ResourceBundle中找不到messageKey的话，
+        // 就抛出NoSuchMessageException，把它设置为True，则找不到不会抛出异常，而是使用messageKey作为返回值。
+        properties.setProperty("useCodeAsDefaultMessage", "true");
+        reloadResourceBundleMessageSource.setFileEncodings(properties);
+        return reloadResourceBundleMessageSource;
+    }
+
+
 
     /**
      * 配置SimpleMappingExceptionResolver异常拦截解析器
@@ -86,6 +125,8 @@ public class MvcConfig implements WebMvcConfigurer {
         LoginHanderInterceptor loginHanderInterceptor = new LoginHanderInterceptor();
         //addPathPatterns - 添加需要拦截的路径。excludePathPatterns - 不进行拦截的路径
         registry.addInterceptor(loginHanderInterceptor).addPathPatterns("/*").excludePathPatterns("/login");
+
+
     }
 
     /**
