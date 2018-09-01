@@ -4,6 +4,7 @@
  */
 package com.uifuture.basics.config;
 
+import com.uifuture.basics.interceptor.LoginHanderInterceptor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -80,6 +81,11 @@ public class MvcConfig implements WebMvcConfigurer {
         themeChangeInterceptor.setParamName("themeName");
         //addPathPatterns指定拦截路径，未指定的话拦截所有。excludePathPatterns方法指定不拦截路径
         registry.addInterceptor(themeChangeInterceptor).addPathPatterns("/theme");
+
+        //注册登录拦截器
+        LoginHanderInterceptor loginHanderInterceptor = new LoginHanderInterceptor();
+        //addPathPatterns - 添加需要拦截的路径。excludePathPatterns - 不进行拦截的路径
+        registry.addInterceptor(loginHanderInterceptor).addPathPatterns("/*").excludePathPatterns("/login");
     }
 
     /**
