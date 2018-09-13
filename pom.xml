@@ -14,6 +14,8 @@
         <module>ssm-proxy</module>
         <module>ssm-design-pattern</module>
         <module>ssm-spring-mvc</module>
+        <module>ssm-mybatis-module</module>
+        <module>chapter-10-mybatis-xml-config</module>
     </modules>
 
     <properties>
@@ -21,16 +23,16 @@
         <!-- Spring -->
         <spring-framework.version>5.0.8.RELEASE</spring-framework.version>
         <!--MyBatis -->
-        <mybatis.version>3.3.0</mybatis.version>
+        <mybatis.version>3.4.6</mybatis.version>
         <!-- mybatis与Spring整合的核心包 -->
         <mybatis-spring.version>1.3.2</mybatis-spring.version>
         <!-- MySQL -->
         <mysql.version>5.1.36</mysql.version>
         <!-- Junit -->
         <junit.version>4.12</junit.version>
-        <alibaba.druid.version>1.0.27</alibaba.druid.version>
+        <alibaba.druid.version>1.1.10</alibaba.druid.version>
         <jackson-mapper-asl.version>1.9.13</jackson-mapper-asl.version>
-        <aspectjweaver.version>1.7.1</aspectjweaver.version>
+        <aspectjweaver.version>1.9.0</aspectjweaver.version>
     </properties>
 
     <dependencies>
@@ -122,6 +124,7 @@
             <version>${aspectjweaver.version}</version>
         </dependency>
         <!--添加aspectjweaver包 -->
+        <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
