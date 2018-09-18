@@ -5,7 +5,7 @@
 <configuration>
 
     <!-- 引入属性文件 classpath就是resource下-->
-    <properties resource="classpath:jdbc.properties">
+    <properties resource="jdbc.properties">
         <property name="username" value="root"/>
         <property name="password" value="1234"/>
         <!-- Enable this feature -->
@@ -92,7 +92,7 @@
 
     <typeAliases>
         <!-- type指的是Java Bean的完全限定名   alias就是指别名-->
-        <typeAlias type="com.uifuture.chapter10.entity.User" alias="user"/>
+        <typeAlias type="com.uifuture.chapter10.entity.Users" alias="users"/>
         <!--<package name="com.uifuture.chapter10.entity"/>-->
     </typeAliases>
 
@@ -117,5 +117,33 @@
         <property name="DB2" value="db2"/>
         <property name="Oracle" value="oracle"/>
     </databaseIdProvider>
+
+    <!-- 使用相对于类路径的资源引用 -->
+    <!--<mappers>-->
+    <!--<mapper resource="com/uifuture/chapter10/mapper/UsersMapper.xml"></mapper>-->
+    <!--</mappers>-->
+
+    <!-- 使用完全限定资源定位符（URL） -->
+    <!--<mappers>-->
+    <!--<mapper url="file:///D:/github/uifuture-ssm/chapter-10-mybatis-xml-config/src/main/java/com/uifuture/chapter10/mapper/UsersMapper.xml"/>-->
+    <!--</mappers>-->
+    <!-- 使用映射器接口实现类的完全限定类名 -->
+    <!--<mappers>-->
+    <!--<mapper class="com.uifuture.chapter10.mapper.UsersMapper" />-->
+    <!--</mappers>-->
+    <!--将包内的映射器接口实现全部注册为映射器 -->
+    <!--<mappers>-->
+    <!--<package name="com.uifuture.chapter10"/>-->
+    <!--</mappers>-->
+    <!--需要注意的是，上面几种情况，在不使用注解注入的情况下，都需要接口和XML配置文件在一个包下，且确保除了后缀名不同，名称相同-->
+
+
+    <!-- 当在不同的路径下的时候,不使用注解,可以这样配置 -->
+    <mappers>
+        <!-- 扫描路径下的mapper映射文件 -->
+        <mapper resource="com/uifuture/chapter10/mapper/UsersMapper.xml"/>
+        <!-- 扫描包下的接口文件 -->
+        <package name="com.uifuture.chapter10.dao.UsersMapper"/>
+    </mappers>
 
 </configuration>
