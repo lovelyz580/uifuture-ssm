@@ -3,6 +3,8 @@ package com.uifuture.chapter10.dao;
 
 import com.uifuture.chapter10.entity.Users;
 
+import java.util.List;
+
 public interface UsersMapper {
     /**
      * 根据ID删除数据
@@ -11,6 +13,14 @@ public interface UsersMapper {
      * @return
      */
     int deleteByPrimaryKey(Integer id);
+
+    /**
+     * 批量插入所有数据
+     *
+     * @param record
+     * @return
+     */
+    int insertList(List<Users> record);
 
     /**
      * 插入所有数据
