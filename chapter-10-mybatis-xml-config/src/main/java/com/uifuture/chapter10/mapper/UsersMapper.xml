@@ -12,6 +12,21 @@
     <sql id="Base_Column_List">
     id, username, password, age, create_time, update_time
   </sql>
+
+    <select id="selectUsers" resultType="map">
+        select
+        id, username, password, age, create_time, update_time
+        from users
+        where id = #{id}
+    </select>
+
+    <select id="selectUsersPrimaryKey" resultType="users">
+        select
+        id, username, password, age, create_time, update_time
+        from users
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>

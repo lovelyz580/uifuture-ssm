@@ -57,4 +57,32 @@ public class UsersMapperTest {
             session.close();
         }
     }
+
+    @Test
+    public void selectUsersPrimaryKey() throws IOException {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession session = sqlSessionFactory.openSession();
+        try {
+            UsersMapper mapper = session.getMapper(UsersMapper.class);
+            System.out.println("===================" + mapper.selectUsersPrimaryKey(1));
+        } finally {
+            session.close();
+        }
+    }
+
+    @Test
+    public void selectUsers() throws IOException {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession session = sqlSessionFactory.openSession();
+        try {
+            UsersMapper mapper = session.getMapper(UsersMapper.class);
+            System.out.println("===================" + mapper.selectUsers(1));
+        } finally {
+            session.close();
+        }
+    }
 }
