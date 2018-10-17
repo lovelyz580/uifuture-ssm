@@ -71,7 +71,6 @@ public class ModelAndViewRedirectController {
     /**
      * 演示重定向传递参数
      * ModelAttribute注解中的name（参数名称）必须填写，负责获取重定向传递的参数。
-     *
      * @param name
      * @return
      */
