@@ -1,7 +1,7 @@
-package com.uifuture.chapter10.dao;
+package com.uifuture.chapter11.dao;
 
 
-import com.uifuture.chapter10.entity.Users;
+import com.uifuture.chapter11.entity.Users;
 
 import java.util.List;
 import java.util.Map;

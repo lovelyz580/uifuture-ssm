@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.uifuture.chapter10.dao.UsersMapper">
-    <resultMap id="BaseResultMap" type="com.uifuture.chapter10.entity.Users">
+<mapper namespace="com.uifuture.chapter11.dao.UsersMapper">
+    <resultMap id="BaseResultMap" type="com.uifuture.chapter11.entity.Users">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="username" jdbcType="VARCHAR" property="username"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
@@ -38,7 +38,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
     <!--注意，此种写法无法返回对象的id，这是一个错误的演示-->
-    <insert id="insertList" parameterType="com.uifuture.chapter10.entity.Users">
+    <insert id="insertList" parameterType="com.uifuture.chapter11.entity.Users">
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
             SELECT LAST_INSERT_ID()
         </selectKey>
@@ -58,7 +58,7 @@
             #{item.password,jdbcType=VARCHAR}, #{item.age,jdbcType=INTEGER})
         </foreach>
     </insert>
-    <insert id="insert" parameterType="com.uifuture.chapter10.entity.Users">
+    <insert id="insert" parameterType="com.uifuture.chapter11.entity.Users">
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
             SELECT LAST_INSERT_ID()
         </selectKey>
@@ -66,7 +66,7 @@
         values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER},
         #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
     </insert>
-    <insert id="insertSelective" parameterType="com.uifuture.chapter10.entity.Users">
+    <insert id="insertSelective" parameterType="com.uifuture.chapter11.entity.Users">
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
             SELECT LAST_INSERT_ID()
         </selectKey>
@@ -106,7 +106,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.uifuture.chapter10.entity.Users">
+    <update id="updateByPrimaryKeySelective" parameterType="com.uifuture.chapter11.entity.Users">
         update users
         <set>
             <if test="username != null">
@@ -127,7 +127,7 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.uifuture.chapter10.entity.Users">
+    <update id="updateByPrimaryKey" parameterType="com.uifuture.chapter11.entity.Users">
     update users
     set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},

@@ -1,6 +1,7 @@
 package com.uifuture.chapter10.dao;
 
-import com.uifuture.chapter10.entity.Users;
+import com.uifuture.chapter11.dao.UsersMapper;
+import com.uifuture.chapter11.entity.Users;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
