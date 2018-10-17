@@ -15,7 +15,7 @@
         <module>ssm-design-pattern</module>
         <module>ssm-spring-mvc</module>
         <module>ssm-mybatis-module</module>
-        <module>chapter-10-mybatis-xml-config</module>
+        <module>ssm-mybatis-xml-config</module>
     </modules>
 
     <properties>
