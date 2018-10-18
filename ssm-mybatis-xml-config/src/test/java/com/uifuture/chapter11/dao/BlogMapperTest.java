@@ -9,7 +9,7 @@ import org.junit.Test;
 import java.io.IOException;
 import java.io.InputStream;
 
-public class BlogMapperExtTest {
+public class BlogMapperTest {
     @Test
     public void selectBlogExtById() throws IOException {
         String resource = "mybatis-config.xml";
@@ -26,5 +26,20 @@ public class BlogMapperExtTest {
 
     @Test
     public void selectPostsForBlog() {
+    }
+
+    @Test
+    public void selectBlogExtDiscriminator() throws IOException {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession session = sqlSessionFactory.openSession();
+        try {
+            BlogMapper mapper = session.getMapper(BlogMapper.class);
+            System.out.println("=========1==========" + mapper.selectBlogDiscriminator(1));
+            System.out.println("=========2==========" + mapper.selectBlogDiscriminator(2));
+        } finally {
+            session.close();
+        }
     }
 }

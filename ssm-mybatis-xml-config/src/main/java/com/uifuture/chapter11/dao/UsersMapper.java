@@ -55,6 +55,8 @@ public interface UsersMapper {
      */
     Users selectUsersPrimaryKey(Integer id);
 
+    Users selectuserResultMap(Integer id);
+
     Map<String, Object> selectUsers(Integer id);
 
     /**

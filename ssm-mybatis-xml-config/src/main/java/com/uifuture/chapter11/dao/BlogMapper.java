@@ -34,5 +34,19 @@ public interface BlogMapper {
      */
     Post selectPostsForBlog(Integer id);
 
+    /**
+     * 通过博客id查询文章
+     *
+     * @param id
+     * @return
+     */
     BlogExt selectBlogExt(Integer id);
+
+    /**
+     * 只有当id为2时，才进行查询博客
+     *
+     * @param id
+     * @return
+     */
+    Blog selectBlogDiscriminator(Integer id);
 }

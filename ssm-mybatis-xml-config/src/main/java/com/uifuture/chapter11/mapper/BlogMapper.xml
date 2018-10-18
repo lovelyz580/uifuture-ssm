@@ -78,7 +78,7 @@
     SELECT * FROM POST WHERE BLOG_ID = #{id}
     </select>
 
-    <resultMap id="blogExtResult" type="BlogExt">
+    <resultMap id="blogExtResult" type="blogExt">
         <id property="id" column="blog_id"/>
         <result property="title" column="blog_title"/>
         <collection property="posts" ofType="Post" resultMap="blogPostResult" columnPrefix="post_"/>
@@ -108,6 +108,19 @@
     P.body as post_body
     from Blog B
     left join Post P on B.id = P.blog_id
-    where B.id = 1
+    where B.id = #{id}
   </select>
+
+
+    <resultMap id="blogResultDiscriminator" type="blog">
+        <id property="id" column="id"/>
+        <discriminator javaType="int" column="id">
+            <case value="2" resultType="blog">
+                <result property="title" column="title"/>
+            </case>
+        </discriminator>
+    </resultMap>
+    <select id="selectBlogDiscriminator" resultMap="blogResultDiscriminator">
+      SELECT * FROM BLOG WHERE ID = #{id}
+    </select>
 </mapper>

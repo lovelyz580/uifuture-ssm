@@ -1,6 +1,5 @@
-package com.uifuture.chapter10.dao;
+package com.uifuture.chapter11.dao;
 
-import com.uifuture.chapter11.dao.UsersMapper;
 import com.uifuture.chapter11.entity.Users;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
@@ -82,6 +81,21 @@ public class UsersMapperTest {
         try {
             UsersMapper mapper = session.getMapper(UsersMapper.class);
             System.out.println("===================" + mapper.selectUsers(1));
+        } finally {
+            session.close();
+        }
+    }
+
+
+    @Test
+    public void selectuserResultMap() throws IOException {
+        String resource = "mybatis-config.xml";
+        InputStream inputStream = Resources.getResourceAsStream(resource);
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
+        SqlSession session = sqlSessionFactory.openSession();
+        try {
+            UsersMapper mapper = session.getMapper(UsersMapper.class);
+            System.out.println("===================" + mapper.selectuserResultMap(1));
         } finally {
             session.close();
         }

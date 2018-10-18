@@ -13,6 +13,16 @@
     id, username, password, age, create_time, update_time
   </sql>
 
+    <resultMap id="userResultMap" type="com.uifuture.chapter11.entity.Users">
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <select id="selectuserResultMap" parameterType="java.lang.Integer" resultMap="userResultMap">
+        select
+        id, username, password, age, create_time, update_time
+        from users
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+
     <select id="selectUsers" resultType="map">
         select
         id, username, password, age, create_time, update_time
