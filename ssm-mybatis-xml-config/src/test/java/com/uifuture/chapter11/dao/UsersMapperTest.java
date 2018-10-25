@@ -20,12 +20,10 @@ public class UsersMapperTest {
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-        SqlSession session = sqlSessionFactory.openSession();
-        try {
+        try (SqlSession session = sqlSessionFactory.openSession();) {
             UsersMapper mapper = session.getMapper(UsersMapper.class);
             System.out.println("===================" + mapper.selectByPrimaryKey(1));
-        } finally {
-            session.close();
+            System.out.println("===================" + mapper.selectByPrimaryKey(1));
         }
     }
 
@@ -34,8 +32,7 @@ public class UsersMapperTest {
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-        SqlSession session = sqlSessionFactory.openSession();
-        try {
+        try (SqlSession session = sqlSessionFactory.openSession();) {
             UsersMapper mapper = session.getMapper(UsersMapper.class);
             List<Users> usersList = new ArrayList<>();
             for (int i = 6; i < 7; i++) {
@@ -53,8 +50,6 @@ public class UsersMapperTest {
             System.out.println("==========" + usersList);
             System.out.println("===================" + mapper.insertList(usersList));
             System.out.println("==========" + usersList);
-        } finally {
-            session.close();
         }
     }
 
@@ -63,12 +58,9 @@ public class UsersMapperTest {
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-        SqlSession session = sqlSessionFactory.openSession();
-        try {
+        try (SqlSession session = sqlSessionFactory.openSession();) {
             UsersMapper mapper = session.getMapper(UsersMapper.class);
             System.out.println("===================" + mapper.selectUsersPrimaryKey(1));
-        } finally {
-            session.close();
         }
     }
 
@@ -77,12 +69,9 @@ public class UsersMapperTest {
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-        SqlSession session = sqlSessionFactory.openSession();
-        try {
+        try (SqlSession session = sqlSessionFactory.openSession();) {
             UsersMapper mapper = session.getMapper(UsersMapper.class);
             System.out.println("===================" + mapper.selectUsers(1));
-        } finally {
-            session.close();
         }
     }
 
@@ -92,12 +81,9 @@ public class UsersMapperTest {
         String resource = "mybatis-config.xml";
         InputStream inputStream = Resources.getResourceAsStream(resource);
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
-        SqlSession session = sqlSessionFactory.openSession();
-        try {
+        try (SqlSession session = sqlSessionFactory.openSession();) {
             UsersMapper mapper = session.getMapper(UsersMapper.class);
             System.out.println("===================" + mapper.selectuserResultMap(1));
-        } finally {
-            session.close();
         }
     }
 }
