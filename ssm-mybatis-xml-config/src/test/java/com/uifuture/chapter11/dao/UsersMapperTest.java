@@ -23,6 +23,13 @@ public class UsersMapperTest {
         try (SqlSession session = sqlSessionFactory.openSession();) {
             UsersMapper mapper = session.getMapper(UsersMapper.class);
             System.out.println("===================" + mapper.selectByPrimaryKey(1));
+            //同一个sqlSession中走的是一级缓存
+            System.out.println("===================" + mapper.selectByPrimaryKey(1));
+        }
+        //只有前面的SqlSession关闭了，新获取一个SqlSession，在开启二级缓存的情况下，才会走二级缓存
+        try (SqlSession session = sqlSessionFactory.openSession();) {
+            UsersMapper mapper = session.getMapper(UsersMapper.class);
+            System.out.println("===================" + mapper.selectByPrimaryKey(1));
             System.out.println("===================" + mapper.selectByPrimaryKey(1));
         }
     }
