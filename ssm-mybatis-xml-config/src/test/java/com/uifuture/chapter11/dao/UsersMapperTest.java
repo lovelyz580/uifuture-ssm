@@ -6,6 +6,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +16,7 @@ import java.util.List;
 
 
 public class UsersMapperTest {
-
+    private static final Logger LOGGER = LoggerFactory.getLogger(UsersMapperTest.class);
     @Test
     public void selectByPrimaryKey() throws IOException {
         String resource = "mybatis-config.xml";
@@ -22,15 +24,15 @@ public class UsersMapperTest {
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
         try (SqlSession session = sqlSessionFactory.openSession();) {
             UsersMapper mapper = session.getMapper(UsersMapper.class);
-            System.out.println("===================" + mapper.selectByPrimaryKey(1));
+            LOGGER.info("============{}", mapper.selectByPrimaryKey(1));
             //同一个sqlSession中走的是一级缓存
-            System.out.println("===================" + mapper.selectByPrimaryKey(1));
+            LOGGER.info("============{}", mapper.selectByPrimaryKey(1));
         }
         //只有前面的SqlSession关闭了，新获取一个SqlSession，在开启二级缓存的情况下，才会走二级缓存
         try (SqlSession session = sqlSessionFactory.openSession();) {
             UsersMapper mapper = session.getMapper(UsersMapper.class);
-            System.out.println("===================" + mapper.selectByPrimaryKey(1));
-            System.out.println("===================" + mapper.selectByPrimaryKey(1));
+            LOGGER.info("============{}", mapper.selectByPrimaryKey(1));
+            LOGGER.info("============{}", mapper.selectByPrimaryKey(1));
         }
     }
 
