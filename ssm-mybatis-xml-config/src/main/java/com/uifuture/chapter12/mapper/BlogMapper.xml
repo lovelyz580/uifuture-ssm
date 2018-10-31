@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.uifuture.chapter11.dao.BlogMapper">
-    <resultMap id="BaseResultMap" type="com.uifuture.chapter11.entity.Blog">
+<mapper namespace="com.uifuture.chapter12.dao.BlogMapper">
+    <resultMap id="BaseResultMap" type="com.uifuture.chapter12.entity.Blog">
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="title" jdbcType="VARCHAR" property="title"/>
         <result column="author_id" jdbcType="INTEGER" property="authorId"/>
     </resultMap>
     <sql id="Base_Column_List">
-    id, title, author_id
-  </sql>
+     id, title, author_id
+    </sql>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>
@@ -19,14 +20,14 @@
     delete from blog
     where id = #{id,jdbcType=INTEGER}
   </delete>
-    <insert id="insert" parameterType="com.uifuture.chapter11.entity.Blog">
+    <insert id="insert" parameterType="com.uifuture.chapter12.entity.Blog">
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
             SELECT LAST_INSERT_ID()
         </selectKey>
         insert into blog (title, author_id)
         values (#{title,jdbcType=VARCHAR}, #{authorId,jdbcType=INTEGER})
     </insert>
-    <insert id="insertSelective" parameterType="com.uifuture.chapter11.entity.Blog">
+    <insert id="insertSelective" parameterType="com.uifuture.chapter12.entity.Blog">
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
             SELECT LAST_INSERT_ID()
         </selectKey>
@@ -48,7 +49,7 @@
             </if>
         </trim>
     </insert>
-    <update id="updateByPrimaryKeySelective" parameterType="com.uifuture.chapter11.entity.Blog">
+    <update id="updateByPrimaryKeySelective" parameterType="com.uifuture.chapter12.entity.Blog">
         update blog
         <set>
             <if test="title != null">
@@ -60,21 +61,21 @@
         </set>
         where id = #{id,jdbcType=INTEGER}
     </update>
-    <update id="updateByPrimaryKey" parameterType="com.uifuture.chapter11.entity.Blog">
+    <update id="updateByPrimaryKey" parameterType="com.uifuture.chapter12.entity.Blog">
     update blog
     set title = #{title,jdbcType=VARCHAR},
       author_id = #{authorId,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 
-    <resultMap id="blogResult" type="com.uifuture.chapter11.entity.BlogExt">
+    <resultMap id="blogResult" type="com.uifuture.chapter12.entity.BlogExt">
         <collection property="posts" javaType="ArrayList" column="id"
-                    ofType="com.uifuture.chapter11.entity.Post" select="selectPostsForBlog"/>
+                    ofType="com.uifuture.chapter12.entity.Post" select="selectPostsForBlog"/>
     </resultMap>
     <select id="selectBlogExtById" resultMap="blogResult">
     SELECT * FROM BLOG WHERE ID = #{id}
     </select>
-    <select id="selectPostsForBlog" resultType="com.uifuture.chapter11.entity.Post">
+    <select id="selectPostsForBlog" resultType="com.uifuture.chapter12.entity.Post">
     SELECT * FROM POST WHERE BLOG_ID = #{id}
     </select>
 

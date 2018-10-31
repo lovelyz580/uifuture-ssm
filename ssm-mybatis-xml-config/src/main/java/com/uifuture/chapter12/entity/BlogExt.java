@@ -1,4 +1,4 @@
-package com.uifuture.chapter11.entity;
+package com.uifuture.chapter12.entity;
 
 import java.util.List;
 

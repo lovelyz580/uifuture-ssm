@@ -1,9 +1,9 @@
-package com.uifuture.chapter11.dao;
+package com.uifuture.chapter12.dao;
 
 
-import com.uifuture.chapter11.entity.Blog;
-import com.uifuture.chapter11.entity.BlogExt;
-import com.uifuture.chapter11.entity.Post;
+import com.uifuture.chapter12.entity.Blog;
+import com.uifuture.chapter12.entity.BlogExt;
+import com.uifuture.chapter12.entity.Post;
 
 public interface BlogMapper {
     int deleteByPrimaryKey(Integer id);

@@ -1,7 +1,7 @@
-package com.uifuture.chapter11.entity;
+package com.uifuture.chapter12.entity;
 
 
-import com.uifuture.chapter11.base.BaseEntity;
+import com.uifuture.chapter12.base.BaseEntity;
 
 /**
  * table name: users

@@ -2,7 +2,7 @@
  * uifuture.com
  * Copyright (C) 2013-2018 All Rights Reserved.
  */
-package com.uifuture.chapter11.base;
+package com.uifuture.chapter12.base;
 
 import java.io.Serializable;
 import java.util.Date;

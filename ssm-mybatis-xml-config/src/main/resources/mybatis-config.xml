@@ -92,10 +92,10 @@
 
     <typeAliases>
         <!-- type指的是Java Bean的完全限定名   alias就是指别名-->
-        <typeAlias type="com.uifuture.chapter11.entity.Users" alias="users"/>
-        <typeAlias type="com.uifuture.chapter11.entity.Blog" alias="blog"/>
-        <typeAlias type="com.uifuture.chapter11.entity.BlogExt" alias="blogExt"/>
-        <typeAlias type="com.uifuture.chapter11.entity.Post" alias="post"/>
+        <typeAlias type="com.uifuture.chapter12.entity.Users" alias="users"/>
+        <typeAlias type="com.uifuture.chapter12.entity.Blog" alias="blog"/>
+        <typeAlias type="com.uifuture.chapter12.entity.BlogExt" alias="blogExt"/>
+        <typeAlias type="com.uifuture.chapter12.entity.Post" alias="post"/>
         <!--<package name="com.uifuture.chapter10.entity"/>-->
     </typeAliases>
 
@@ -148,9 +148,9 @@
         <mapper resource="com/uifuture/chapter11/mapper/PostMapper.xml"/>
         <mapper resource="com/uifuture/chapter11/mapper/BlogMapper.xml"/>
         <!-- 扫描包下的接口文件 -->
-        <package name="com.uifuture.chapter11.dao.UsersMapper"/>
-        <package name="com.uifuture.chapter11.dao.BlogMapper"/>
-        <package name="com.uifuture.chapter11.dao.PostMapper"/>
+        <package name="com.uifuture.chapter12.dao.UsersMapper"/>
+        <package name="com.uifuture.chapter12.dao.BlogMapper"/>
+        <package name="com.uifuture.chapter12.dao.PostMapper"/>
     </mappers>
 
 </configuration>

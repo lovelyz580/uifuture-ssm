@@ -1,8 +1,9 @@
-package com.uifuture.chapter11.dao;
+package com.uifuture.chapter12.dao;
 
 
-import com.uifuture.chapter11.entity.Users;
+import com.uifuture.chapter12.entity.Users;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -57,6 +58,10 @@ public interface UsersMapper {
 
     Users selectuserResultMap(Integer id);
 
+    List<Users> findUsers(String username, Integer age, Date createTime);
+
+    List<Users> findUserResultMap(String username, Integer age);
+
     Map<String, Object> selectUsers(Integer id);
 
     /**
@@ -66,6 +71,8 @@ public interface UsersMapper {
      * @return
      */
     int updateByPrimaryKeySelective(Users record);
+
+    int updateByPrimaryKeySelectiveTrim(Users record);
 
     /**
      * 通过id修改所有的数据
