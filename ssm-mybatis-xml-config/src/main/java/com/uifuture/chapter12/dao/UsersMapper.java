@@ -58,6 +58,8 @@ public interface UsersMapper {
 
     Users selectuserResultMap(Integer id);
 
+    List<Users> selectUserIn(List<Integer> list);
+
     List<Users> findUsers(String username, Integer age, Date createTime);
 
     List<Users> findUserResultMap(String username, Integer age);

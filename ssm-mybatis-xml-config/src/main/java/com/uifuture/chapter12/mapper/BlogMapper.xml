@@ -10,6 +10,18 @@
      id, title, author_id
     </sql>
 
+    <select id="selectBlogsLike" resultMap="BaseResultMap">
+        <bind name="pattern" value="'%' + _parameter.getTitle() + '%'"/>
+        SELECT * FROM blog
+        WHERE title LIKE #{pattern}
+    </select>
+
+    <select id="selectBlogsTitleLike" resultMap="BaseResultMap">
+        <bind name="pattern" value="'%' + title + '%'"/>
+        SELECT * FROM blog
+        WHERE title LIKE #{pattern}
+    </select>
+
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List"/>

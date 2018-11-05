@@ -4,6 +4,9 @@ package com.uifuture.chapter12.dao;
 import com.uifuture.chapter12.entity.Blog;
 import com.uifuture.chapter12.entity.BlogExt;
 import com.uifuture.chapter12.entity.Post;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface BlogMapper {
     int deleteByPrimaryKey(Integer id);
@@ -13,6 +16,20 @@ public interface BlogMapper {
     int insertSelective(Blog record);
 
     Blog selectByPrimaryKey(Integer id);
+
+    /**
+     * 通过bind元素查询博客
+     *
+     * @param blog
+     * @return
+     */
+    List<Blog> selectBlogsLike(Blog blog);
+
+    /**
+     * @param title
+     * @return
+     */
+    List<Blog> selectBlogsTitleLike(@Param("title") String title);
 
     int updateByPrimaryKeySelective(Blog record);
 

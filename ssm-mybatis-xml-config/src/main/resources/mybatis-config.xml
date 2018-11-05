@@ -144,9 +144,9 @@
     <!-- 当在不同的路径下的时候,不使用注解,可以这样配置 -->
     <mappers>
         <!-- 扫描路径下的mapper映射文件 -->
-        <mapper resource="com/uifuture/chapter11/mapper/UsersMapper.xml"/>
-        <mapper resource="com/uifuture/chapter11/mapper/PostMapper.xml"/>
-        <mapper resource="com/uifuture/chapter11/mapper/BlogMapper.xml"/>
+        <mapper resource="com/uifuture/chapter12/mapper/UsersMapper.xml"/>
+        <mapper resource="com/uifuture/chapter12/mapper/PostMapper.xml"/>
+        <mapper resource="com/uifuture/chapter12/mapper/BlogMapper.xml"/>
         <!-- 扫描包下的接口文件 -->
         <package name="com.uifuture.chapter12.dao.UsersMapper"/>
         <package name="com.uifuture.chapter12.dao.BlogMapper"/>

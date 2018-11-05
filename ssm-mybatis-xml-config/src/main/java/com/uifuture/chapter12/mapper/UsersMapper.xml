@@ -64,6 +64,16 @@
         where id = #{id}
     </select>
 
+    <select id="selectUserIn" resultType="users">
+        SELECT *
+        FROM users
+        WHERE ID in
+        <foreach item="item" index="index" collection="list"
+                 open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
+
     <select id="selectUsersPrimaryKey" resultType="users">
         select
         id, username, password, age, create_time, update_time
