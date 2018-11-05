@@ -26,6 +26,13 @@ public interface BlogMapper {
     List<Blog> selectBlogsLike(Blog blog);
 
     /**
+     * 查询所有，演示row原始语言
+     *
+     * @return
+     */
+    List<Blog> selectAll();
+
+    /**
      * @param title
      * @return
      */

@@ -65,6 +65,8 @@
         <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
         <!--指定动态 SQL 生成的默认语言。 值为一个类型别名或完全限定类名。默认值为org.apache.ibatis.scripting.xmltags.XMLLanguageDriver-->
         <setting name="defaultScriptingLanguage" value="org.apache.ibatis.scripting.xmltags.XMLLanguageDriver"/>
+        <!--<setting name="defaultScriptingLanguage" value="org.apache.ibatis.scripting.defaults.RawLanguageDriver"/>-->
+
         <!--指定 Enum 使用的默认 TypeHandler 。 (从3.4.5开始) 。默认值为org.apache.ibatis.type.EnumTypeHandler -->
         <setting name="defaultEnumTypeHandler" value="org.apache.ibatis.type.EnumTypeHandler"/>
         <!--指定当结果集中值为 null 的时候是否调用映射对象的 setter（map 对象时为 put）方法，这对于有 Map.keySet() 依赖或 null 值初始化的时候是有用的。注意基本类型（int、boolean等）是不能设置成 null 的。
@@ -115,10 +117,10 @@
     </environments>
 
     <databaseIdProvider type="DB_VENDOR">
-        <!--设置属性别名-->
+        <!--为不同的数据库厂商起别名-->
         <property name="SQL Server" value="sqlserver"/>
-        <property name="DB2" value="db2"/>
         <property name="Oracle" value="oracle"/>
+        <property name="MySQL" value="mysql"/>
     </databaseIdProvider>
 
     <!-- 使用相对于类路径的资源引用 -->

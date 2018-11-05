@@ -24,7 +24,7 @@
 
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
         select
-        <include refid="Base_Column_List"/>
+        *
         from blog
         where id = #{id,jdbcType=INTEGER}
     </select>
@@ -32,17 +32,22 @@
     delete from blog
     where id = #{id,jdbcType=INTEGER}
   </delete>
+
     <insert id="insert" parameterType="com.uifuture.chapter12.entity.Blog">
         <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-            SELECT LAST_INSERT_ID()
+            <if test="_databaseId == 'oracle'">
+                select seq_users.nextval from dual
+            </if>
+            <if test="_databaseId == 'mysql'">
+                SELECT LAST_INSERT_ID()
+            </if>
         </selectKey>
         insert into blog (title, author_id)
         values (#{title,jdbcType=VARCHAR}, #{authorId,jdbcType=INTEGER})
     </insert>
-    <insert id="insertSelective" parameterType="com.uifuture.chapter12.entity.Blog">
-        <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-            SELECT LAST_INSERT_ID()
-        </selectKey>
+
+    <insert id="insertSelective" parameterType="com.uifuture.chapter12.entity.Blog" keyProperty="id"
+            useGeneratedKeys="true">
         insert into blog
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="title != null">
@@ -135,5 +140,12 @@
     </resultMap>
     <select id="selectBlogDiscriminator" resultMap="blogResultDiscriminator">
       SELECT * FROM BLOG WHERE ID = #{id}
+    </select>
+
+
+    <select id="selectAll" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        *
+        from blog
     </select>
 </mapper>
