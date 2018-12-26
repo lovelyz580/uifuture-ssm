@@ -17,6 +17,7 @@
         <module>ssm-mybatis-module</module>
         <module>ssm-mybatis-xml-config</module>
         <module>ssm-mybatis-generator</module>
+        <module>ssm-spring-ioc-demo</module>
     </modules>
 
     <properties>
