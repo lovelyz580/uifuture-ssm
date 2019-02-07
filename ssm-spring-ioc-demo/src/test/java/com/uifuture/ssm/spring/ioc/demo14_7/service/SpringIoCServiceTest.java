@@ -9,6 +9,11 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
 
 public class SpringIoCServiceTest {
 
+    /**
+     * 测试 ClassPathXmlApplicationContext 加载配置文件
+     *
+     * @throws Exception
+     */
     @Test
     public void testByXml() throws Exception {
         //加载配置文件
@@ -23,6 +28,9 @@ public class SpringIoCServiceTest {
 
     }
 
+    /**
+     * 测试通过FileSystemXmlApplicationContext加载配置文件
+     */
     @Test
     public void testBySystemXml() {
         //默认为项目工作路径 即项目的根目录
