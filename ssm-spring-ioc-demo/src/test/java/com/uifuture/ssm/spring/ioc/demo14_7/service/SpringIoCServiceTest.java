@@ -1,7 +1,9 @@
 package com.uifuture.ssm.spring.ioc.demo14_7.service;
 
+import com.uifuture.ssm.spring.ioc.demo14_7.config.BeanConfiguration;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
 
@@ -33,6 +35,18 @@ public class SpringIoCServiceTest {
         SpringIoCService springIoCService = applicationContext.getBean("springIoCServiceImpl", SpringIoCService.class);
         springIoCService.saySpringIoC();
 
+    }
+
+
+    /**
+     * 通过注解方式演示IoC注入Bean和获取Bean
+     */
+    @Test
+    public void testByAnnotation() {
+        AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(BeanConfiguration.class);
+        //名称必须BeanConfiguration中工程方法名称一致
+        SpringIoCService springIoCService = applicationContext.getBean("springIoCService", SpringIoCService.class);
+        springIoCService.saySpringIoC();
     }
 
 }
