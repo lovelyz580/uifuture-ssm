@@ -17,8 +17,8 @@ interface InterfaceB {
 public class ClassA {
     private InterfaceB clzB;
 
-    public void doSomething(String className) throws ClassNotFoundException, IllegalAccessException, InstantiationException {
-        Object obj = Class.forName(className).newInstance();
+    public void doSomething() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+        Object obj = Class.forName("从配置文件中获取类名").newInstance();
         clzB = (InterfaceB) obj;
         clzB.doSomething();
     }
