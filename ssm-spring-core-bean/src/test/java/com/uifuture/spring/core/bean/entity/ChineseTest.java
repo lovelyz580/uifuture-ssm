@@ -24,5 +24,21 @@ public class ChineseTest {
         objA.getMessage();
         Chinese objB = (Chinese) context.getBean("chinese");
         objB.getMessage();
+        System.out.print(objA == objB);
+    }
+
+
+    /**
+     * prototype
+     */
+    @Test
+    public void prototype() {
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring-content.xml");
+        Chinese objA = (Chinese) context.getBean("chinesePrototype");
+        objA.setMessage("I'm object A");
+        objA.getMessage();
+        Chinese objB = (Chinese) context.getBean("chinesePrototype");
+        objB.getMessage();
+        System.out.print(objA == objB);
     }
 }

@@ -6,7 +6,13 @@
         ">
     <!-- 创建作用域为singleton的bean -->
     <bean id="chinese" class="com.uifuture.spring.core.bean.entity.Chinese" scope="singleton"></bean>
+
     <!-- 创建作用域为prototype的bean -->
     <bean id="chinesePrototype" class="com.uifuture.spring.core.bean.entity.Chinese" scope="prototype"></bean>
 
+    <!-- 创建作用域为request的bean -->
+    <bean id="chineseRequest" class="com.uifuture.spring.core.bean.entity.Chinese" scope="request"></bean>
+
+    <!-- 创建作用域为session的bean -->
+    <bean id="chineseSession" class="com.uifuture.spring.core.bean.entity.Chinese" scope="session"></bean>
 </beans>
