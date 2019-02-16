@@ -13,4 +13,10 @@ SSM书籍配套项目
 3.X ssm-design-pattern
 设计模式
 
+14  
+ssm-spring-ioc-demo  
+
+15  
+ssm-spring-core-bean  
+
 #### 参与贡献

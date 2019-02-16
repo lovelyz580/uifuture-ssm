@@ -1,0 +1,12 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        ">
+    <!-- 创建作用域为singleton的bean -->
+    <bean id="chinese" class="com.uifuture.spring.core.bean.entity.Chinese" scope="singleton"></bean>
+    <!-- 创建作用域为prototype的bean -->
+    <bean id="chinesePrototype" class="com.uifuture.spring.core.bean.entity.Chinese" scope="prototype"></bean>
+
+</beans>
