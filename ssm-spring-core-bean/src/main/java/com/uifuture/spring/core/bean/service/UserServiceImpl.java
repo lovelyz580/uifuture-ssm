@@ -4,6 +4,7 @@
  */
 package com.uifuture.spring.core.bean.service;
 
+import com.uifuture.spring.core.bean.dao.UserDao;
 import org.springframework.stereotype.Component;
 
 /**
@@ -14,4 +15,21 @@ import org.springframework.stereotype.Component;
  */
 @Component("userService")
 public class UserServiceImpl {
+    private UserDao userDao;
+
+    public UserServiceImpl() {
+    }
+
+    public UserServiceImpl(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
+    /**
+     * Setter method for property <tt>userDao</tt>.
+     *
+     * @param userDao value to be assigned to property userDao
+     */
+    public void setUserDao(UserDao userDao) {
+        this.userDao = userDao;
+    }
 }
