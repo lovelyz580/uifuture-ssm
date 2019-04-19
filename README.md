@@ -1,9 +1,13 @@
 # uifuture-ssm
 
-#### 项目介绍
-SSM书籍配套项目
+## 项目介绍  
+SSM书籍配套的讲解项目  
+书籍编写中    
 
-#### 模块与章节对应
+## 书籍目录  
+
+
+## 模块与书本章节对应关系  
 2.1 ssm-classLoader    
 类加载器  
 2.2 ssm-reflection-demo  
@@ -19,4 +23,5 @@ ssm-spring-ioc-demo
 15  
 ssm-spring-core-bean  
 
-#### 参与贡献
+## 参与贡献
+chenhx
