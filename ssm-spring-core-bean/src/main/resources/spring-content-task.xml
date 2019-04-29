@@ -12,13 +12,14 @@
     <!--设置包扫描-->
     <context:component-scan base-package="com.uifuture.spring.core.bean.task">
     </context:component-scan>
-    <!--设置自动发现-->
-    <task:annotation-driven/>
 
-    <!-- S 定制需求 - 配置定时任务-->
-    <!--<task:executor id="executor" pool-size="5" />-->
+    <!-- S 配置线程池 - 配置定时任务
+    这里的id为进行异步操作任务是，Async异步注解应该指定的属性值
+    -->
+    <task:executor id="executor" pool-size="5"/>
     <!--配置线程池-->
-    <!--<task:scheduler id="scheduler" pool-size="10" />-->
-    <!--<task:annotation-driven executor="executor" scheduler="scheduler" />-->
+    <task:scheduler id="scheduler" pool-size="10"/>
+    <!--设置自动发现-->
+    <task:annotation-driven executor="executor" scheduler="scheduler"/>
     <!--E 配置定时任务-->
 </beans>
