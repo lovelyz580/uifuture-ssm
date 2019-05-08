@@ -26,5 +26,8 @@ ssm-spring-core-bean
 15.7  
 task 
 
+15.8  
+spel  
+
 ## 参与贡献
 chenhx
