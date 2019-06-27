@@ -19,6 +19,7 @@
         <module>ssm-mybatis-generator</module>
         <module>ssm-spring-ioc-demo</module>
         <module>ssm-spring-core-bean</module>
+        <module>ssm-spring-aop</module>
     </modules>
 
     <properties>

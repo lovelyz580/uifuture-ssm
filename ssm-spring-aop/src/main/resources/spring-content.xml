@@ -1,0 +1,22 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+
+
+        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <aop:config>
+        <aop:aspect id="logAspect" ref="aspectBean">
+            <!--配置com.spring.service包下所有类或接口的所有方法-->
+            <aop:pointcut id="servicePointcut" expression="execution(* com.uifuture.spring.aop.service.*.*(..))"/>
+            <aop:before pointcut-ref="servicePointcut" method="doBefore"/>
+            <aop:after pointcut-ref="servicePointcut" method="doAfter"/>
+            <aop:around pointcut-ref="servicePointcut" method="doAround"/>
+            <aop:after-throwing pointcut-ref="servicePointcut" method="doThrowing" throwing="ex"/>
+        </aop:aspect>
+    </aop:config>
+
+    <bean id="aspectBean" class="com.uifuture.spring.aop.PrintLog"/>
+    <bean id="userServiceImpl" class="com.uifuture.spring.aop.service.impl.UserServiceImpl"></bean>
+</beans>

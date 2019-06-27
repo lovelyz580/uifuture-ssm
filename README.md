@@ -29,5 +29,9 @@ task
 15.8  
 spel  
 
-## 参与贡献
-chenhx
+16 Spring AOP
+模块：ssm-spring-aop  
+
+
+## 作者 
+陈浩翔  
