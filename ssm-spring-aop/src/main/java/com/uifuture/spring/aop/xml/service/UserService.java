@@ -2,7 +2,7 @@
  * uifuture.com
  * Copyright (C) 2013-2019 All Rights Reserved.
  */
-package com.uifuture.spring.aop.service;
+package com.uifuture.spring.aop.xml.service;
 
 /**
  * 用户服务
@@ -13,5 +13,11 @@ package com.uifuture.spring.aop.service;
  */
 public interface UserService {
 
+    /**
+     * 业务接口
+     *
+     * @param name
+     * @return
+     */
     String say(String name);
 }

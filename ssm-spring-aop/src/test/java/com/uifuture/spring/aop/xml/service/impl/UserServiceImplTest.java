@@ -2,9 +2,9 @@
  * uifuture.com
  * Copyright (C) 2013-2019 All Rights Reserved.
  */
-package com.uifuture.spring.aop.service.impl;
+package com.uifuture.spring.aop.xml.service.impl;
 
-import com.uifuture.spring.aop.service.UserService;
+import com.uifuture.spring.aop.xml.service.UserService;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

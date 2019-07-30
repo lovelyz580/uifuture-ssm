@@ -2,7 +2,7 @@
  * uifuture.com
  * Copyright (C) 2013-2019 All Rights Reserved.
  */
-package com.uifuture.spring.aop;
+package com.uifuture.spring.aop.xml;
 
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
