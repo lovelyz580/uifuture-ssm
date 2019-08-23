@@ -10,6 +10,7 @@
           class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
+                <!--导入数据库的配置-->
                 <value>classpath:jdbc.properties</value>
             </list>
         </property>
