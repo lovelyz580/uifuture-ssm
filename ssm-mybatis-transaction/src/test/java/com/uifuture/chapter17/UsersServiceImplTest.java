@@ -57,7 +57,7 @@ public class UsersServiceImplTest extends BaseTest {
         //开启事务
         TransactionStatus transaction = transactionManager.getTransaction(new DefaultTransactionDefinition());
         try {
-            //a转账给b100元，不使用事务
+            //a转账给b100元
             usersService.updateMoneyByUsername(-100 * 100, "a");
             //运行分母为0的除法运算
             int size = 100 / 0;
@@ -70,6 +70,16 @@ public class UsersServiceImplTest extends BaseTest {
             //回滚
             transactionManager.rollback(transaction);
         }
+    }
+
+    /**
+     * 注解实现事务处理
+     *
+     * @throws IOException
+     */
+    @Test
+    public void updateMoneyByUsername4() throws IOException {
+        usersService.transfer("a", "b", 100);
     }
 
 }

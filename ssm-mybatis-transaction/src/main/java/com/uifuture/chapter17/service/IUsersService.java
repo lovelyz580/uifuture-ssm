@@ -28,4 +28,13 @@ public interface IUsersService extends IService<UsersEntity> {
      * @return
      */
     Boolean updateMoneyByUsername(Integer money, String username);
+
+    /**
+     * 转账接口
+     *
+     * @param fromName 转账方
+     * @param toName   收账方
+     * @param money    金额
+     */
+    void transfer(String fromName, String toName, Integer money);
 }

@@ -8,6 +8,7 @@ import com.uifuture.chapter17.mapper.UsersMapper;
 import com.uifuture.chapter17.service.IUsersService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * <p>
@@ -45,5 +46,20 @@ public class UsersServiceImpl extends ServiceImpl<UsersMapper, UsersEntity> impl
         updateWrapper.setSql(UsersEntity.MONEY + "=" + UsersEntity.MONEY + "+" + money);
         updateWrapper.eq(UsersEntity.USERNAME, username);
         return this.update(updateWrapper);
+    }
+
+    /**
+     * @param fromName 转账方
+     * @param toName   收账方
+     * @param money    金额
+     */
+    @Override
+    @Transactional
+    public void transfer(String fromName, String toName, Integer money) {
+        //a转账给b100元，不使用事务
+        updateMoneyByUsername(-1 * money, fromName);
+        //运行分母为0的除法运算
+        int size = 100 / 0;
+        updateMoneyByUsername(money, toName);
     }
 }

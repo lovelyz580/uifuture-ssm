@@ -3,7 +3,6 @@
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-
        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
     <bean id="propertyConfigurer"
@@ -71,5 +70,7 @@
     </bean>
     <!-- 注解方式配置事务 -->
     <tx:annotation-driven transaction-manager="transactionManager"/>
+    <!--tx:annotation-driven可以通过配置proxy-target-class="true"将代理方式强制使用cglib 代理-->
+    <!--<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>-->
 
 </beans>
