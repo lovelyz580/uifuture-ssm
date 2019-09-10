@@ -43,9 +43,9 @@ public class AES {
         System.out.println("解密:" + decrypt(str));
 
         System.out.println(encrypt("root"));
-        System.out.println(encrypt("1234"));
+        System.out.println(encrypt("12345678"));
         System.out.println(decrypt("4B1F1099FE3DCDEE0C4B5ED079322488"));
-        System.out.println(decrypt("52F6086FF5DF8415A9986AAE0C6FD56D"));
+        System.out.println(decrypt("F48A25E5C6CFCE140FEB01FBB941AE93"));
     }
 
     /**

@@ -10,6 +10,7 @@ import org.springframework.beans.MutablePropertyValues;
 import org.springframework.beans.PropertyValue;
 import org.springframework.beans.factory.config.BeanDefinition;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
+import org.springframework.beans.factory.config.TypedStringValue;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.core.env.ConfigurablePropertyResolver;
 import org.springframework.util.StringValueResolver;
@@ -35,7 +36,14 @@ public class EncryptPropertyPlaceholderConfigurer extends PropertySourcesPlaceho
         for (String s : encryptPropNames) {
             PropertyValue p = pv.getPropertyValue(s);
             //进行解密处理再覆盖原来的值
-            pv.add(s, AES.decrypt(p.getValue().toString()));
+            assert p != null;
+            String value = p.getValue().toString();
+            if (p.getValue() instanceof TypedStringValue) {
+                TypedStringValue typedStringValue = (TypedStringValue) p.getValue();
+                value = typedStringValue.getValue();
+            }
+            String v = AES.decrypt(value);
+            pv.add(s, v);
         }
     }
 
@@ -52,7 +60,15 @@ public class EncryptPropertyPlaceholderConfigurer extends PropertySourcesPlaceho
 //        MutablePropertyValues pv =  bd.getPropertyValues();
 //        for(String s:encryptPropNames){
 //            PropertyValue p = pv.getPropertyValue(s);
-//            pv.add(s,AES.decrypt(p.getValue().toString()));
+        //进行解密处理再覆盖原来的值
+//        assert p != null;
+//        String value = p.getValue().toString();
+//        if(p.getValue() instanceof TypedStringValue){
+//            TypedStringValue typedStringValue = (TypedStringValue) p.getValue();
+//            value = typedStringValue.getValue();
+//        }
+//        String v = AES.decrypt(value);
+//        pv.add(s, v);
 //        }
     }
 
@@ -69,7 +85,15 @@ public class EncryptPropertyPlaceholderConfigurer extends PropertySourcesPlaceho
 //        MutablePropertyValues pv =  bd.getPropertyValues();
 //        for(String s:encryptPropNames){
 //            PropertyValue p = pv.getPropertyValue(s);
-//            pv.add(s,AES.decrypt(p.getValue().toString()));
+        //进行解密处理再覆盖原来的值
+//        assert p != null;
+//        String value = p.getValue().toString();
+//        if(p.getValue() instanceof TypedStringValue){
+//            TypedStringValue typedStringValue = (TypedStringValue) p.getValue();
+//            value = typedStringValue.getValue();
+//        }
+//        String v = AES.decrypt(value);
+//        pv.add(s, v);
 //        }
     }
 }
