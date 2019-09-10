@@ -4,25 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.uifuture</groupId>
-    <artifactId>uifuture-ssm</artifactId>
-    <packaging>pom</packaging>
+    <groupId>com.uifuture.ssm</groupId>
+    <artifactId>ssm-uifuture</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <modules>
-        <module>ssm-classLoader</module>
-        <module>ssm-reflection-demo</module>
-        <module>ssm-proxy</module>
-        <module>ssm-design-pattern</module>
-        <module>ssm-spring-mvc</module>
-        <module>ssm-mybatis-module</module>
-        <module>ssm-mybatis-xml-config</module>
-        <module>ssm-mybatis-generator</module>
-        <module>ssm-spring-ioc-demo</module>
-        <module>ssm-spring-core-bean</module>
-        <module>ssm-spring-aop</module>
-        <module>ssm-mybatis-transaction</module>
-        <module>ssm-uifuture</module>
-    </modules>
+
 
     <properties>
         <java.version>1.8</java.version>
@@ -130,14 +115,14 @@
             <version>${aspectjweaver.version}</version>
         </dependency>
         <!--添加aspectjweaver包 -->
-        <!-- https://mvnrepository.com/artifact/org.aspectj/aspectjweaver -->
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>${aspectjweaver.version}</version>
         </dependency>
 
-        <!-- 导入Jackson包，在SpringMVC的那个返回JSON数据时用，防止IE出问题-->
+        <!-- 导入Jackson包，在SpringMVC的那个返回JSON数据时用
+防止IE出问题-->
         <dependency>
             <groupId>org.codehaus.jackson</groupId>
             <artifactId>jackson-mapper-asl</artifactId>
@@ -180,25 +165,6 @@
             <version>2.2.1-b03</version>
         </dependency>
 
-        <!--log4J的Jar包-->
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>1.2.17</version>
-        </dependency>
-
-        <!-- 发送邮件相关表 -->
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
-            <version>1.4.7</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.activation</groupId>
-            <artifactId>activation</artifactId>
-            <version>1.1.1</version>
-        </dependency>
-
         <!-- 阿里巴巴的JSON解析工具-->
         <dependency>
             <groupId>com.alibaba</groupId>
@@ -221,7 +187,6 @@
             <artifactId>commons-codec</artifactId>
             <version>1.10</version>
         </dependency>
-
         <!-- lombok依赖,实体类自动添加setter,getter，toString等方法 -->
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -229,10 +194,26 @@
             <version>1.16.18</version>
         </dependency>
 
+        <!--log4J的Jar包-->
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>1.2.17</version>
+        </dependency>
+
+        <!-- 发送邮件相关表 -->
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+            <version>1.4.7</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+            <version>1.1.1</version>
+        </dependency>
     </dependencies>
-
     <build>
-
         <!--为了解决IDEA不将src/main/java下的xml文件也编译成.class文件，而添加下面的resources-->
         <resources>
             <!--表示把java目录下的有关xml文件,properties文件编译/打包的时候放在resource目录下-->
@@ -247,10 +228,9 @@
                 <directory>${basedir}/src/main/resources</directory>
             </resource>
         </resources>
-
         <plugins>
             <!-- 指定maven编译的jdk版本,如果不指定,maven3默认用jdk 1.5 maven2默认用jdk1.3
-否则在用maven打包的过程中，用到jdk高版本新特性的时候会出现错误 -->
+    否则在用maven打包的过程中，用到jdk高版本新特性的时候会出现错误 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -262,5 +242,4 @@
         </plugins>
 
     </build>
-
 </project>
