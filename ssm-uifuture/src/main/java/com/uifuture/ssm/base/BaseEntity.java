@@ -1,4 +1,4 @@
-package com.uifuture.ssm.entity;
+package com.uifuture.ssm.base;
 
 import lombok.Data;
 
