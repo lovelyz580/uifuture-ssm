@@ -42,18 +42,21 @@ http://www.springframework.org/schema/context/spring-context-4.2.xsd
     </context:component-scan>
 
     <!-- 产生sqlsessionfactory -->
-    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+    <!-- mybatis的SQLSession的工厂 ：SqlSessionFactoryBean-->
+    <!-- mybatis的sqlsessionFactorybean：org.mybatis.spring.SqlSessionFactoryBean-->
+    <!-- 3、配置mybatis-plus的sqlSessionFactory -->
+    <bean id="sqlSessionFactory" class="com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean">
         <property name="dataSource" ref="dataSource"/>
         <property name="mapperLocations">
             <list>
-                <value>classpath*:com/uifuture/ssm/mapping/*.xml</value>
+                <value>classpath*:/mapper/*.xml</value>
             </list>
         </property>
     </bean>
     <!-- 自动扫描mapper接口-->
     <!-- 自动扫描mapper接口-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"
-          p:basePackage="com.uifuture.ssm.**.dao"
+          p:basePackage="com.uifuture.ssm.**.mapper"
           p:sqlSessionFactoryBeanName="sqlSessionFactory"/>
 
     <bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">

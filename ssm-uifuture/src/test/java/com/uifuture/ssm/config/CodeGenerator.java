@@ -70,13 +70,20 @@ public class CodeGenerator {
         config.setEntityName("%sEntity");
         //是否打开输出目录
         config.setOpen(false);
-        config.setActiveRecord(false)    //是否支持AR模式
-                .setAuthor("chenhx") //设置作者名字
-                .setOutputDir(projectPath + "/src/main/java")   //设置文件生成的路径
-                .setFileOverride(true) //是否文件覆盖
-                .setIdType(IdType.AUTO)//主键策略
-                .setBaseResultMap(true)//是否生成基础的映射结果
-                .setBaseColumnList(true);//生成基础的SQL列，即SQL片段
+        //是否支持AR模式
+        config.setActiveRecord(false);
+        //设置作者名字
+        config.setAuthor("chenhx");
+        //设置文件生成的路径
+        config.setOutputDir(projectPath + "/src/main/java");
+        //是否文件覆盖
+        config.setFileOverride(true);
+        //主键策略
+        config.setIdType(IdType.AUTO);
+        //是否生成基础的映射结果
+        config.setBaseResultMap(true);
+        //生成基础的SQL列，即SQL片段
+        config.setBaseColumnList(true);
 
 
         //2.数据源配置
@@ -154,7 +161,6 @@ public class CodeGenerator {
         strategy.setControllerMappingHyphenStyle(true);
         //为表添加前缀
         strategy.setTablePrefix(pkConfig.getModuleName() + "_");
-
 
         // 配置模板
         TemplateConfig templateConfig = new TemplateConfig();
