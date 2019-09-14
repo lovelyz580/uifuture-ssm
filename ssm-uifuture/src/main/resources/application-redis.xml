@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
                         http://www.springframework.org/schema/beans/spring-beans-4.2.xsd">
 
-    <!-- S Redis 配置-->
+    <!--  Redis 配置-->
     <!-- scanner redis properties  -->
     <!--<context:property-placeholder location="classpath:redis.properties" ignore-unresolvable="true"/>-->
     <!--（1）如果你有多个数据源需要通过
@@ -65,5 +65,22 @@
         <property name="enableTransactionSupport" value="true"/>
         <!--在Spring中@Transactional 也是可以进行事物控制的。-->
     </bean>
+
+
+    <bean id="connConfig" class="com.uifuture.ssm.redis.config.ConnConfig">
+        <property name="host" value="${redis.host}"></property>
+        <property name="port" value="${redis.port}"></property>
+        <property name="password" value="${redis.password}"></property>
+        <property name="app" value="${redis.app}"></property>
+    </bean>
+
+    <bean id="redisClient" class="com.uifuture.ssm.redis.RedisClient">
+        <property name="connConfig" ref="connConfig"></property>
+    </bean>
+
+    <bean id="redisLock" class="com.uifuture.ssm.redis.RedisLock">
+        <property name="client" ref="redisClient"/>
+    </bean>
+
 
 </beans>

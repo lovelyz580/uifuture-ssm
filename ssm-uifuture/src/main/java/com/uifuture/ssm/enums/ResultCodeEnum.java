@@ -42,11 +42,13 @@ public enum ResultCodeEnum {
     /**
      * 过于频繁
      */
-    ALL_TOO_OFTEN("过于频繁", 9995),
+    ALL_TOO_OFTEN("过于频繁,请稍后再试", 9995),
     STATUS_EXCEPTION("状态异常", 9994),
     NO_PRIVILEGE("无权限", 9993),
     USERNAME_ALREADY_EXISTS("用户名已存在", 9992),
     EMAIL_ALREADY_EXISTS("邮箱已存在", 9991),
+    VERIFICATION_CODE_HAS_EXPIRED("请重新注册，验证码已过期", 9990),
+    VERIFICATION_CODE_ERROR("验证码错误", 9989),
     ;
 
     private String name;
