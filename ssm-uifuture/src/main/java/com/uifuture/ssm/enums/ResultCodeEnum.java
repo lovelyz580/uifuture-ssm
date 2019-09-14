@@ -45,6 +45,7 @@ public enum ResultCodeEnum {
     ALL_TOO_OFTEN("过于频繁", 9995),
     STATUS_EXCEPTION("状态异常", 9994),
     NO_PRIVILEGE("无权限", 9993),
+    USERNAME_ALREADY_EXISTS("用户名已存在", 9992),
     ;
 
     private String name;

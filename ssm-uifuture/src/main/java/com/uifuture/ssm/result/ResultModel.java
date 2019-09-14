@@ -96,6 +96,10 @@ public class ResultModel<T> implements Serializable {
         return fail(null);
     }
 
+    public static ResultModel fail(ResultCodeEnum resultCodeEnum) {
+        return fail("[" + resultCodeEnum.getValue() + "]" + resultCodeEnum.getName());
+    }
+
     /**
      * 服务器内部错误
      *

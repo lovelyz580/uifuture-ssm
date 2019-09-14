@@ -13,4 +13,41 @@ import com.uifuture.ssm.entity.UsersEntity;
  */
 public interface UsersService extends IService<UsersEntity> {
 
+    /**
+     * 查询用户名是否存在
+     *
+     * @param username
+     * @return
+     */
+    Integer selectCountByUsername(String username);
+
+
+    /**
+     * 查询用户数据
+     *
+     * @param username
+     * @return
+     */
+    UsersEntity selectByUsername(String username);
+
+
+    /**
+     * 查询邮箱是否存在
+     *
+     * @param email
+     * @return
+     */
+    Integer selectCountByEmail(String email);
+
+
+    /**
+     * 查询用户数据
+     *
+     * @param email
+     * @return
+     */
+    UsersEntity selectByEmail(String email);
+
+
+
 }

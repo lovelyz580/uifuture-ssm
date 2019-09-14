@@ -14,7 +14,7 @@ import java.time.LocalDate;
  * </p>
  *
  * @author chenhx
- * @since 2019-09-12
+ * @since 2019-09-14
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -84,10 +84,7 @@ public class UsersEntity extends BaseEntity {
      */
     private String qq;
 
-    /**
-     * 邮箱激活状态 1-激活 0-未激活
-     */
-    private String mailboxState;
+    public static final String QQ_OPENID = "qq_openid";
 
     /**
      * 当前账户可用U币(默认为0)
@@ -133,6 +130,30 @@ public class UsersEntity extends BaseEntity {
      * 创建者id
      */
     private Integer createId;
-
+    public static final String HEAD_IMAGE = "head_image";
+    public static final String USERNAME = "username";
+    public static final String SIGNATURE = "signature";
+    public static final String PASSWORD = "password";
+    public static final String SALT = "salt";
+    public static final String MOBILE_PHONE = "mobile_phone";
+    public static final String SEX = "sex";
+    public static final String BIRTHDAY = "birthday";
+    public static final String EMAIL = "email";
+    public static final String WEIXIN = "weixin";
+    public static final String QQ = "qq";
+    public static final String MAILBOX_STATE = "mailbox_state";
+    public static final String UB = "ub";
+    public static final String ALIPAY_ACCOUNT_NUMBER = "alipay_account_number";
+    public static final String ALIPAY_REAL_NAME = "alipay_real_name";
+    public static final String REAL_NAME_STATE = "real_name_state";
+    public static final String DESCRIPTION = "description";
+    public static final String UPDATE_ID = "update_id";
+    public static final String TYPE = "type";
+    public static final String STATE = "state";
+    public static final String CREATE_ID = "create_id";
+    /**
+     * 邮箱激活状态 1-激活0-未激活
+     */
+    private String mailboxState;
 
 }

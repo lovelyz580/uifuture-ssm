@@ -6,6 +6,7 @@ package com.uifuture.ssm.req;
 
 import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 
 /**
@@ -19,13 +20,16 @@ public class UsersReq implements Serializable {
     /**
      * 用户名
      */
+    @NotEmpty(message = "用户名不能为空")
     private String username;
     /**
      * 密码(使用MD5+盐加密)
      */
+    @NotEmpty(message = "密码不能为空")
     private String password;
     /**
      * 邮箱
      */
+    @NotEmpty(message = "邮箱不能为空")
     private String email;
 }

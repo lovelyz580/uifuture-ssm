@@ -9,7 +9,7 @@ import com.uifuture.ssm.entity.UsersEntity;
  * </p>
  *
  * @author chenhx
- * @since 2019-09-12
+ * @since 2019-09-14
  */
 public interface UsersMapper extends BaseMapper<UsersEntity> {
 

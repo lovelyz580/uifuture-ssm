@@ -10,9 +10,9 @@ import java.util.regex.Pattern;
 
 /**
  * @author chenhx
- * @version UnicodeUtil.java, v 0.1 2018-07-01 上午 11:37
+ * @version UnicodeUtils.java, v 0.1 2018-07-01 上午 11:37
  */
-public class UnicodeUtil {
+public class UnicodeUtils {
 
     public static final Pattern pattern = Pattern.compile("((\\\\)+u(\\p{XDigit}{4}))");
 
