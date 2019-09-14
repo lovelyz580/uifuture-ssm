@@ -187,9 +187,9 @@ public class MvcConfig implements WebMvcConfigurer {
     public InternalResourceViewResolver viewResolver() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         /**
-         * 映射路径-运行时代码会将我们的页面自动编译到/WEB-INF/classes/views/下
+         * 映射路径-运行时代码会将我们的页面自动编译到/WEB-INF/classes/templates/下
          */
-        viewResolver.setPrefix("/WEB-INF/classes/views/");
+        viewResolver.setPrefix("/WEB-INF/classes/templates/");
         /**
          * 实际页面后缀
          */

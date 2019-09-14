@@ -161,7 +161,8 @@ public class CodeGenerator {
         strategy.setControllerMappingHyphenStyle(true);
         //为表添加前缀
         strategy.setTablePrefix(pkConfig.getModuleName() + "_");
-
+        //是否生成字段常量
+        strategy.setEntityColumnConstant(true);
         // 配置模板
         TemplateConfig templateConfig = new TemplateConfig();
 

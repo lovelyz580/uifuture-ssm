@@ -55,7 +55,7 @@ public class UsersEntity extends BaseEntity {
     private String salt;
 
     /**
-     * 手机号(注册后必须绑定手机号)
+     * 手机号
      */
     private String mobilePhone;
 
@@ -70,7 +70,7 @@ public class UsersEntity extends BaseEntity {
     private LocalDate birthday;
 
     /**
-     * 邮箱(默认为NULL)1-激活0-未激活 2-未填写邮箱
+     * 邮箱
      */
     private String email;
 
@@ -85,7 +85,7 @@ public class UsersEntity extends BaseEntity {
     private String qq;
 
     /**
-     * 邮箱激活状态(默认为NULL)1-激活0-未激活 2-未绑定邮箱（多线程操作时，一定要先判断再修改值，否则容易出错）
+     * 邮箱激活状态 1-激活 0-未激活
      */
     private String mailboxState;
 

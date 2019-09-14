@@ -1,37 +1,31 @@
+/*
+ * souche.com
+ * Copyright (C) 2013-2019 All Rights Reserved.
+ */
 package com.uifuture.ssm.controller;
-
 
 import com.uifuture.ssm.base.BaseController;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
- * <p>
- * 用户表 前端控制器
- * </p>
+ * 测试
  *
  * @author chenhx
- * @since 2019-09-12
+ * @version TestController.java, v 0.1 2019-09-14 00:25 chenhx
  */
-@RequestMapping("/users")
+@RequestMapping("/testController")
 @Slf4j
 @Controller
-public class UsersController extends BaseController {
+public class TestController extends BaseController {
 
-    /**
-     * 用户注册
-     *
-     * @return
-     */
-    @RequestMapping("registered")
-    @ResponseBody
+    @RequestMapping("index")
     public ModelAndView index() {
         log.info("访问testController/index");
         return new ModelAndView("index");
     }
 
-
 }
+
