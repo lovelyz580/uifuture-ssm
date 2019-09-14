@@ -46,6 +46,7 @@ public enum ResultCodeEnum {
     STATUS_EXCEPTION("状态异常", 9994),
     NO_PRIVILEGE("无权限", 9993),
     USERNAME_ALREADY_EXISTS("用户名已存在", 9992),
+    EMAIL_ALREADY_EXISTS("邮箱已存在", 9991),
     ;
 
     private String name;

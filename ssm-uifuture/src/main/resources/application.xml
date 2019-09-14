@@ -13,4 +13,6 @@
     <import resource="application-aop.xml"></import>
     <!--在web.xml中配置了-->
     <!--<import resource="application-mvc.xml"></import>-->
+    <import resource="application-properties.xml"></import>
+    <import resource="application-redis.xml"></import>
 </beans>

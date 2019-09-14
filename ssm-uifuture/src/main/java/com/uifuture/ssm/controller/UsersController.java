@@ -7,6 +7,7 @@ import com.uifuture.ssm.req.UsersReq;
 import com.uifuture.ssm.result.ResultModel;
 import com.uifuture.ssm.service.UsersService;
 import com.uifuture.ssm.util.ValidateUtils;
+import com.uifuture.ssm.util.redis.RedisCommand;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,9 @@ public class UsersController extends BaseController {
 
     @Autowired
     private UsersService usersService;
+
+    @Autowired
+    private RedisCommand redisCommand;
     /**
      * 用户注册
      *
@@ -46,6 +50,10 @@ public class UsersController extends BaseController {
             return ResultModel.fail(ResultCodeEnum.USERNAME_ALREADY_EXISTS);
         }
         //校验邮箱
+        num = usersService.selectCountByEmail(usersReq.getEmail());
+        if (num > 0) {
+            return ResultModel.fail(ResultCodeEnum.EMAIL_ALREADY_EXISTS);
+        }
 
 
         return ResultModel.success();
