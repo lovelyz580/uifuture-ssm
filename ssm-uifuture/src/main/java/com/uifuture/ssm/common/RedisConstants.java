@@ -23,7 +23,7 @@ public class RedisConstants {
     /**
      * 时间，10分钟
      */
-    public static final Long REG_MAX_TIME = 10 * 60L;
+    public static final Integer REG_MAX_TIME = 600;
     private static final String REDIS_PREFIX = "ssm.";
 
     /**

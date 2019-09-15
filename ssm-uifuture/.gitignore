@@ -11,6 +11,7 @@
 .sts4-cache
 
 **/log4j.properties
+**/email.properties
 
 ### IntelliJ IDEA ###
 .idea

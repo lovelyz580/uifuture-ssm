@@ -44,6 +44,17 @@ public class PasswordUtils {
     }
 
     /**
+     * 获得一个随机的字符串（只包含数字）
+     *
+     * @param length 字符串的长度
+     * @return 随机字符串
+     * @since 4.0.13
+     */
+    public static String randomNumberLower(int length) {
+        return randomString(BASE_NUMBER, length);
+    }
+
+    /**
      * 获得一个随机的字符串
      *
      * @param baseString 随机字符选取的样本

@@ -2,6 +2,9 @@ package com.uifuture.ssm.controller;
 
 import com.uifuture.ssm.base.BaseController;
 import com.uifuture.ssm.common.RedisConstants;
+import com.uifuture.ssm.email.EmailConfig;
+import com.uifuture.ssm.email.SendEmail;
+import com.uifuture.ssm.email.impl.SendEmailCallable;
 import com.uifuture.ssm.entity.UsersEntity;
 import com.uifuture.ssm.enums.ResultCodeEnum;
 import com.uifuture.ssm.redis.RedisClient;
@@ -19,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * <p>
@@ -38,6 +43,8 @@ public class UsersController extends BaseController {
 
     @Autowired
     private RedisClient redisClient;
+    @Autowired
+    private EmailConfig emailConfig;
     /**
      * 用户注册
      *
@@ -48,6 +55,9 @@ public class UsersController extends BaseController {
     public ResultModel registered(UsersReq usersReq, HttpServletRequest request) {
         //校验参数
         ValidateUtils.validate(usersReq);
+
+        //TODO 用户名数字，字母判断，字母开头
+
 
         //校验用户名
         Integer num = usersService.selectCountByUsername(usersReq.getUsername());
@@ -102,16 +112,24 @@ public class UsersController extends BaseController {
      */
     @RequestMapping(value = "/sendEmailCode", method = RequestMethod.POST)
     @ResponseBody
-    public ResultModel sendEmailCode(String email, HttpServletRequest request) {
+    public ResultModel sendEmailCode(String email, String username, HttpServletRequest request) {
         //校验参数
-        if (StringUtils.isEmpty(email)) {
+        if (StringUtils.isEmpty(email) || StringUtils.isEmpty(username)) {
             return ResultModel.fail(ResultCodeEnum.PARAMETER_ERROR);
         }
-        //校验邮箱没有注册
-        UsersEntity usersEntity = usersService.selectByEmail(email);
-        if (usersEntity != null) {
+        //TODO 用户名数字，字母判断，字母开头
+
+        //校验用户名
+        Integer num = usersService.selectCountByUsername(username);
+        if (num > 0) {
+            return ResultModel.fail(ResultCodeEnum.USERNAME_ALREADY_EXISTS);
+        }
+        //校验邮箱
+        num = usersService.selectCountByEmail(email);
+        if (num > 0) {
             return ResultModel.fail(ResultCodeEnum.EMAIL_ALREADY_EXISTS);
         }
+
         //判断是否已经发送，10分钟最多发送10次，同一IP
 
         //获取发送次数
@@ -121,9 +139,34 @@ public class UsersController extends BaseController {
             return ResultModel.fail(ResultCodeEnum.ALL_TOO_OFTEN);
         }
         //异步发送邮件
+        String code = PasswordUtils.randomNumberLower(6);
 
+        //TODO 判断是否已经发送过，激活码使用原来的
+
+        //发送邮件,用户进行激活
+        SendEmail sendEmail = new SendEmail() {
+            @Override
+            public String getCode() {
+                return code;
+            }
+
+            @Override
+            public String getName() {
+                return username;
+            }
+
+            @Override
+            public String getEmail() {
+                return email;
+            }
+        };
+        SendEmailCallable sendEmailCallable = new SendEmailCallable(emailConfig, sendEmail);
+        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        executorService.submit(sendEmailCallable);
 
         //将code记录到Redis，时效为10分钟
+        redisClient.set(RedisConstants.getRegEmailKey(email), code, RedisConstants.REG_MAX_TIME);
+
         return ResultModel.success();
     }
 
