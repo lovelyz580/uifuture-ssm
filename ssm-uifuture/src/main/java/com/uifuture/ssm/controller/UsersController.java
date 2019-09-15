@@ -1,6 +1,5 @@
 package com.uifuture.ssm.controller;
 
-
 import com.uifuture.ssm.base.BaseController;
 import com.uifuture.ssm.common.RedisConstants;
 import com.uifuture.ssm.entity.UsersEntity;
@@ -9,6 +8,7 @@ import com.uifuture.ssm.redis.RedisClient;
 import com.uifuture.ssm.req.UsersReq;
 import com.uifuture.ssm.result.ResultModel;
 import com.uifuture.ssm.service.UsersService;
+import com.uifuture.ssm.util.PasswordUtils;
 import com.uifuture.ssm.util.ValidateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -77,7 +77,19 @@ public class UsersController extends BaseController {
             return ResultModel.fail(ResultCodeEnum.VERIFICATION_CODE_ERROR);
         }
 
-        //TODO 数据入库
+        //构建用户数据，密码加密
+        String salt = PasswordUtils.getSalt();
+        String password = PasswordUtils.getPassword(usersReq.getPassword(), salt);
+        UsersEntity usersEntity = new UsersEntity();
+        usersEntity.setUsername(usersReq.getUsername());
+        usersEntity.setPassword(password);
+        usersEntity.setSalt(salt);
+        usersEntity.setEmail(usersReq.getEmail());
+        usersEntity.setCreateId(0);
+        usersEntity.setMailboxState(1);
+
+        //数据入库
+        usersService.save(usersEntity);
 
         return ResultModel.success();
     }
@@ -108,9 +120,8 @@ public class UsersController extends BaseController {
             //请求次数过多，稍后再试
             return ResultModel.fail(ResultCodeEnum.ALL_TOO_OFTEN);
         }
-
-
         //异步发送邮件
+
 
         //将code记录到Redis，时效为10分钟
         return ResultModel.success();
@@ -125,13 +136,11 @@ public class UsersController extends BaseController {
     @RequestMapping("/username")
     @ResponseBody
     public ResultModel username(String username) {
-
-        redisClient.set("aaaaa", "中文测试", 100);
-        log.info("结果：{}", redisClient.get("aaaaa"));
         //校验参数
         if (StringUtils.isEmpty(username)) {
             return ResultModel.fail(ResultCodeEnum.PARAMETER_ERROR);
         }
+        //通过返回的data，数字大于0，说明被使用了
         Integer num = usersService.selectCountByUsername(username);
         return ResultModel.success(num);
     }
@@ -148,6 +157,7 @@ public class UsersController extends BaseController {
         if (StringUtils.isEmpty(email)) {
             return ResultModel.fail(ResultCodeEnum.PARAMETER_ERROR);
         }
+        //通过返回的data，数字大于0，说明被使用了
         Integer num = usersService.selectCountByEmail(email);
         return ResultModel.success(num);
     }

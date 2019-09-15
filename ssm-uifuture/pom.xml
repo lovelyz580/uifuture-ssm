@@ -213,7 +213,7 @@
             </exclusions>
         </dependency>
 
-        <!-- 发送邮件相关表 -->
+        <!-- 发送邮件相关依赖 -->
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>

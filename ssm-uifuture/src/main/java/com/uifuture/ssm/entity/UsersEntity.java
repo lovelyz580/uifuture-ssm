@@ -104,7 +104,7 @@ public class UsersEntity extends BaseEntity {
     /**
      * 实名认证状态 0-未实名认证 1-审核中 2-实名认证通过 3-实名认证失败
      */
-    private Boolean realNameState;
+    private Integer realNameState;
 
     /**
      * 描述
@@ -119,12 +119,12 @@ public class UsersEntity extends BaseEntity {
     /**
      * 用户类型 0-用户 1-管理员 - 默认为0-也就是用户
      */
-    private Boolean type;
+    private Integer type;
 
     /**
      * 用户状态(默认为1)1-正常 0-被封号
      */
-    private Boolean state;
+    private Integer state;
 
     /**
      * 创建者id
@@ -154,6 +154,6 @@ public class UsersEntity extends BaseEntity {
     /**
      * 邮箱激活状态 1-激活0-未激活
      */
-    private String mailboxState;
+    private Integer mailboxState;
 
 }

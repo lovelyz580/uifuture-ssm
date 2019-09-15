@@ -66,18 +66,18 @@
         <!--在Spring中@Transactional 也是可以进行事物控制的。-->
     </bean>
 
-
+    <!--配置-->
     <bean id="connConfig" class="com.uifuture.ssm.redis.config.ConnConfig">
         <property name="host" value="${redis.host}"></property>
         <property name="port" value="${redis.port}"></property>
         <property name="password" value="${redis.password}"></property>
         <property name="app" value="${redis.app}"></property>
     </bean>
-
+    <!--redis常规操作-->
     <bean id="redisClient" class="com.uifuture.ssm.redis.RedisClient">
         <property name="connConfig" ref="connConfig"></property>
     </bean>
-
+    <!--redis分布式锁操作-->
     <bean id="redisLock" class="com.uifuture.ssm.redis.RedisLock">
         <property name="client" ref="redisClient"/>
     </bean>
