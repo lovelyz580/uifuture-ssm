@@ -4,19 +4,26 @@
  */
 package com.uifuture.ssm.base;
 
+import com.alibaba.fastjson.JSON;
 import com.uifuture.ssm.common.UsersConstants;
 import com.uifuture.ssm.entity.UsersEntity;
 import com.uifuture.ssm.enums.ResultCodeEnum;
 import com.uifuture.ssm.exception.CommonException;
+import com.uifuture.ssm.result.ResultModel;
 import com.uifuture.ssm.util.RegexUtils;
 import com.uifuture.ssm.util.SessionUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author chenhx
  * @version BaseController.java, v 0.1 2019-09-12 11:31 chenhx
  */
+@Slf4j
 public class BaseController {
 
 
@@ -90,6 +97,24 @@ public class BaseController {
      */
     protected static void setLoginInfo(HttpServletRequest request, UsersEntity usersEntity) {
         SessionUtils.setAttribute(request, UsersConstants.SESSION_USERS_LOGIN_INFO, usersEntity);
+    }
+
+
+    /**
+     * 设置编码和响应头和JSON字符串
+     *
+     * @param response
+     * @param result
+     */
+    protected void responseResult(HttpServletResponse response, ResultModel result) {
+        response.setCharacterEncoding("UTF-8");
+        response.setHeader("Content-type", "application/json;charset=UTF-8");
+        response.setStatus(HttpStatus.OK.value());
+        try {
+            response.getWriter().write(JSON.toJSONString(result));
+        } catch (IOException ex) {
+            log.error(ex.getMessage());
+        }
     }
 
 }

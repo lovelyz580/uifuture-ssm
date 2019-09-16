@@ -5,11 +5,13 @@
 package com.uifuture.ssm.base;
 
 import com.uifuture.ssm.enums.ResultCodeEnum;
+import lombok.Data;
 
 /**
  * @author chenhx
  * @version BaseException.java, v 0.1 2019-09-14 11:44 chenhx
  */
+@Data
 public class BaseException extends RuntimeException {
     protected Integer code;
 
