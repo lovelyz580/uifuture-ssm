@@ -49,6 +49,8 @@ public enum ResultCodeEnum {
     EMAIL_ALREADY_EXISTS("邮箱已存在", 9991),
     VERIFICATION_CODE_HAS_EXPIRED("请重新注册，验证码已过期", 9990),
     VERIFICATION_CODE_ERROR("验证码错误", 9989),
+    INCORRECT_MAILBOX_FORMAT("邮箱格式错误", 9988),
+    USER_NAME_FORMAT_ERROR("用户名格式错误,字母开头，限字母与数字", 9987),
     ;
 
     private String name;

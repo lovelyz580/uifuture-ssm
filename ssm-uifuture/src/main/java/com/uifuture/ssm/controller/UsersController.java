@@ -56,8 +56,8 @@ public class UsersController extends BaseController {
         //校验参数
         ValidateUtils.validate(usersReq);
 
-        //TODO 用户名数字，字母判断，字母开头
-
+        //用户名数字，字母判断，字母开头
+        checkParam(usersReq.getUsername(), usersReq.getEmail());
 
         //校验用户名
         Integer num = usersService.selectCountByUsername(usersReq.getUsername());
@@ -117,7 +117,9 @@ public class UsersController extends BaseController {
         if (StringUtils.isEmpty(email) || StringUtils.isEmpty(username)) {
             return ResultModel.fail(ResultCodeEnum.PARAMETER_ERROR);
         }
-        //TODO 用户名数字，字母判断，字母开头
+        //用户名数字，字母判断，字母开头
+        checkParam(username, email);
+
 
         //校验用户名
         Integer num = usersService.selectCountByUsername(username);

@@ -4,6 +4,10 @@
  */
 package com.uifuture.ssm.base;
 
+import com.uifuture.ssm.enums.ResultCodeEnum;
+import com.uifuture.ssm.exception.CommonException;
+import com.uifuture.ssm.util.RegexUtils;
+
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -48,6 +52,21 @@ public class BaseController {
             ip = request.getRemoteAddr();
         }
         return ip;
+    }
+
+    /**
+     * 校验用户名和邮箱
+     *
+     * @param username
+     * @param email
+     */
+    protected static void checkParam(String username, String email) {
+        if (!RegexUtils.checkEmail(email)) {
+            throw new CommonException(ResultCodeEnum.INCORRECT_MAILBOX_FORMAT);
+        }
+        if (!RegexUtils.checkUsername(username)) {
+            throw new CommonException(ResultCodeEnum.PARAMETER_ERROR);
+        }
     }
 
 }
