@@ -20,6 +20,13 @@ public class CacheResult {
     }
 
 
+    /**
+     * 获取值
+     *
+     * @param clazz
+     * @param <T>
+     * @return
+     */
     @SuppressWarnings("unchecked")
     public <T> T getObject(Class<T> clazz) {
         if (data == null) {
