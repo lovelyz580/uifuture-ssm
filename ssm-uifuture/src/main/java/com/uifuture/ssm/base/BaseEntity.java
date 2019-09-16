@@ -1,5 +1,7 @@
 package com.uifuture.ssm.base;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -13,7 +15,13 @@ public class BaseEntity implements Serializable {
     private static final long serialVersionUID = -1549634521453074321L;
     /**
      * 主键，唯一标识符
+     * 主键策略： 数据库ID自增
+     * IdType.AUTO	数据库ID自增
+     * IdType.INPUT	用户输入ID
+     * IdType.ID_WORKER	全局唯一ID，内容为空自动填充（默认配置）
+     * IdType.UUID	全局唯一ID，内容为空自动填充
      */
+    @TableId(value = "id", type = IdType.AUTO)
     protected Integer id;
     /**
      * 创建时间

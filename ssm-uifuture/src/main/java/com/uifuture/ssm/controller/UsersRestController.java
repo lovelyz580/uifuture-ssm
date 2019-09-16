@@ -181,7 +181,7 @@ public class UsersRestController extends BaseController {
      *
      * @return
      */
-    @RequestMapping("/username")
+    @RequestMapping(value = "/username", method = RequestMethod.GET)
     public ResultModel username(String username) {
         //校验参数
         if (StringUtils.isEmpty(username)) {
@@ -197,7 +197,7 @@ public class UsersRestController extends BaseController {
      *
      * @return
      */
-    @RequestMapping("/email")
+    @RequestMapping(value = "/email", method = RequestMethod.GET)
     public ResultModel email(String email) {
         //校验参数
         if (StringUtils.isEmpty(email)) {
@@ -214,7 +214,7 @@ public class UsersRestController extends BaseController {
      *
      * @return
      */
-    @RequestMapping("/login")
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ResultModel login(UsersReq usersReq, HttpServletRequest request) {
         //校验参数
         if (StringUtils.isEmpty(usersReq.getPassword())) {

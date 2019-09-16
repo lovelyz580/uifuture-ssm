@@ -23,7 +23,7 @@ public interface UsersService extends IService<UsersEntity> {
 
 
     /**
-     * 查询用户数据
+     * 通过用户名查询用户数据
      *
      * @param username
      * @return
@@ -41,7 +41,7 @@ public interface UsersService extends IService<UsersEntity> {
 
 
     /**
-     * 查询用户数据
+     * 通过邮箱查询用户数据
      *
      * @param email
      * @return

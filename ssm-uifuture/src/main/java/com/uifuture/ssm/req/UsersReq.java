@@ -42,4 +42,9 @@ public class UsersReq implements Serializable {
     @NotEmpty(message = "邮箱验证码不能为空")
     @Length(min = 6, max = 6, message = "邮箱验证码为6位数字")
     private String emailCode;
+
+    /**
+     * 是否自动登录
+     */
+    private Boolean rememberMe;
 }

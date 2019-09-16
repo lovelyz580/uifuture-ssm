@@ -37,10 +37,12 @@ public abstract class AbstractClient implements Client {
             return null;
         }
         String value = doGet(key);
-        if (value == null) {
-            return null;
-        }
         CacheResult result = new CacheResult();
+        if (value == null) {
+            result.setExist(false);
+            result.setData(null);
+            return result;
+        }
         result.setExist(true);
         if (nullValue.equals(value)) {
             result.setData(null);

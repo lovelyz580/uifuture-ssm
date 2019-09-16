@@ -25,8 +25,6 @@ import java.io.IOException;
  */
 @Slf4j
 public class BaseController {
-
-
     /**
      * 获取IP
      *
@@ -67,15 +65,15 @@ public class BaseController {
     /**
      * 校验用户名和邮箱
      *
-     * @param username
-     * @param email
+     * @param username 用户名
+     * @param email 邮箱
      */
     protected static void checkParam(String username, String email) {
         if (!RegexUtils.checkEmail(email)) {
             throw new CommonException(ResultCodeEnum.INCORRECT_MAILBOX_FORMAT);
         }
         if (!RegexUtils.checkUsername(username)) {
-            throw new CommonException(ResultCodeEnum.PARAMETER_ERROR);
+            throw new CommonException(ResultCodeEnum.USER_NAME_FORMAT_ERROR);
         }
     }
 

@@ -38,7 +38,7 @@
         create_time,
         update_time,
         delete_time,
-        qq_openid, head_image, username, signature, password, salt, mobile_phone, sex, birthday, email, weixin, qq, mailbox_state, ub, alipay_account_number, alipay_real_name, real_name_state, description, update_id, type, state, create_id
+        qq_openid, head_image, username, signature, password, salt, mobile_phone, sex, birthday, email, weixin, qq, mailbox_state, ub, alipay_account_number, alipay_real_name, real_name_state, description, update_id, `type`, state, create_id
     </sql>
 
 </mapper>

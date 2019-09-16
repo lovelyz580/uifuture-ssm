@@ -18,27 +18,46 @@ import org.springframework.stereotype.Service;
 @Service
 public class UsersServiceImpl extends ServiceImpl<UsersMapper, UsersEntity> implements UsersService {
 
+    /**
+     * 查询用户名是否存在
+     *
+     * @param username 用户名
+     * @return 0-表示不存在
+     */
     @Override
     public Integer selectCountByUsername(String username) {
         return getCount(username, UsersEntity.USERNAME);
     }
 
+    /**
+     * 通过用户名查询用户数据
+     * @param username 用户名
+     * @return 用户数据，没有该用户返回NULL
+     */
     @Override
     public UsersEntity selectByUsername(String username) {
         return getUsersEntity(username, UsersEntity.USERNAME);
     }
 
-
+    /**
+     * 查询邮箱是否存在
+     * @param email 邮箱
+     * @return 0-表示不存在
+     */
     @Override
     public Integer selectCountByEmail(String email) {
         return getCount(email, UsersEntity.EMAIL);
     }
 
+    /**
+     * 通过邮箱查询用户数据
+     * @param email 邮箱
+     * @return 用户数据，查询不到用户返回NULL
+     */
     @Override
     public UsersEntity selectByEmail(String email) {
         return getUsersEntity(email, UsersEntity.EMAIL);
     }
-
 
     /**
      * 通过唯一建获取数据是否存在
