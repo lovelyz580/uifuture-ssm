@@ -16,6 +16,7 @@ import com.uifuture.ssm.req.UsersReq;
 import com.uifuture.ssm.result.ResultModel;
 import com.uifuture.ssm.service.UsersService;
 import com.uifuture.ssm.util.PasswordUtils;
+import com.uifuture.ssm.util.RegexUtils;
 import com.uifuture.ssm.util.ValidateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -205,6 +206,40 @@ public class UsersRestController extends BaseController {
         //通过返回的data，数字大于0，说明被使用了
         Integer num = usersService.selectCountByEmail(email);
         return ResultModel.success(num);
+    }
+
+    /**
+     * 用户登录
+     * 通过邮箱和用户名都可以登录，值都设置到用户名中
+     *
+     * @return
+     */
+    @RequestMapping("/login")
+    public ResultModel login(UsersReq usersReq, HttpServletRequest request) {
+        //校验参数
+        if (StringUtils.isEmpty(usersReq.getPassword())) {
+            return ResultModel.fail(ResultCodeEnum.PARAMETER_ERROR);
+        }
+        if (StringUtils.isEmpty(usersReq.getUsername())) {
+            return ResultModel.fail(ResultCodeEnum.PARAMETER_ERROR);
+        }
+        UsersEntity usersEntity;
+        //邮箱登录
+        if (RegexUtils.checkEmail(usersReq.getUsername())) {
+            usersEntity = usersService.selectByEmail(usersReq.getUsername());
+        } else {
+            usersEntity = usersService.selectByUsername(usersReq.getUsername());
+        }
+        if (usersEntity == null) {
+            return ResultModel.fail(ResultCodeEnum.WRONG_PASSWORD_USERNAME_EMAIL);
+        }
+        String password = PasswordUtils.getPassword(usersReq.getPassword(), usersEntity.getSalt());
+        if (!password.equals(usersEntity.getPassword())) {
+            return ResultModel.fail(ResultCodeEnum.WRONG_PASSWORD_USERNAME_EMAIL);
+        }
+        //登录成功
+        setLoginInfo(request, usersEntity);
+        return ResultModel.success();
     }
 
 

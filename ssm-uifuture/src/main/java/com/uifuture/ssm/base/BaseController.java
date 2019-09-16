@@ -4,9 +4,12 @@
  */
 package com.uifuture.ssm.base;
 
+import com.uifuture.ssm.common.UsersConstants;
+import com.uifuture.ssm.entity.UsersEntity;
 import com.uifuture.ssm.enums.ResultCodeEnum;
 import com.uifuture.ssm.exception.CommonException;
 import com.uifuture.ssm.util.RegexUtils;
+import com.uifuture.ssm.util.SessionUtils;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -67,6 +70,26 @@ public class BaseController {
         if (!RegexUtils.checkUsername(username)) {
             throw new CommonException(ResultCodeEnum.PARAMETER_ERROR);
         }
+    }
+
+    /**
+     * 获取用户登录信息
+     *
+     * @param request
+     * @return
+     */
+    protected static UsersEntity getLoginInfo(HttpServletRequest request) {
+        return SessionUtils.getAttribute(request, UsersConstants.SESSION_USERS_LOGIN_INFO);
+    }
+
+    /**
+     * 设置用户登录信息
+     *
+     * @param request
+     * @return
+     */
+    protected static void setLoginInfo(HttpServletRequest request, UsersEntity usersEntity) {
+        SessionUtils.setAttribute(request, UsersConstants.SESSION_USERS_LOGIN_INFO, usersEntity);
     }
 
 }
