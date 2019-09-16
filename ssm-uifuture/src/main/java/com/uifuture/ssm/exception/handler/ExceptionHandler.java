@@ -11,6 +11,7 @@ import com.uifuture.ssm.exception.CommonException;
 import com.uifuture.ssm.exception.ServiceException;
 import com.uifuture.ssm.result.ResultModel;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
@@ -27,6 +28,7 @@ import java.util.Map;
  * @version ExceptionHandler.java, v 0.1 2019-09-16 下午 3:41
  */
 @Slf4j
+@Configuration
 public class ExceptionHandler extends BaseController implements HandlerExceptionResolver {
     @Override
     public ModelAndView resolveException(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) {
@@ -43,7 +45,7 @@ public class ExceptionHandler extends BaseController implements HandlerException
             CommonException exception = (CommonException) ex;
             result = ResultModel.resultModel(exception.getCode(), exception.getMessage());
         } else {
-            result = ResultModel.resultModel(ResultCodeEnum.INTERNAL_SERVER_ERROR.getValue(), "接口 [" + request.getRequestURI() + "] 内部错误，请联系客服");
+            result = ResultModel.resultModel(ResultCodeEnum.INTERNAL_SERVER_ERROR.getValue(), "接口 [" + request.getRequestURI() + "] 内部错误，请联系客服，邮箱：uifuture@uifuture.com");
             String message;
             if (handler instanceof HandlerMethod) {
                 HandlerMethod handlerMethod = (HandlerMethod) handler;
