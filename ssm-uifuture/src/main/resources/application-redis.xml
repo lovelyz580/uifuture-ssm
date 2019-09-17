@@ -64,6 +64,7 @@
         -->
         <property name="enableTransactionSupport" value="true"/>
         <!--在Spring中@Transactional 也是可以进行事物控制的。-->
+
     </bean>
 
     <!--配置-->

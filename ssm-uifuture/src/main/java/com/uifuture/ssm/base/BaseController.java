@@ -25,6 +25,17 @@ import java.io.IOException;
  */
 @Slf4j
 public class BaseController {
+
+    /**
+     * 1天的毫秒数
+     */
+    protected static final long DAY_MS = 24 * 60 * 60 * 1000L;
+    /**
+     * 30天的毫秒数
+     */
+    protected static final long DAY30_MS = 30 * 24 * 60 * 60 * 1000L;
+
+
     /**
      * 获取IP
      *
