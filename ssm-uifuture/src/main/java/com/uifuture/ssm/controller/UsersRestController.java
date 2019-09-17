@@ -69,7 +69,7 @@ public class UsersRestController extends BaseController {
         }
 
         //同一个IP 10分钟内最多请求20次
-        long times = redisClient.incr(RedisConstants.getRegTimesKey(getIpAddress(request)), RedisConstants.REG_MAX_TIME);
+        int times = redisClient.incrInt(RedisConstants.getRegTimesKey(getIpAddress(request)), RedisConstants.REG_MAX_TIME);
         if (times > RedisConstants.REG_MAX_TIMES) {
             //请求次数过多，稍后再试
             return ResultModel.fail(ResultCodeEnum.ALL_TOO_OFTEN);
@@ -132,7 +132,7 @@ public class UsersRestController extends BaseController {
         //判断是否已经发送，10分钟最多发送10次，同一IP
 
         //获取发送次数
-        long times = redisClient.incr(RedisConstants.getSendEmailCodeTimesKey(getIpAddress(request)), RedisConstants.REG_MAX_TIME);
+        int times = redisClient.incrInt(RedisConstants.getSendEmailCodeTimesKey(getIpAddress(request)), RedisConstants.REG_MAX_TIME);
         if (times > RedisConstants.SEND_CODE_MAX_TIMES) {
             //请求次数过多，稍后再试
             return ResultModel.fail(ResultCodeEnum.ALL_TOO_OFTEN);

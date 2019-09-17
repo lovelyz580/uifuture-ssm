@@ -14,6 +14,7 @@ import org.springframework.data.redis.core.script.DefaultRedisScript;
 import org.springframework.data.redis.listener.RedisMessageListenerContainer;
 import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
+import org.springframework.data.redis.support.atomic.RedisAtomicInteger;
 import org.springframework.data.redis.support.atomic.RedisAtomicLong;
 import org.springframework.scripting.ScriptSource;
 import org.springframework.scripting.support.ResourceScriptSource;
@@ -164,6 +165,23 @@ public class RedisClient extends AbstractClient implements InitializingBean, Dis
     public long incr(String key, long liveTime) {
         RedisAtomicLong entityIdCounter = new RedisAtomicLong(key, redisTemplate.getConnectionFactory());
         long increment = entityIdCounter.getAndIncrement();
+        //初始设置过期时间,这是由于RedisAtomicLong(String redisCounter, RedisConnectionFactory factory, @Nullable Long initialValue)方法中set方法没有设置过期时间
+        if (increment == 0 && liveTime > 0) {
+            entityIdCounter.expire(liveTime, TimeUnit.SECONDS);
+        }
+        return increment;
+    }
+
+    /**
+     * 以原子方式将当前值增加1
+     *
+     * @param key
+     * @param liveTime 只有第一次才会设置过期时间
+     * @return 更新前的值，也就是+1前的值
+     */
+    public int incrInt(String key, long liveTime) {
+        RedisAtomicInteger entityIdCounter = new RedisAtomicInteger(key, redisTemplate.getConnectionFactory());
+        int increment = entityIdCounter.getAndIncrement();
         //初始设置过期时间,这是由于RedisAtomicLong(String redisCounter, RedisConnectionFactory factory, @Nullable Long initialValue)方法中set方法没有设置过期时间
         if (increment == 0 && liveTime > 0) {
             entityIdCounter.expire(liveTime, TimeUnit.SECONDS);
