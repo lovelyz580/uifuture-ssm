@@ -4,8 +4,12 @@
  */
 package com.uifuture.ssm.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.uifuture.ssm.base.BaseController;
 import com.uifuture.ssm.common.RedisConstants;
+import com.uifuture.ssm.common.UsersConstants;
+import com.uifuture.ssm.convert.UsersConvert;
+import com.uifuture.ssm.dto.UsersCookieDTO;
 import com.uifuture.ssm.email.EmailConfig;
 import com.uifuture.ssm.email.SendEmail;
 import com.uifuture.ssm.email.impl.SendEmailCallable;
@@ -15,8 +19,11 @@ import com.uifuture.ssm.redis.RedisClient;
 import com.uifuture.ssm.req.UsersReq;
 import com.uifuture.ssm.result.ResultModel;
 import com.uifuture.ssm.service.UsersService;
+import com.uifuture.ssm.util.CookieUtils;
+import com.uifuture.ssm.util.DateUtils;
 import com.uifuture.ssm.util.PasswordUtils;
 import com.uifuture.ssm.util.RegexUtils;
+import com.uifuture.ssm.util.SessionUtils;
 import com.uifuture.ssm.util.ValidateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -26,6 +33,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -215,7 +223,7 @@ public class UsersRestController extends BaseController {
      * @return
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ResultModel login(UsersReq usersReq, HttpServletRequest request) {
+    public ResultModel login(UsersReq usersReq, HttpServletRequest request, HttpServletResponse response) {
         //校验参数
         if (StringUtils.isEmpty(usersReq.getPassword())) {
             return ResultModel.fail(ResultCodeEnum.PARAMETER_ERROR);
@@ -237,10 +245,41 @@ public class UsersRestController extends BaseController {
         if (!password.equals(usersEntity.getPassword())) {
             return ResultModel.fail(ResultCodeEnum.WRONG_PASSWORD_USERNAME_EMAIL);
         }
+
+        //选择记住我，自动登录
+        if (usersReq.getRememberMe()) {
+            UsersCookieDTO usersCookieDTO = UsersConvert.INSTANCE.entityToDTO(usersEntity);
+            //不推荐使用Spring的拷贝，速度还是有点慢的，推荐使用 Java 实体映射工具MapStruct
+//            BeanUtils.copyProperties(usersEntity, usersCookieDTO);
+            usersCookieDTO.setTime(DateUtils.getLongDateTimeMS());
+            usersCookieDTO.setToken(PasswordUtils.getToken(usersEntity.getSalt(), usersEntity.getPassword(), usersCookieDTO.getTime()));
+            //增加cookie设置
+            CookieUtils.setCookie(response, UsersConstants.COOKIE_USERS_LOGIN_INFO, JSON.toJSONString(usersCookieDTO), UsersConstants.EXPIRATION_DATE_30);
+        }
+
         //登录成功
         setLoginInfo(request, usersEntity);
-        return ResultModel.success();
+        return ResultModel.success("登录成功");
     }
 
+    /**
+     * 退出登录
+     *
+     * @return
+     */
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
+    public ResultModel logout(HttpServletRequest request, HttpServletResponse response) {
+        //获取用户
+        UsersEntity users = SessionUtils.getAttribute(request, UsersConstants.SESSION_USERS_LOGIN_INFO);
+        if (users == null) {
+            return ResultModel.resultModel(ResultCodeEnum.USER_NOT_LOGGED);
+        }
+        //删除session
+        SessionUtils.removeAttribute(request, UsersConstants.SESSION_USERS_LOGIN_INFO);
+        SessionUtils.removesession(request);
+        //删除cookie
+        CookieUtils.delCookie(response, UsersConstants.COOKIE_USERS_LOGIN_INFO);
+        return ResultModel.success("成功退出");
+    }
 
 }

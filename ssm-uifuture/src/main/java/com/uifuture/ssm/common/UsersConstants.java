@@ -17,4 +17,13 @@ public class UsersConstants {
      */
     public static final String SESSION_USERS_LOGIN_INFO = "SESSION_USERS_LOGIN_INFO";
 
+    /**
+     * 用户登录后，存储在Cookie中的用户信息key
+     */
+    public static final String COOKIE_USERS_LOGIN_INFO = "COOKIE_USERS_LOGIN_INFO";
+
+    /**
+     * 30天，单位秒
+     */
+    public static final Integer EXPIRATION_DATE_30 = 30 * 24 * 60 * 60;
 }
