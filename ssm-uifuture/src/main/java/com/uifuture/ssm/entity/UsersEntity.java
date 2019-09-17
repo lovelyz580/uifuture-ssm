@@ -122,7 +122,7 @@ public class UsersEntity extends BaseEntity {
     private Integer type;
 
     /**
-     * 用户状态(默认为1)1-正常 0-被封号
+     * 用户状态(默认为1)1- 正常 0-被封号
      */
     private Integer state;
 
@@ -130,6 +130,7 @@ public class UsersEntity extends BaseEntity {
      * 创建者id
      */
     private Integer createId;
+
     public static final String HEAD_IMAGE = "head_image";
     public static final String USERNAME = "username";
     public static final String SIGNATURE = "signature";

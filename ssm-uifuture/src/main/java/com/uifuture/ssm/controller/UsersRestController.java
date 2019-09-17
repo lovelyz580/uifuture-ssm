@@ -14,7 +14,9 @@ import com.uifuture.ssm.email.EmailConfig;
 import com.uifuture.ssm.email.SendEmail;
 import com.uifuture.ssm.email.impl.SendEmailCallable;
 import com.uifuture.ssm.entity.UsersEntity;
+import com.uifuture.ssm.enums.DeleteEnum;
 import com.uifuture.ssm.enums.ResultCodeEnum;
+import com.uifuture.ssm.enums.UsersStateEnum;
 import com.uifuture.ssm.redis.RedisClient;
 import com.uifuture.ssm.req.UsersReq;
 import com.uifuture.ssm.result.ResultModel;
@@ -241,6 +243,15 @@ public class UsersRestController extends BaseController {
         if (usersEntity == null) {
             return ResultModel.fail(ResultCodeEnum.WRONG_PASSWORD_USERNAME_EMAIL);
         }
+
+        //用户是否被禁用，被删除
+        if (UsersStateEnum.FORBIDDEN.getValue().equals(usersEntity.getState())) {
+            return ResultModel.fail(ResultCodeEnum.USER_VIOLATIONS_ARE_BANNED);
+        }
+        if (!DeleteEnum.NO_DELETE.getValue().equals(usersEntity.getDeleteTime())) {
+            return ResultModel.fail(ResultCodeEnum.THE_USER_HAS_BEEN_DELETED);
+        }
+
         String password = PasswordUtils.getPassword(usersReq.getPassword(), usersEntity.getSalt());
         if (!password.equals(usersEntity.getPassword())) {
             return ResultModel.fail(ResultCodeEnum.WRONG_PASSWORD_USERNAME_EMAIL);

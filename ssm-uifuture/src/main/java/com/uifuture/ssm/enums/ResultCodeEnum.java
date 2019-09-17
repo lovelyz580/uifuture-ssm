@@ -52,6 +52,8 @@ public enum ResultCodeEnum {
     INCORRECT_MAILBOX_FORMAT("邮箱格式错误", 9988),
     USER_NAME_FORMAT_ERROR("用户名格式错误,字母开头，限字母与数字，长度在6-32", 9987),
     WRONG_PASSWORD_USERNAME_EMAIL("用户名/邮箱/密码错误", 9986),
+    USER_VIOLATIONS_ARE_BANNED("用户违规被禁", 9985),
+    THE_USER_HAS_BEEN_DELETED("用户已被删除", 9984),
     ;
 
     private String name;

@@ -9,6 +9,8 @@ import com.uifuture.ssm.base.BaseController;
 import com.uifuture.ssm.common.UsersConstants;
 import com.uifuture.ssm.dto.UsersCookieDTO;
 import com.uifuture.ssm.entity.UsersEntity;
+import com.uifuture.ssm.enums.DeleteEnum;
+import com.uifuture.ssm.enums.UsersStateEnum;
 import com.uifuture.ssm.service.UsersService;
 import com.uifuture.ssm.util.CookieUtils;
 import com.uifuture.ssm.util.DateUtils;
@@ -55,6 +57,19 @@ public class AutoLoginInterceptor extends BaseController implements HandlerInter
             if (realUsers == null) {
                 return true;
             }
+
+            //用户是否被禁用，被删除
+            if (UsersStateEnum.FORBIDDEN.getValue().equals(realUsers.getState())) {
+                //删除cookie
+                CookieUtils.delCookie(response, UsersConstants.COOKIE_USERS_LOGIN_INFO);
+                return true;
+            }
+            if (!DeleteEnum.NO_DELETE.getValue().equals(realUsers.getDeleteTime())) {
+                //删除cookie
+                CookieUtils.delCookie(response, UsersConstants.COOKIE_USERS_LOGIN_INFO);
+                return true;
+            }
+
             //判断时间是否是30天内
             if (DateUtils.getLongDateTimeMS() - usersCookieDTO.getTime() > DAY30_MS) {
                 //删除cookie
