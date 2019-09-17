@@ -46,5 +46,5 @@ public class UsersReq implements Serializable {
     /**
      * 是否自动登录
      */
-    private Boolean rememberMe;
+    private Boolean rememberMe = false;
 }
