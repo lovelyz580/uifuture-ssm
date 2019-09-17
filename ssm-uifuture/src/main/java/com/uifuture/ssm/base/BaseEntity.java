@@ -35,4 +35,15 @@ public class BaseEntity implements Serializable {
      * 删除时间，0-未删除，单位秒
      */
     protected Integer deleteTime;
+
+
+    public static final String ID = "id";
+
+    public static final String CREATE_TIME = "create_time";
+
+    public static final String UPDATE_TIME = "update_time";
+
+    public static final String DELETE_TIME = "delete_time";
+
+
 }
