@@ -9,6 +9,7 @@ import lombok.Data;
 import java.io.Serializable;
 
 /**
+ * 资源文件上传后返回信息
  * @author chenhx
  * @version FileInfoDTO.java, v 0.1 2019-09-18 16:42 chenhx
  */
@@ -25,10 +26,6 @@ public class FileInfoDTO implements Serializable {
      * 原来的文件名称
      */
     private String oldFileName;
-    /**
-     * 文件访问路径
-     */
-    private String url;
     /**
      * 文件存储路径
      */

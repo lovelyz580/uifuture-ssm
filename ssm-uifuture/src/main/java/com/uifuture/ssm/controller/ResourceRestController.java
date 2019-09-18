@@ -1,11 +1,14 @@
 package com.uifuture.ssm.controller;
 
+import com.uifuture.ssm.aliyun.AliyunOssHandle;
 import com.uifuture.ssm.base.BaseController;
 import com.uifuture.ssm.common.RedisConstants;
 import com.uifuture.ssm.common.UsersConstants;
+import com.uifuture.ssm.config.SysConfig;
 import com.uifuture.ssm.convert.ResourceContentConvert;
 import com.uifuture.ssm.convert.ResourceConvert;
 import com.uifuture.ssm.dto.FileInfoDTO;
+import com.uifuture.ssm.dto.FileOssUrlDTO;
 import com.uifuture.ssm.dto.ResourceContentDTO;
 import com.uifuture.ssm.entity.ResourceContentEntity;
 import com.uifuture.ssm.entity.ResourceEntity;
@@ -65,6 +68,12 @@ public class ResourceRestController extends BaseController {
 
     @Autowired
     private ResourceContentService resourceContentService;
+
+    @Autowired
+    private AliyunOssHandle aliyunOssHandle;
+
+    @Autowired
+    private SysConfig sysConfig;
 
     /**
      * 用户上传图片文件的路径
@@ -159,7 +168,7 @@ public class ResourceRestController extends BaseController {
             return ResultModel.fail(ResultCodeEnum.ALL_TOO_OFTEN);
         }
 
-        List<FileInfoDTO> fileOssUrlDTOList = new ArrayList<>();
+        List<FileOssUrlDTO> fileOssUrlDTOList = new ArrayList<>();
         Date date = new Date();
         String dateStr = DateUtils.getDateString(date, "yyyyMM") + "/" + DateUtils.getDateString(date, "dd");
         for (MultipartFile multipartFile : uploadFile) {
@@ -172,8 +181,16 @@ public class ResourceRestController extends BaseController {
             if (StringUtils.isEmpty(fileType)) {
                 return ResultModel.fail("文件后缀名称错误。原文件名为:" + fileName + "，后缀名为:" + fileType);
             }
-            //保存文件到本地
-            uploadFile(multipartFile, fileOssUrlDTOList, dateStr, fileName, fileType, request.getSession().getServletContext().getRealPath("user") + FILE_IMAGES_UPLOAD_PATH);
+            InputStream inputStream = multipartFile.getInputStream();
+            //文件上传到 OSS ，oss 路径
+            String ossFileName = PasswordUtils.getToken() + fileType;
+            String ossUrl = aliyunOssHandle.uploadObject2OSS(inputStream, fileName, multipartFile.getSize(),
+                    "user/" + dateStr + "/", ossFileName, users.getUsername());
+            FileOssUrlDTO fileOssUrlDTO = new FileOssUrlDTO();
+            fileOssUrlDTO.setFileName(fileName);
+            fileOssUrlDTO.setOssUrl(sysConfig.getCdnImagesHref() + "/" + ossUrl);
+            fileOssUrlDTOList.add(fileOssUrlDTO);
+
         }
 //        返回文件的存储信息
         return ResultModel.resultModel(200, "上传成功", fileOssUrlDTOList);
@@ -249,7 +266,6 @@ public class ResourceRestController extends BaseController {
         fileInfoDTO.setOldFileName(fileName);
         fileInfoDTO.setNewFileName(newFileName);
         fileInfoDTO.setPath(path);
-        fileInfoDTO.setUrl("/");
         fileOssUrlDTOList.add(fileInfoDTO);
     }
 
