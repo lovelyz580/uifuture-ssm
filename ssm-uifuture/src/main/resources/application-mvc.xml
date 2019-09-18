@@ -35,7 +35,11 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <!--
     配置直接跳转的页面，无需经过Controller层  http://localhost:8080/freemarker01/index
     然后会跳转到 WEB-INF/templates/index.html 页面    -->
+    <!--<mvc: view-controller path="url访问路径" name="逻辑视图名称" />-->
     <mvc:view-controller path="/" view-name="index"/>
+    <mvc:view-controller path="/test/uploadFile" view-name="test/uploadFile"/>
+    <mvc:view-controller path="/test/login" view-name="test/login"/>
+    <mvc:view-controller path="/test/uploadResources" view-name="test/uploadResources"/>
 
     <!-- 静态资源配置 -->
     <mvc:resources location="/static/" mapping="/static/**"></mvc:resources>
@@ -58,5 +62,15 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
             <bean class="com.uifuture.ssm.interceptors.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
+
+
+    <!-- 文件上传配置，配置MultipartResovler，文件上传解析器 -->
+    <bean id="multipartResolver"
+          class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <!--设置默认编码-->
+        <property name="defaultEncoding" value="utf-8"></property>
+        <!--设置单个文件最大大小，单位字节，50MB-->
+        <property name="maxUploadSize" value="52428800"></property>
+    </bean>
 
 </beans>

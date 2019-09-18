@@ -20,6 +20,7 @@ public class ResultModel<T> implements Serializable {
     private static final long serialVersionUID = 5698452005095426221L;
     private Integer code;
     private String message;
+    private Boolean success = false;
     private T data;
 
     public ResultModel(Integer code, String message) {
@@ -59,12 +60,15 @@ public class ResultModel<T> implements Serializable {
      */
     public static <T> ResultModel success(T t) {
         ResultModel resultModel = new ResultModel(ResultCodeEnum.SUCCESS);
+        resultModel.setSuccess(true);
         resultModel.setData(t);
         return resultModel;
     }
 
     public static <T> ResultModel successNoData(String message) {
-        return new ResultModel(ResultCodeEnum.SUCCESS.getValue(), message);
+        ResultModel resultModel = new ResultModel(ResultCodeEnum.SUCCESS.getValue(), message);
+        resultModel.setSuccess(true);
+        return resultModel;
     }
 
     public static ResultModel success() {

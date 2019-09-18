@@ -69,12 +69,12 @@ public class ResourceRestController extends BaseController {
     /**
      * 用户上传图片文件的路径
      */
-    private static final String FILE_IMAGES_UPLOAD_PATH = "userImages" + File.separator;
+    private static final String FILE_IMAGES_UPLOAD_PATH = File.separator + "images" + File.separator;
 
     /**
      * 用户上传资源文件的路径
      */
-    private static final String FILE_RESOURCES_UPLOAD_PATH = "userResources" + File.separator;
+    private static final String FILE_RESOURCES_UPLOAD_PATH = File.separator + "resources" + File.separator;
 
 
     @Autowired
@@ -139,7 +139,7 @@ public class ResourceRestController extends BaseController {
 
     /**
      * 上传图片
-     *
+     * 上传至阿里云OSS
      * @return
      */
     @RequestMapping(value = "/uploadImages", method = RequestMethod.POST)
@@ -173,7 +173,7 @@ public class ResourceRestController extends BaseController {
                 return ResultModel.fail("文件后缀名称错误。原文件名为:" + fileName + "，后缀名为:" + fileType);
             }
             //保存文件到本地
-            uploadFile(multipartFile, fileOssUrlDTOList, dateStr, fileName, fileType, FILE_IMAGES_UPLOAD_PATH);
+            uploadFile(multipartFile, fileOssUrlDTOList, dateStr, fileName, fileType, request.getSession().getServletContext().getRealPath("user") + FILE_IMAGES_UPLOAD_PATH);
         }
 //        返回文件的存储信息
         return ResultModel.resultModel(200, "上传成功", fileOssUrlDTOList);
@@ -220,7 +220,7 @@ public class ResourceRestController extends BaseController {
         }
 
         //保存文件到本地
-        uploadFile(uploadFile, fileOssUrlDTOList, dateStr, fileName, fileType, FILE_RESOURCES_UPLOAD_PATH);
+        uploadFile(uploadFile, fileOssUrlDTOList, dateStr, fileName, fileType, request.getSession().getServletContext().getRealPath("user") + FILE_RESOURCES_UPLOAD_PATH);
 
         //返回文件的存储信息
         return ResultModel.resultModel(200, "上传成功", fileOssUrlDTOList);

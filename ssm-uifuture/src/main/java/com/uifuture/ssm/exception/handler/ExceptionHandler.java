@@ -13,6 +13,7 @@ import com.uifuture.ssm.result.ResultModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.method.HandlerMethod;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.NoHandlerFoundException;
@@ -44,6 +45,10 @@ public class ExceptionHandler extends BaseController implements HandlerException
             log.error("{}{}", "[公共异常]", ex.getMessage());
             CommonException exception = (CommonException) ex;
             result = ResultModel.resultModel(exception.getCode(), exception.getMessage());
+        } else if (ex instanceof MaxUploadSizeExceededException) {
+            log.error("{}{}", "[上传文件过大]", ex.getMessage());
+            MaxUploadSizeExceededException exception = (MaxUploadSizeExceededException) ex;
+            result = ResultModel.resultModel(500, exception.getMessage());
         } else {
             result = ResultModel.resultModel(ResultCodeEnum.INTERNAL_SERVER_ERROR.getValue(), "接口 [" + request.getRequestURI() + "] 内部错误，请联系客服，邮箱：uifuture@uifuture.com");
             String message;
@@ -63,6 +68,6 @@ public class ExceptionHandler extends BaseController implements HandlerException
             log.error("异常链接URL:" + url + "，请求参数:" + map + "，请求IP:" + getIpAddress(request) + "，异常信息：" + message, ex);
         }
         responseResult(response, result);
-        return new ModelAndView();
+        return null;
     }
 }

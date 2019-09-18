@@ -116,11 +116,12 @@ public class BaseController {
      * @param result
      */
     protected void responseResult(HttpServletResponse response, ResultModel result) {
-        response.setCharacterEncoding("UTF-8");
         response.setHeader("Content-type", "application/json;charset=UTF-8");
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setCharacterEncoding("UTF-8");
         response.setStatus(HttpStatus.OK.value());
         try {
-            response.getWriter().write(JSON.toJSONString(result));
+            response.getWriter().print(JSON.toJSONString(result));
         } catch (IOException ex) {
             log.error(ex.getMessage());
         }

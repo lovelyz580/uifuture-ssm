@@ -6,6 +6,7 @@ package com.uifuture.ssm.interceptors;
 
 import com.uifuture.ssm.base.BaseController;
 import com.uifuture.ssm.entity.UsersEntity;
+import com.uifuture.ssm.result.ResultModel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -27,6 +28,12 @@ public class LoginInterceptor extends BaseController implements HandlerIntercept
         //判断是否登录
         UsersEntity users = getLoginInfo(request);
         //已经登录
-        return users != null;
+        if (users == null) {
+            //写入提醒
+            ResultModel resultModel = new ResultModel(500, "登录后方可操作");
+            responseResult(response, resultModel);
+            return false;
+        }
+        return true;
     }
 }
