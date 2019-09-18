@@ -2,6 +2,7 @@ package com.uifuture.ssm.controller;
 
 import com.uifuture.ssm.base.BaseController;
 import com.uifuture.ssm.common.RedisConstants;
+import com.uifuture.ssm.common.UsersConstants;
 import com.uifuture.ssm.convert.ResourceConvert;
 import com.uifuture.ssm.dto.FileInfoDTO;
 import com.uifuture.ssm.entity.ResourceContentEntity;
@@ -60,11 +61,19 @@ public class ResourceRestController extends BaseController {
     private ResourceSubjectService resourceSubjectService;
 
     /**
-     * 用户上传文件的路径
+     * 用户上传图片文件的路径
      */
-    private static final String FILE_UPLOAD_PATH = "user" + File.separator;
+    private static final String FILE_IMAGES_UPLOAD_PATH = "userImages" + File.separator;
+
+    /**
+     * 用户上传资源文件的路径
+     */
+    private static final String FILE_RESOURCES_UPLOAD_PATH = "userResources" + File.separator;
+
+
     @Autowired
     private RedisClient redisClient;
+
     /**
      * 发表资源
      *
@@ -122,9 +131,9 @@ public class ResourceRestController extends BaseController {
      *
      * @return
      */
-    @RequestMapping(value = "/uploadPictures", method = RequestMethod.POST)
-    public ResultModel uploadPictures(HttpServletRequest request, HttpServletResponse response,
-                                      @RequestParam("uploadFile") MultipartFile[] uploadFile) throws IOException {
+    @RequestMapping(value = "/uploadImages", method = RequestMethod.POST)
+    public ResultModel uploadImages(HttpServletRequest request, HttpServletResponse response,
+                                    @RequestParam("uploadFile") MultipartFile[] uploadFile) throws IOException {
         if (uploadFile.length == 0) {
             return ResultModel.failNoData("请选择文件再上传");
         }
@@ -135,7 +144,7 @@ public class ResourceRestController extends BaseController {
 
         //单个用户一天最多上传100张图片
         int times = redisClient.incrInt(RedisConstants.getUploadFileTimesKey(users.getUsername()), RedisConstants.REG_MAX_TIME_1_DAY);
-        if (times > 100) {
+        if (times > UsersConstants.UPLOAD_TIMES) {
             return ResultModel.fail(ResultCodeEnum.ALL_TOO_OFTEN);
         }
 
@@ -152,24 +161,85 @@ public class ResourceRestController extends BaseController {
             if (StringUtils.isEmpty(fileType)) {
                 return ResultModel.fail("文件后缀名称错误。原文件名为:" + fileName + "，后缀名为:" + fileType);
             }
-
-            InputStream inputStream = multipartFile.getInputStream();
-
-            //文件上传到 OSS ，oss 路径
-            String newFileName = PasswordUtils.getToken() + fileType;
-            String path = FILE_UPLOAD_PATH + dateStr + File.separator;
-            FileUtils.writeToLocal(path, newFileName, inputStream);
-
-            FileInfoDTO fileInfoDTO = new FileInfoDTO();
-            fileInfoDTO.setOldFileName(fileName);
-            fileInfoDTO.setNewFileName(newFileName);
-            fileInfoDTO.setPath(path);
-            fileInfoDTO.setUrl("/");
-            fileOssUrlDTOList.add(fileInfoDTO);
-            times++;
+            //保存文件到本地
+            uploadFile(multipartFile, fileOssUrlDTOList, dateStr, fileName, fileType, FILE_IMAGES_UPLOAD_PATH);
         }
-//        返回文件的存储url，进行上传到阿里云cdn
+//        返回文件的存储信息
         return ResultModel.resultModel(200, "上传成功", fileOssUrlDTOList);
+    }
+
+    /**
+     * 上传资源文件
+     *
+     * @return
+     */
+    @RequestMapping(value = "/uploadResources", method = RequestMethod.POST)
+    public ResultModel uploadResources(HttpServletRequest request, HttpServletResponse response,
+                                       @RequestParam("uploadFile") MultipartFile uploadFile) throws IOException {
+        if (uploadFile == null) {
+            return ResultModel.failNoData("请选择文件再上传");
+        }
+        UsersEntity users = getLoginInfo(request);
+        if (users == null) {
+            return ResultModel.fail(ResultCodeEnum.USER_NOT_LOGGED);
+        }
+
+        //单个用户一天最多上传100次资源
+        int times = redisClient.incrInt(RedisConstants.getUploadFileTimesKey(users.getUsername()), RedisConstants.REG_MAX_TIME_1_DAY);
+        if (times > UsersConstants.UPLOAD_TIMES) {
+            return ResultModel.fail(ResultCodeEnum.ALL_TOO_OFTEN);
+        }
+
+        List<FileInfoDTO> fileOssUrlDTOList = new ArrayList<>();
+        Date date = new Date();
+        String dateStr = DateUtils.getDateString(date, "yyyyMM") + "/" + DateUtils.getDateString(date, "dd");
+
+        //原文件名称 - 需要带后缀
+        String fileName = uploadFile.getOriginalFilename();
+        if (StringUtils.isEmpty(fileName)) {
+            return ResultModel.fail("文件名为空。原文件名为:" + fileName);
+        }
+        String fileType = fileName.substring(fileName.lastIndexOf("."));
+        if (StringUtils.isEmpty(fileType)) {
+            return ResultModel.fail("文件后缀名称错误。原文件名为:" + fileName + "，后缀名为:" + fileType);
+        }
+        //后缀名限制为ZIP压缩文件
+        if (!UsersConstants.UPLOAD_SUFFIX.equals(fileType.toLowerCase())) {
+            return ResultModel.fail("文件后缀名错误，只能上传zip压缩文件");
+        }
+
+        //保存文件到本地
+        uploadFile(uploadFile, fileOssUrlDTOList, dateStr, fileName, fileType, FILE_RESOURCES_UPLOAD_PATH);
+
+        //返回文件的存储信息
+        return ResultModel.resultModel(200, "上传成功", fileOssUrlDTOList);
+    }
+
+    /**
+     * 保存文件到本地
+     *
+     * @param uploadFile
+     * @param fileOssUrlDTOList
+     * @param dateStr
+     * @param fileName
+     * @param fileType
+     * @param fileResourcesUploadPath
+     * @throws IOException
+     */
+    private void uploadFile(MultipartFile uploadFile, List<FileInfoDTO> fileOssUrlDTOList, String dateStr, String fileName, String fileType, String fileResourcesUploadPath) throws IOException {
+        InputStream inputStream = uploadFile.getInputStream();
+
+        //文件上传到 OSS ，oss 路径
+        String newFileName = PasswordUtils.getToken() + fileType;
+        String path = fileResourcesUploadPath + dateStr + File.separator;
+        FileUtils.writeToLocal(path, newFileName, inputStream);
+
+        FileInfoDTO fileInfoDTO = new FileInfoDTO();
+        fileInfoDTO.setOldFileName(fileName);
+        fileInfoDTO.setNewFileName(newFileName);
+        fileInfoDTO.setPath(path);
+        fileInfoDTO.setUrl("/");
+        fileOssUrlDTOList.add(fileInfoDTO);
     }
 
 

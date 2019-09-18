@@ -26,4 +26,12 @@ public class UsersConstants {
      * 30天，单位秒
      */
     public static final Integer EXPIRATION_DATE_30 = 30 * 24 * 60 * 60;
+    /**
+     * 用户上传资源次数
+     */
+    public static final Integer UPLOAD_TIMES = 100;
+    /**
+     * 限制资源文件只能是ZIP压缩文件
+     */
+    public static final String UPLOAD_SUFFIX = ".zip";
 }

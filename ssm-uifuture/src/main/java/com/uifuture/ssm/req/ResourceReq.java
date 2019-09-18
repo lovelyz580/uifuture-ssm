@@ -38,6 +38,11 @@ public class ResourceReq implements Serializable {
     private String oldName;
 
     /**
+     * 上传文件后，存储的文件名
+     */
+    private String newName;
+
+    /**
      * U币价格(只有整数)
      */
     private Integer priceUb = 0;

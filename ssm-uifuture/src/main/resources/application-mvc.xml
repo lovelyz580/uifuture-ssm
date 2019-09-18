@@ -53,7 +53,8 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
         <!--登录拦截器-->
         <mvc:interceptor>
             <mvc:mapping path="/resource/submit"/>
-            <mvc:mapping path="/resource/uploadPictures"/>
+            <mvc:mapping path="/resource/uploadImages"/>
+            <mvc:mapping path="/resource/uploadResources"/>
             <bean class="com.uifuture.ssm.interceptors.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
