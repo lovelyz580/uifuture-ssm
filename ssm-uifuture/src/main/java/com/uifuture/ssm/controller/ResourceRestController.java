@@ -93,7 +93,12 @@ public class ResourceRestController extends BaseController {
         //获取当前用户
         UsersEntity usersEntity = getLoginInfo(request);
         if (usersEntity == null) {
-            return ResultModel.fail();
+            return ResultModel.fail(ResultCodeEnum.USER_NOT_LOGGED);
+        }
+
+        //判断资源文件是否存在
+        if (!FileUtils.exists(resourceReq.getPath() + resourceReq.getNewName())) {
+            return ResultModel.fail(ResultCodeEnum.PLEASE_UPLOAD_THE_RESOURCE_FILE_FIRST);
         }
 
         //资源信息

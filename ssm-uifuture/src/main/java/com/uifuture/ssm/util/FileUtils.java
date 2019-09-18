@@ -100,6 +100,16 @@ public class FileUtils {
     }
 
     /**
+     * 文件是否存在
+     *
+     * @param path
+     */
+    public static Boolean exists(String path) {
+        File file = new File(path);
+        return file.exists();
+    }
+
+    /**
      * 删除文件
      *
      * @param file
