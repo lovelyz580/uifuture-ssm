@@ -24,6 +24,11 @@ public class RedisConstants {
      * 时间，10分钟
      */
     public static final Integer REG_MAX_TIME = 600;
+    /**
+     * 1天
+     */
+    public static final Integer REG_MAX_TIME_1_DAY = 24 * 60 * 60;
+
     private static final String REDIS_PREFIX = "ssm.";
 
     /**
@@ -54,6 +59,16 @@ public class RedisConstants {
      */
     public static String getSendEmailCodeTimesKey(String ip) {
         return REDIS_PREFIX + "getSendEmailCodeTimesKey." + ip;
+    }
+
+    /**
+     * 获取文件上传次数
+     *
+     * @param username
+     * @return
+     */
+    public static String getUploadFileTimesKey(String username) {
+        return REDIS_PREFIX + "getUploadFileTimesKey." + username;
     }
 
 
