@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="spring"/>
 
-    <title>登录测试测试</title>
+    <title>登录测试</title>
 </head>
 
 <body>
