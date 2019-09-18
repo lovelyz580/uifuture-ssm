@@ -13,4 +13,11 @@ import com.uifuture.ssm.entity.ResourceContentEntity;
  */
 public interface ResourceContentService extends IService<ResourceContentEntity> {
 
+    /**
+     * 通过资源token获取资源
+     *
+     * @param token
+     * @return
+     */
+    ResourceContentEntity getByToken(String token);
 }

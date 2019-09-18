@@ -1,5 +1,6 @@
 package com.uifuture.ssm.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.uifuture.ssm.entity.ResourceContentEntity;
 import com.uifuture.ssm.mapper.ResourceContentMapper;
@@ -17,4 +18,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class ResourceContentServiceImpl extends ServiceImpl<ResourceContentMapper, ResourceContentEntity> implements ResourceContentService {
 
+    @Override
+    public ResourceContentEntity getByToken(String token) {
+        QueryWrapper<ResourceContentEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq(ResourceContentEntity.RESOURCE_TOKEN, token);
+        return this.getOne(queryWrapper);
+    }
 }

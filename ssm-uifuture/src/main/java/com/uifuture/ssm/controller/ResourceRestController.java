@@ -3,8 +3,10 @@ package com.uifuture.ssm.controller;
 import com.uifuture.ssm.base.BaseController;
 import com.uifuture.ssm.common.RedisConstants;
 import com.uifuture.ssm.common.UsersConstants;
+import com.uifuture.ssm.convert.ResourceContentConvert;
 import com.uifuture.ssm.convert.ResourceConvert;
 import com.uifuture.ssm.dto.FileInfoDTO;
+import com.uifuture.ssm.dto.ResourceContentDTO;
 import com.uifuture.ssm.entity.ResourceContentEntity;
 import com.uifuture.ssm.entity.ResourceEntity;
 import com.uifuture.ssm.entity.ResourceSubjectEntity;
@@ -15,6 +17,7 @@ import com.uifuture.ssm.enums.ResultCodeEnum;
 import com.uifuture.ssm.redis.RedisClient;
 import com.uifuture.ssm.req.ResourceReq;
 import com.uifuture.ssm.result.ResultModel;
+import com.uifuture.ssm.service.ResourceContentService;
 import com.uifuture.ssm.service.ResourceService;
 import com.uifuture.ssm.service.ResourceSubjectService;
 import com.uifuture.ssm.service.ResourceTypeService;
@@ -59,6 +62,9 @@ public class ResourceRestController extends BaseController {
     private ResourceTypeService resourceTypeService;
     @Autowired
     private ResourceSubjectService resourceSubjectService;
+
+    @Autowired
+    private ResourceContentService resourceContentService;
 
     /**
      * 用户上传图片文件的路径
@@ -240,6 +246,36 @@ public class ResourceRestController extends BaseController {
         fileInfoDTO.setPath(path);
         fileInfoDTO.setUrl("/");
         fileOssUrlDTOList.add(fileInfoDTO);
+    }
+
+
+    /**
+     * 获取资源信息
+     *
+     * @return
+     */
+    @RequestMapping(value = "/resourceInfo", method = RequestMethod.POST)
+    public ResultModel resourceInfo(HttpServletRequest request, HttpServletResponse response, String token) throws IOException {
+        if (StringUtils.isEmpty(token)) {
+            return ResultModel.fail(ResultCodeEnum.PARAMETER_ERROR);
+        }
+
+        return ResultModel.success();
+    }
+
+    /**
+     * 获取资源内容
+     *
+     * @return
+     */
+    @RequestMapping(value = "/resourceContentInfo", method = RequestMethod.POST)
+    public ResultModel resourceContentInfo(HttpServletRequest request, HttpServletResponse response, String token) throws IOException {
+        if (StringUtils.isEmpty(token)) {
+            return ResultModel.fail(ResultCodeEnum.PARAMETER_ERROR);
+        }
+        ResourceContentEntity resourceContentEntity = resourceContentService.getByToken(token);
+        ResourceContentDTO resourceContentDTO = ResourceContentConvert.INSTANCE.entityToDto(resourceContentEntity);
+        return ResultModel.success(resourceContentDTO);
     }
 
 
