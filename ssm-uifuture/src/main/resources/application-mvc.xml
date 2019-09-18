@@ -42,11 +42,18 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 
     <!--配置拦截器-->
     <mvc:interceptors>
+        <!--自动登录拦截器-->
         <mvc:interceptor>
             <mvc:mapping path="/**"/>
             <mvc:exclude-mapping path="/usersRest/login"/>
             <mvc:exclude-mapping path="/usersRest/logout"/>
             <bean class="com.uifuture.ssm.interceptors.AutoLoginInterceptor"/>
+        </mvc:interceptor>
+
+        <!--登录拦截器-->
+        <mvc:interceptor>
+            <mvc:mapping path="/resource/submit"/>
+            <bean class="com.uifuture.ssm.interceptors.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
 

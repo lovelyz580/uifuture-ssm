@@ -19,6 +19,9 @@
 *.log
 */classes/artifacts/
 
+classes
+logger
+
 ### maven ###
 .mvn
 

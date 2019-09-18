@@ -15,7 +15,6 @@ import com.uifuture.ssm.service.UsersService;
 import com.uifuture.ssm.util.CookieUtils;
 import com.uifuture.ssm.util.DateUtils;
 import com.uifuture.ssm.util.PasswordUtils;
-import com.uifuture.ssm.util.SessionUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +39,7 @@ public class AutoLoginInterceptor extends BaseController implements HandlerInter
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         //判断是否登录
-        UsersEntity users = SessionUtils.getAttribute(request, UsersConstants.SESSION_USERS_LOGIN_INFO);
+        UsersEntity users = getLoginInfo(request);
         if (users != null) {
             //已经登录
             return true;
@@ -79,7 +78,7 @@ public class AutoLoginInterceptor extends BaseController implements HandlerInter
             String token = PasswordUtils.getToken(realUsers.getSalt(), realUsers.getPassword(), usersCookieDTO.getTime());
             if (token.equals(usersCookieDTO.getToken())) {
                 //进行登录
-                SessionUtils.setAttribute(request, UsersConstants.SESSION_USERS_LOGIN_INFO, realUsers);
+                setLoginInfo(request, realUsers);
             }
         } catch (Exception e) {
             log.error("转换成UsersCookieDTO出现异常,usersStr=" + usersStr, e);

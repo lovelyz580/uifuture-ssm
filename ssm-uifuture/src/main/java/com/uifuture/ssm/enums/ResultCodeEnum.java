@@ -54,6 +54,7 @@ public enum ResultCodeEnum {
     WRONG_PASSWORD_USERNAME_EMAIL("用户名/邮箱/密码错误", 9986),
     USER_VIOLATIONS_ARE_BANNED("用户违规被禁", 9985),
     THE_USER_HAS_BEEN_DELETED("用户已被删除", 9984),
+    BUSINESS_PROCESS_FAILED("业务处理失败", 9983),
     ;
 
     private String name;

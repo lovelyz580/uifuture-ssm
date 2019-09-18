@@ -27,7 +27,7 @@ public class PasswordUtils {
     /**
      * @return 返回加密用的盐
      */
-    public static String getBlogsToken() {
+    public static String getToken() {
         return DateFormatUtils.format(new Date(), "yyyyMMddHHmmssSSS") + randomStringLower(15);
     }
 
