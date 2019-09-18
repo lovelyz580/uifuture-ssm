@@ -12,6 +12,7 @@
 
 **/log4j.properties
 **/email.properties
+**/common.properties
 
 ### IntelliJ IDEA ###
 .idea
