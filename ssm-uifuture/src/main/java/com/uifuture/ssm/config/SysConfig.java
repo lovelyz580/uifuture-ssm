@@ -9,7 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 
 /**
- * @author wujn
+ * 系统配置类
+ * @author chenhx
  * @version SysConfig.java, v 0.1 2018-07-20 16:27
  */
 @Configuration

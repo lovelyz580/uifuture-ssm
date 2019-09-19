@@ -165,6 +165,11 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, ResourceEnt
         return this.getOne(queryWrapper);
     }
 
+    /**
+     * 异步增加访问量
+     *
+     * @param token
+     */
     @Async
     @Override
     public void addViewsOne(String token) {

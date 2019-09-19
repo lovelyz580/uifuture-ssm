@@ -154,7 +154,7 @@ public class ResourceRestController extends BaseController {
                 }
             }
         }
-
+        //资源发表
         resourceService.saveResource(resourceEntity, resourceContentEntity, usersEntity, typeIds, subjectIds, com.uifuture.ssm.util.CollectionUtils.listToSet(resourceReq.getTagsNames()));
         return ResultModel.success("成功");
     }

@@ -20,6 +20,7 @@ import com.uifuture.ssm.enums.UsersStateEnum;
 import com.uifuture.ssm.redis.RedisClient;
 import com.uifuture.ssm.req.UsersReq;
 import com.uifuture.ssm.result.ResultModel;
+import com.uifuture.ssm.service.IpService;
 import com.uifuture.ssm.service.UsersService;
 import com.uifuture.ssm.util.CookieUtils;
 import com.uifuture.ssm.util.DateUtils;
@@ -53,6 +54,9 @@ public class UsersRestController extends BaseController {
     private RedisClient redisClient;
     @Autowired
     private EmailConfig emailConfig;
+
+    @Autowired
+    private IpService ipService;
 
     /**
      * 用户注册
@@ -108,6 +112,9 @@ public class UsersRestController extends BaseController {
 
         //数据入库
         usersService.save(usersEntity);
+
+        //增加IP记录
+        ipService.saveIp(getIpAddress(request), usersEntity.getId());
 
         return ResultModel.success();
     }
@@ -270,6 +277,10 @@ public class UsersRestController extends BaseController {
 
         //登录成功
         setLoginInfo(request, usersEntity);
+
+        //异步增加IP记录
+        ipService.saveIp(getIpAddress(request), usersEntity.getId());
+
         return ResultModel.success("登录成功");
     }
 

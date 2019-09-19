@@ -37,4 +37,5 @@ public class AliyunOssConfig {
      */
     @Value("${aliyun.oss.bucket.img.name}")
     private String bucketImgName;
+
 }
