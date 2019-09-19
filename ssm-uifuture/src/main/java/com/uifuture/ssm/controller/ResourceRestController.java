@@ -7,24 +7,30 @@ import com.uifuture.ssm.common.UsersConstants;
 import com.uifuture.ssm.config.SysConfig;
 import com.uifuture.ssm.convert.ResourceContentConvert;
 import com.uifuture.ssm.convert.ResourceConvert;
+import com.uifuture.ssm.convert.TagsConvert;
 import com.uifuture.ssm.dto.FileInfoDTO;
 import com.uifuture.ssm.dto.FileOssUrlDTO;
 import com.uifuture.ssm.dto.ResourceContentDTO;
 import com.uifuture.ssm.dto.ResourceDTO;
+import com.uifuture.ssm.dto.TagsDTO;
+import com.uifuture.ssm.entity.RResourcesTagsEntity;
 import com.uifuture.ssm.entity.ResourceContentEntity;
 import com.uifuture.ssm.entity.ResourceEntity;
 import com.uifuture.ssm.entity.ResourceSubjectEntity;
 import com.uifuture.ssm.entity.ResourceTypeEntity;
+import com.uifuture.ssm.entity.TagsEntity;
 import com.uifuture.ssm.entity.UsersEntity;
 import com.uifuture.ssm.enums.DeleteEnum;
 import com.uifuture.ssm.enums.ResultCodeEnum;
 import com.uifuture.ssm.redis.RedisClient;
 import com.uifuture.ssm.req.ResourceReq;
 import com.uifuture.ssm.result.ResultModel;
+import com.uifuture.ssm.service.RResourcesTagsService;
 import com.uifuture.ssm.service.ResourceContentService;
 import com.uifuture.ssm.service.ResourceService;
 import com.uifuture.ssm.service.ResourceSubjectService;
 import com.uifuture.ssm.service.ResourceTypeService;
+import com.uifuture.ssm.service.TagsService;
 import com.uifuture.ssm.util.DateUtils;
 import com.uifuture.ssm.util.FileUtils;
 import com.uifuture.ssm.util.PasswordUtils;
@@ -75,6 +81,11 @@ public class ResourceRestController extends BaseController {
 
     @Autowired
     private SysConfig sysConfig;
+    @Autowired
+    private RResourcesTagsService rResourcesTagsService;
+
+    @Autowired
+    private TagsService tagsService;
 
     /**
      * 用户上传图片文件的路径
@@ -281,10 +292,25 @@ public class ResourceRestController extends BaseController {
         if (StringUtils.isEmpty(token)) {
             return ResultModel.fail(ResultCodeEnum.PARAMETER_ERROR);
         }
-        ResourceDTO resourceDTO = new ResourceDTO();
-
         ResourceEntity resourceEntity = resourceService.getByToken(token);
-        return ResultModel.success();
+        if (resourceEntity == null) {
+            return ResultModel.fail(ResultCodeEnum.PARAMETER_ERROR);
+        }
+
+        ResourceDTO resourceDTO = ResourceConvert.INSTANCE.entityToDto(resourceEntity);
+
+        //查询标签
+        List<RResourcesTagsEntity> rResourcesTagsEntities = rResourcesTagsService.listByResourceId(resourceEntity.getId());
+        List<Integer> tagsId = new ArrayList<>();
+        for (RResourcesTagsEntity rResourcesTagsEntity : rResourcesTagsEntities) {
+            tagsId.add(rResourcesTagsEntity.getTagsId());
+        }
+        if (!CollectionUtils.isEmpty(tagsId)) {
+            Collection<TagsEntity> tagsEntities = tagsService.listByIds(tagsId);
+            List<TagsDTO> tagsDTOS = TagsConvert.INSTANCE.entityToDTOList(tagsEntities);
+            resourceDTO.setTagsDTOS(tagsDTOS);
+        }
+        return ResultModel.success(resourceDTO);
     }
 
     /**

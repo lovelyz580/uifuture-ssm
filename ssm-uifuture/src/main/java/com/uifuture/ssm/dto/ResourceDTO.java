@@ -7,6 +7,7 @@ package com.uifuture.ssm.dto;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -59,5 +60,5 @@ public class ResourceDTO implements Serializable {
     /**
      * 标签
      */
-    private List<TagsDTO> tagsDTOS;
+    private List<TagsDTO> tagsDTOS = new ArrayList<>();
 }

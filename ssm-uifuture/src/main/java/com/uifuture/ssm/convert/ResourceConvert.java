@@ -4,6 +4,7 @@
  */
 package com.uifuture.ssm.convert;
 
+import com.uifuture.ssm.dto.ResourceDTO;
 import com.uifuture.ssm.entity.ResourceEntity;
 import com.uifuture.ssm.req.ResourceReq;
 import org.mapstruct.Mapper;
@@ -33,5 +34,21 @@ public interface ResourceConvert {
      * @return
      */
     ResourceEntity toEntity(ResourceReq entity);
+
+    /**
+     * Entity -> DTO
+     *
+     * @param entity
+     * @return
+     */
+    ResourceDTO entityToDto(ResourceEntity entity);
+
+    /**
+     * DTO -> Entity
+     *
+     * @param entity
+     * @return
+     */
+    ResourceEntity dtoToEntity(ResourceDTO entity);
 
 }

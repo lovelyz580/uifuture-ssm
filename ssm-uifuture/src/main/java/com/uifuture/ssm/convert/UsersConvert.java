@@ -9,6 +9,7 @@ import com.uifuture.ssm.entity.UsersEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -44,7 +45,7 @@ public interface UsersConvert {
      * @param entity
      * @return
      */
-    List<UsersCookieDTO> entityToDTOList(List<UsersEntity> entity);
+    List<UsersCookieDTO> entityToDTOList(Collection<UsersEntity> entity);
 
     /**
      * DTO集合 -> Entity集合
@@ -52,5 +53,5 @@ public interface UsersConvert {
      * @param entity
      * @return
      */
-    List<UsersEntity> dtoToEntityList(List<UsersCookieDTO> entity);
+    List<UsersEntity> dtoToEntityList(Collection<UsersCookieDTO> entity);
 }
