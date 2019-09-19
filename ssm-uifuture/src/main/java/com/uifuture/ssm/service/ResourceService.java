@@ -30,4 +30,12 @@ public interface ResourceService extends IService<ResourceEntity> {
      * @return
      */
     Integer saveResource(ResourceEntity resourceEntity, ResourceContentEntity resourceContentEntity, UsersEntity usersEntity, List<Integer> typeIds, List<Integer> subjectIds, Set<String> tagsNames);
+
+    /**
+     * 通过token获取资源信息
+     *
+     * @param token
+     * @return
+     */
+    ResourceEntity getByToken(String token);
 }

@@ -10,6 +10,7 @@ import com.uifuture.ssm.convert.ResourceConvert;
 import com.uifuture.ssm.dto.FileInfoDTO;
 import com.uifuture.ssm.dto.FileOssUrlDTO;
 import com.uifuture.ssm.dto.ResourceContentDTO;
+import com.uifuture.ssm.dto.ResourceDTO;
 import com.uifuture.ssm.entity.ResourceContentEntity;
 import com.uifuture.ssm.entity.ResourceEntity;
 import com.uifuture.ssm.entity.ResourceSubjectEntity;
@@ -280,7 +281,9 @@ public class ResourceRestController extends BaseController {
         if (StringUtils.isEmpty(token)) {
             return ResultModel.fail(ResultCodeEnum.PARAMETER_ERROR);
         }
+        ResourceDTO resourceDTO = new ResourceDTO();
 
+        ResourceEntity resourceEntity = resourceService.getByToken(token);
         return ResultModel.success();
     }
 

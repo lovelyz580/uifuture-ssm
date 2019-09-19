@@ -1,5 +1,6 @@
 package com.uifuture.ssm.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.uifuture.ssm.entity.RResourceSubjectEntity;
 import com.uifuture.ssm.entity.RResourceTypeEntity;
@@ -150,5 +151,12 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, ResourceEnt
         }
         rResourcesTagsService.saveBatch(rResourcesTagsEntities);
         return 1;
+    }
+
+    @Override
+    public ResourceEntity getByToken(String token) {
+        QueryWrapper<ResourceEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq(ResourceEntity.TOKEN, token);
+        return this.getOne(queryWrapper);
     }
 }
