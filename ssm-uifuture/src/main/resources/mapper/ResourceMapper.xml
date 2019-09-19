@@ -33,4 +33,11 @@
         create_id, token, title, image_urls, state, visit_times, download, path, new_name, old_name, price_ub, price, collect_number, describe
     </sql>
 
+
+    <update id="addParamByToken">
+        update resource set
+        ${param} = ${param}+${number}
+        where token = #{token}
+    </update>
+
 </mapper>

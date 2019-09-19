@@ -31,6 +31,7 @@ import com.uifuture.ssm.service.ResourceService;
 import com.uifuture.ssm.service.ResourceSubjectService;
 import com.uifuture.ssm.service.ResourceTypeService;
 import com.uifuture.ssm.service.TagsService;
+import com.uifuture.ssm.util.CookieUtils;
 import com.uifuture.ssm.util.DateUtils;
 import com.uifuture.ssm.util.FileUtils;
 import com.uifuture.ssm.util.PasswordUtils;
@@ -314,7 +315,7 @@ public class ResourceRestController extends BaseController {
     }
 
     /**
-     * 获取资源内容
+     * 获取资源内容，具体信息
      *
      * @return
      */
@@ -324,9 +325,44 @@ public class ResourceRestController extends BaseController {
             return ResultModel.fail(ResultCodeEnum.PARAMETER_ERROR);
         }
         ResourceContentEntity resourceContentEntity = resourceContentService.getByToken(token);
+
+        //异步增加资源的访问量
+        String value = CookieUtils.getCookie(request, token);
+        if (StringUtils.isEmpty(value)) {
+            //一个小时之内增加一次
+            CookieUtils.setCookie(response, token, "1", 60 * 60);
+            //增加资源的访问量  异步进行增加
+            resourceService.addViewsOne(token);
+        }
+
         ResourceContentDTO resourceContentDTO = ResourceContentConvert.INSTANCE.entityToDto(resourceContentEntity);
         return ResultModel.success(resourceContentDTO);
     }
+
+
+    /**
+     * TODO 资源收藏
+     *
+     * @return
+     */
+    @RequestMapping(value = "/collect", method = RequestMethod.POST)
+    public ResultModel collect(HttpServletRequest request, HttpServletResponse response, String token) throws IOException {
+        return ResultModel.success();
+    }
+
+
+    /**
+     * TODO 资源评论
+     *
+     * @return
+     */
+    @RequestMapping(value = "/comment", method = RequestMethod.POST)
+    public ResultModel comment(HttpServletRequest request, HttpServletResponse response, String token) throws IOException {
+        return ResultModel.success();
+    }
+
+
+
 
 
 }

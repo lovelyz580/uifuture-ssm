@@ -22,8 +22,10 @@ import com.uifuture.ssm.service.TagsService;
 import com.uifuture.ssm.util.CollectionUtils;
 import com.uifuture.ssm.util.PasswordUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
@@ -64,6 +66,9 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, ResourceEnt
     private TagsService tagsService;
     @Autowired
     private RResourcesTagsService rResourcesTagsService;
+
+    @Autowired
+    private ResourceMapper resourceMapper;
 
     @Override
     public Integer saveResource(ResourceEntity resourceEntity, ResourceContentEntity resourceContentEntity, UsersEntity usersEntity, List<Integer> typeIds, List<Integer> subjectIds, Set<String> tagsNames) {
@@ -158,5 +163,14 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, ResourceEnt
         QueryWrapper<ResourceEntity> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq(ResourceEntity.TOKEN, token);
         return this.getOne(queryWrapper);
+    }
+
+    @Async
+    @Override
+    public void addViewsOne(String token) {
+        if (StringUtils.isEmpty(token)) {
+            return;
+        }
+        resourceMapper.addParamByToken(token, ResourceEntity.VISIT_TIMES, 1);
     }
 }

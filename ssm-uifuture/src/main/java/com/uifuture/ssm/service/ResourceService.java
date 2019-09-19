@@ -38,4 +38,11 @@ public interface ResourceService extends IService<ResourceEntity> {
      * @return
      */
     ResourceEntity getByToken(String token);
+
+    /**
+     * 增加访问量
+     *
+     * @param token
+     */
+    void addViewsOne(String token);
 }
