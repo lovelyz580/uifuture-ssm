@@ -59,6 +59,9 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
             <mvc:mapping path="/resource/submit"/>
             <mvc:mapping path="/resource/uploadImages"/>
             <mvc:mapping path="/resource/uploadResources"/>
+            <mvc:mapping path="/usersFocus/focusOnTheUser"/>
+            <mvc:mapping path="/usersFocus/cancelFocusOnTheUser"/>
+            <mvc:mapping path="/usersFocus/isFocus"/>
             <bean class="com.uifuture.ssm.interceptors.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

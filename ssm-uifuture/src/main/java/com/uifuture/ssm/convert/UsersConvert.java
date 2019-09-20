@@ -5,6 +5,7 @@
 package com.uifuture.ssm.convert;
 
 import com.uifuture.ssm.dto.UsersCookieDTO;
+import com.uifuture.ssm.dto.UsersFocusPageDTO;
 import com.uifuture.ssm.entity.UsersEntity;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
@@ -54,4 +55,20 @@ public interface UsersConvert {
      * @return
      */
     List<UsersEntity> dtoToEntityList(Collection<UsersCookieDTO> entity);
+
+    /**
+     * Entity集合 -> DTO集合
+     *
+     * @param entity
+     * @return
+     */
+    List<UsersFocusPageDTO> entityToUsersFocusPageDtoList(Collection<UsersEntity> entity);
+
+    /**
+     * DTO集合 -> Entity集合
+     *
+     * @param entity
+     * @return
+     */
+    List<UsersEntity> usersFocusPageDtoToEntityList(Collection<UsersFocusPageDTO> entity);
 }
