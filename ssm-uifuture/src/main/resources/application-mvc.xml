@@ -62,6 +62,8 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
             <mvc:mapping path="/usersFocus/focusOnTheUser"/>
             <mvc:mapping path="/usersFocus/cancelFocusOnTheUser"/>
             <mvc:mapping path="/usersFocus/isFocus"/>
+            <mvc:mapping path="/usersRest/favoriteResources"/>
+            <mvc:mapping path="/usersRest/cancelResources"/>
             <bean class="com.uifuture.ssm.interceptors.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>

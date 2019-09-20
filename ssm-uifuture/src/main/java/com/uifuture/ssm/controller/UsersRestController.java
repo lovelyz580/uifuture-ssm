@@ -5,22 +5,32 @@
 package com.uifuture.ssm.controller;
 
 import com.alibaba.fastjson.JSON;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.uifuture.ssm.base.BaseController;
+import com.uifuture.ssm.base.page.Page;
+import com.uifuture.ssm.bo.RUsersCollectionsQueryBo;
 import com.uifuture.ssm.common.RedisConstants;
 import com.uifuture.ssm.common.UsersConstants;
+import com.uifuture.ssm.convert.ResourceConvert;
 import com.uifuture.ssm.convert.UsersConvert;
+import com.uifuture.ssm.dto.RUsersCollectionsPageDTO;
 import com.uifuture.ssm.dto.UsersCookieDTO;
 import com.uifuture.ssm.email.EmailConfig;
 import com.uifuture.ssm.email.SendEmail;
 import com.uifuture.ssm.email.impl.SendEmailCallable;
+import com.uifuture.ssm.entity.RUsersCollectionsEntity;
+import com.uifuture.ssm.entity.ResourceEntity;
 import com.uifuture.ssm.entity.UsersEntity;
 import com.uifuture.ssm.enums.DeleteEnum;
 import com.uifuture.ssm.enums.ResultCodeEnum;
 import com.uifuture.ssm.enums.UsersStateEnum;
+import com.uifuture.ssm.exception.CheckoutException;
 import com.uifuture.ssm.redis.RedisClient;
 import com.uifuture.ssm.req.UsersReq;
 import com.uifuture.ssm.result.ResultModel;
 import com.uifuture.ssm.service.IpService;
+import com.uifuture.ssm.service.RUsersCollectionsService;
+import com.uifuture.ssm.service.ResourceService;
 import com.uifuture.ssm.service.UsersService;
 import com.uifuture.ssm.util.CookieUtils;
 import com.uifuture.ssm.util.DateUtils;
@@ -31,12 +41,16 @@ import com.uifuture.ssm.util.ValidateUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -57,6 +71,11 @@ public class UsersRestController extends BaseController {
 
     @Autowired
     private IpService ipService;
+    @Autowired
+    private ResourceService resourceService;
+
+    @Autowired
+    private RUsersCollectionsService rUsersCollectionsService;
 
     /**
      * 用户注册
@@ -302,6 +321,99 @@ public class UsersRestController extends BaseController {
         //删除cookie
         CookieUtils.delCookie(response, UsersConstants.COOKIE_USERS_LOGIN_INFO);
         return ResultModel.success("成功退出");
+    }
+
+
+    /**
+     * 用户收藏资源
+     *
+     * @return
+     */
+    @RequestMapping(value = "/favoriteResources", method = RequestMethod.POST)
+    public ResultModel favoriteResources(Integer resourceId, HttpServletRequest request, HttpServletResponse response) {
+        UsersEntity usersEntity = checkResourcesParam(resourceId, request);
+        RUsersCollectionsEntity rUsersCollectionsEntity = new RUsersCollectionsEntity();
+        rUsersCollectionsEntity.setUserId(usersEntity.getId());
+        rUsersCollectionsEntity.setResourceId(resourceId);
+        rUsersCollectionsService.save(rUsersCollectionsEntity);
+        return ResultModel.success();
+    }
+
+    /**
+     * 用户取消收藏资源
+     *
+     * @return
+     */
+    @RequestMapping(value = "/cancelResources", method = RequestMethod.POST)
+    public ResultModel cancelResources(Integer resourceId, HttpServletRequest request, HttpServletResponse response) {
+        UsersEntity usersEntity = checkResourcesParam(resourceId, request);
+        rUsersCollectionsService.removeByUserIdAndResourceId(usersEntity.getId(), resourceId);
+        return ResultModel.success();
+    }
+
+    /**
+     * 校验收藏资源参数的方法
+     *
+     * @param resourceId 资源id
+     * @param request    请求
+     * @return 当前登录的用户信息
+     */
+    private UsersEntity checkResourcesParam(Integer resourceId, HttpServletRequest request) {
+        if (resourceId == null || resourceId < 1) {
+            throw new CheckoutException(ResultCodeEnum.PARAMETER_ERROR);
+        }
+        //查询资源是否存在
+        ResourceEntity resourceEntity = resourceService.getById(resourceId);
+        if (resourceEntity == null) {
+            throw new CheckoutException(ResultCodeEnum.PARAMETER_ERROR);
+        }
+        UsersEntity usersEntity = getLoginInfo(request);
+        if (usersEntity == null) {
+            throw new CheckoutException(ResultCodeEnum.USER_NOT_LOGGED);
+        }
+        return usersEntity;
+    }
+
+
+    /**
+     * 获取用户收藏的资源列表，分页
+     *
+     * @return
+     */
+    @RequestMapping(value = "/pageResourceList", method = RequestMethod.POST)
+    public ResultModel pageResourceList(Integer userId, Integer pageNum, Integer pageSize, HttpServletRequest request, HttpServletResponse response) {
+        if (pageNum == null || pageNum < 1) {
+            pageNum = 1;
+        }
+        if (pageSize == null || pageSize < 1) {
+            pageSize = 20;
+        }
+        if (userId == null || userId < 0) {
+            throw new CheckoutException(ResultCodeEnum.USER_NOT_LOGGED);
+        }
+
+        RUsersCollectionsQueryBo rUsersCollectionsQueryBo = new RUsersCollectionsQueryBo();
+        rUsersCollectionsQueryBo.setUserId(userId);
+        rUsersCollectionsQueryBo.buildQuery();
+        IPage<RUsersCollectionsEntity> entityIPage = rUsersCollectionsService.getPage(pageNum, pageSize, rUsersCollectionsQueryBo);
+
+        Page<RUsersCollectionsPageDTO> rUsersCollectionsPageDTOPage = new Page<>();
+        rUsersCollectionsPageDTOPage.setPageSize((int) entityIPage.getSize());
+        rUsersCollectionsPageDTOPage.setCurrentIndex((int) entityIPage.getCurrent());
+        rUsersCollectionsPageDTOPage.setTotalNumber((int) entityIPage.getTotal());
+
+        List<RUsersCollectionsPageDTO> rUsersCollectionsPageDTOS = new ArrayList<>();
+        //批量查询用户信息
+        List<Integer> resourceIds = new ArrayList<>();
+        for (RUsersCollectionsEntity record : entityIPage.getRecords()) {
+            resourceIds.add(record.getResourceId());
+        }
+        if (!CollectionUtils.isEmpty(resourceIds)) {
+            Collection<ResourceEntity> resourceEntities = resourceService.listByIds(resourceIds);
+            rUsersCollectionsPageDTOS = ResourceConvert.INSTANCE.entityToRUsersCollectionsPageDto(resourceEntities);
+        }
+        rUsersCollectionsPageDTOPage.setItems(rUsersCollectionsPageDTOS);
+        return ResultModel.success(rUsersCollectionsPageDTOPage);
     }
 
 }

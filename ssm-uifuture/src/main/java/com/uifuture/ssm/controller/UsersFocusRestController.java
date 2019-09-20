@@ -127,7 +127,7 @@ public class UsersFocusRestController extends BaseController {
         //批量查询用户信息
         List<Integer> usersId = new ArrayList<>();
         for (UsersFocusEntity record : entityIPage.getRecords()) {
-            usersId.add(record.getId());
+            usersId.add(record.getUserId());
         }
         if (!CollectionUtils.isEmpty(usersId)) {
             Collection<UsersEntity> usersEntities = usersService.listByIds(usersId);

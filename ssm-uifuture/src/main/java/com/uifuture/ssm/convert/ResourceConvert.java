@@ -4,11 +4,15 @@
  */
 package com.uifuture.ssm.convert;
 
+import com.uifuture.ssm.dto.RUsersCollectionsPageDTO;
 import com.uifuture.ssm.dto.ResourceDTO;
 import com.uifuture.ssm.entity.ResourceEntity;
 import com.uifuture.ssm.req.ResourceReq;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author chenhx
@@ -51,4 +55,9 @@ public interface ResourceConvert {
      */
     ResourceEntity dtoToEntity(ResourceDTO entity);
 
+    /**
+     * @param resourceEntities
+     * @return
+     */
+    List<RUsersCollectionsPageDTO> entityToRUsersCollectionsPageDto(Collection<ResourceEntity> resourceEntities);
 }
