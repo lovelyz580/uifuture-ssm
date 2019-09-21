@@ -348,6 +348,15 @@ public class DateUtils extends org.apache.commons.lang3.time.DateUtils {
     }
 
     /**
+     * 获取 秒 的时间戳
+     *
+     * @return
+     */
+    public static int getIntDateTimeS() {
+        return (int) System.currentTimeMillis() / 1000;
+    }
+
+    /**
      * 获取现在到过去某个时间间隔的小时
      *
      * @param date -传入某个时间

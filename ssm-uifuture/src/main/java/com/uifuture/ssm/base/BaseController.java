@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSON;
 import com.uifuture.ssm.common.UsersConstants;
 import com.uifuture.ssm.entity.UsersEntity;
 import com.uifuture.ssm.enums.ResultCodeEnum;
+import com.uifuture.ssm.exception.CheckoutException;
 import com.uifuture.ssm.exception.CommonException;
 import com.uifuture.ssm.result.ResultModel;
 import com.uifuture.ssm.util.RegexUtils;
@@ -96,6 +97,14 @@ public class BaseController {
      */
     protected static UsersEntity getLoginInfo(HttpServletRequest request) {
         return SessionUtils.getAttribute(request, UsersConstants.SESSION_USERS_LOGIN_INFO);
+    }
+
+    protected static UsersEntity getLoginInfo(HttpServletRequest request, boolean throwEx) {
+        UsersEntity usersEntity = getLoginInfo(request);
+        if (usersEntity == null && throwEx) {
+            throw new CheckoutException(ResultCodeEnum.USER_NOT_LOGGED);
+        }
+        return usersEntity;
     }
 
     /**

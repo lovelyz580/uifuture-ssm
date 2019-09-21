@@ -5,7 +5,7 @@
 package com.uifuture.ssm.util;
 
 import com.uifuture.ssm.enums.ResultCodeEnum;
-import com.uifuture.ssm.exception.CommonException;
+import com.uifuture.ssm.exception.CheckoutException;
 
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
@@ -24,13 +24,13 @@ public class ValidateUtils {
 
     public static <T> void validate(T object) {
         if (object == null) {
-            throw new CommonException(ResultCodeEnum.PARAMETER_ERROR);
+            throw new CheckoutException(ResultCodeEnum.PARAMETER_ERROR);
         }
         Set<ConstraintViolation<T>> constraintViolations = VALIDATOR.validate(object);
         //如果有验证信息，则抛出异常
         ConstraintViolation<T> constraintViolation = IteratorsUtils.getFirst(constraintViolations, null);
         if (constraintViolation != null) {
-            throw new CommonException(ResultCodeEnum.PARAMETER_ERROR.getValue(), constraintViolation.getMessage());
+            throw new CheckoutException(ResultCodeEnum.PARAMETER_ERROR.getValue(), constraintViolation.getMessage());
         }
 
     }

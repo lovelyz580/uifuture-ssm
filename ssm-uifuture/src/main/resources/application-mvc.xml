@@ -64,6 +64,8 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
             <mvc:mapping path="/usersFocus/isFocus"/>
             <mvc:mapping path="/usersRest/favoriteResources"/>
             <mvc:mapping path="/usersRest/cancelResources"/>
+            <mvc:mapping path="/usersComment/comment"/>
+            <mvc:mapping path="/usersComment/deleteComment"/>
             <bean class="com.uifuture.ssm.interceptors.LoginInterceptor"/>
         </mvc:interceptor>
     </mvc:interceptors>
