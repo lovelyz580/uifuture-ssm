@@ -60,4 +60,6 @@ public interface ResourceConvert {
      * @return
      */
     List<RUsersCollectionsPageDTO> entityToRUsersCollectionsPageDto(Collection<ResourceEntity> resourceEntities);
+
+    RUsersCollectionsPageDTO entityToRUsersCollectionsPageDto(ResourceEntity resourceEntities);
 }
