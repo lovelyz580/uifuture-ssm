@@ -27,6 +27,10 @@ public class UsersCommentReq implements Serializable {
      */
     private Integer pid = 0;
     /**
+     * 评论id
+     */
+    private Integer commentId = 0;
+    /**
      * 实际的评论内容
      */
     @NotEmpty(message = "评论内容不能为空")

@@ -1,7 +1,10 @@
 package com.uifuture.ssm.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.uifuture.ssm.bo.UsersCommentQueryBo;
 import com.uifuture.ssm.entity.UsersCommentEntity;
 import com.uifuture.ssm.mapper.UsersCommentMapper;
 import com.uifuture.ssm.service.UsersCommentService;
@@ -26,5 +29,15 @@ public class UsersCommentServiceImpl extends ServiceImpl<UsersCommentMapper, Use
         UsersCommentEntity usersCommentEntity = new UsersCommentEntity();
         usersCommentEntity.setDeleteTime(DateUtils.getIntDateTimeS());
         this.update(usersCommentEntity, queryWrapper);
+    }
+
+
+    @Override
+    public IPage<UsersCommentEntity> getPage(Integer pageNum, Integer pageSize, UsersCommentQueryBo usersCommentQueryBo) {
+        Page<UsersCommentEntity> page = new Page<>();
+        page.setSize(pageSize);
+        page.setCurrent(pageNum);
+        QueryWrapper<UsersCommentEntity> queryWrapper = usersCommentQueryBo.buildQuery();
+        return this.page(page, queryWrapper);
     }
 }

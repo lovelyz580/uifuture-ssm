@@ -1,13 +1,17 @@
 /*
- * souche.com
+ * uifuture.com
  * Copyright (C) 2013-2019 All Rights Reserved.
  */
 package com.uifuture.ssm.convert;
 
+import com.uifuture.ssm.dto.UsersCommentPageDTO;
 import com.uifuture.ssm.entity.UsersCommentEntity;
 import com.uifuture.ssm.req.UsersCommentReq;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @author chenhx
@@ -25,9 +29,17 @@ public interface UsersCommentConvert {
     UsersCommentReq entityToReq(UsersCommentEntity entity);
 
     /**
-     * @param entity
+     * @param
      * @return
      */
     UsersCommentEntity reqToEntity(UsersCommentReq req);
 
+    /**
+     * @param
+     * @return
+     */
+    UsersCommentPageDTO entityToDto(UsersCommentEntity req);
+
+
+    List<UsersCommentPageDTO> entityToPageList(Collection<UsersCommentEntity> records);
 }

@@ -1,6 +1,8 @@
 package com.uifuture.ssm.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.uifuture.ssm.bo.UsersCommentQueryBo;
 import com.uifuture.ssm.entity.UsersCommentEntity;
 
 /**
@@ -19,4 +21,14 @@ public interface UsersCommentService extends IService<UsersCommentEntity> {
      * @param commentId
      */
     void updateDeleteTimeById(Integer commentId);
+
+    /**
+     * 分页查询数据
+     *
+     * @param pageNum
+     * @param pageSize
+     * @param usersCommentQueryBo
+     * @return
+     */
+    IPage<UsersCommentEntity> getPage(Integer pageNum, Integer pageSize, UsersCommentQueryBo usersCommentQueryBo);
 }
