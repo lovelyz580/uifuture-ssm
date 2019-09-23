@@ -46,14 +46,16 @@ public class InitCommentWordConfig implements InitializingBean {
         for (SensitiveWordEntity word : sensitiveWordList) {
             wordStr.add(word.getWord());
         }
+        //加载敏感词
         WordFilterUtils.addSensitiveWord(wordStr);
+
         List<String> stopStr = new ArrayList<>();
         for (StopWordEntity word : stopWordList) {
             stopStr.add(word.getWord());
         }
+        //加载停顿词
         WordFilterUtils.addStopWord(stopStr);
 
-        //FLUSHALL - 清空redis数据库的命令
         long e = System.currentTimeMillis();
         log.info("初始化数据结束，一共消耗时间:{}毫秒 相当于 {}秒", (e - s), (e - s) / 1000.00);
     }

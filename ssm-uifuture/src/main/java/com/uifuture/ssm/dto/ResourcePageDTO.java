@@ -1,5 +1,5 @@
 /*
- * uifuture.com
+ * souche.com
  * Copyright (C) 2013-2019 All Rights Reserved.
  */
 package com.uifuture.ssm.dto;
@@ -7,20 +7,16 @@ package com.uifuture.ssm.dto;
 import lombok.Data;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
- * 资源信息
- *
  * @author chenhx
- * @version ResourceDTO.java, v 0.1 2019-09-19 10:52 chenhx
+ * @version ResourcePageDTO.java, v 0.1 2019-09-24 00:37 chenhx
  */
 @Data
-public class ResourceDTO implements Serializable {
+public class ResourcePageDTO implements Serializable {
+    private static final long serialVersionUID = -4636056034687128641L;
 
-    private static final long serialVersionUID = 482597943530803186L;
     /**
      * 资源token
      */
@@ -57,11 +53,6 @@ public class ResourceDTO implements Serializable {
      * 描述
      */
     private String describe;
-
-    /**
-     * 标签
-     */
-    private List<TagsDTO> tagsDTOS = new ArrayList<>();
 
     /**
      * 创建时间

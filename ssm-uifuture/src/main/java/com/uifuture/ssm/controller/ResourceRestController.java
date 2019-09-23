@@ -341,26 +341,14 @@ public class ResourceRestController extends BaseController {
 
 
     /**
-     * TODO 资源收藏
+     * TODO 资源删除
      *
      * @return
      */
-    @RequestMapping(value = "/collect", method = RequestMethod.POST)
+    @RequestMapping(value = "delete", method = RequestMethod.POST)
     public ResultModel collect(HttpServletRequest request, HttpServletResponse response, String token) throws IOException {
         return ResultModel.success();
     }
-
-
-    /**
-     * TODO 资源评论
-     *
-     * @return
-     */
-    @RequestMapping(value = "/comment", method = RequestMethod.POST)
-    public ResultModel comment(HttpServletRequest request, HttpServletResponse response, String token) throws IOException {
-        return ResultModel.success();
-    }
-
 
 
 

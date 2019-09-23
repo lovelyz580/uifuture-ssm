@@ -75,7 +75,7 @@ public class UsersCommentRestController extends BaseController {
         usersCommentEntity.setUserId(usersEntity.getId());
 
         //  敏感词需要过滤
-        String details = commentFilter(usersCommentEntity);
+        String details = commentFilter(usersCommentEntity.getRealDetails());
 
         usersCommentEntity.setDetails(details);
         usersCommentEntity.setState(UsersCommentEnum.NORMAL.getValue());
@@ -144,7 +144,7 @@ public class UsersCommentRestController extends BaseController {
         UsersCommentEntity newUsersCommentEntity = new UsersCommentEntity();
         newUsersCommentEntity.setId(usersCommentEntity.getId());
         newUsersCommentEntity.setRealDetails(usersCommentEntity.getRealDetails());
-        String details = commentFilter(usersCommentEntity);
+        String details = commentFilter(usersCommentEntity.getRealDetails());
 
         usersCommentEntity.setDetails(details);
         usersCommentService.updateById(usersCommentEntity);
@@ -154,12 +154,12 @@ public class UsersCommentRestController extends BaseController {
     /**
      * 敏感词过滤，XSS攻击防范
      *
-     * @param usersCommentEntity
+     * @param realDetails
      * @return
      */
-    private String commentFilter(UsersCommentEntity usersCommentEntity) {
+    private String commentFilter(String realDetails) {
         //  敏感词需要过滤
-        String details = WordFilterUtils.doFilter(usersCommentEntity.getRealDetails());
+        String details = WordFilterUtils.doFilter(realDetails);
         //XSS过滤
         details = XssUtils.xssEncode(details);
         return details;
@@ -179,7 +179,7 @@ public class UsersCommentRestController extends BaseController {
             pageSize = 20;
         }
         if (resourceId == null || resourceId < 0) {
-            throw new CheckoutException(ResultCodeEnum.USER_NOT_LOGGED);
+            throw new CheckoutException(ResultCodeEnum.PARAMETER_ERROR);
         }
         //获取资源
         ResourceEntity resourceEntity = resourceService.getById(resourceId);
@@ -240,7 +240,7 @@ public class UsersCommentRestController extends BaseController {
             pageSize = 20;
         }
         if (userId == null || userId < 0) {
-            throw new CheckoutException(ResultCodeEnum.USER_NOT_LOGGED);
+            throw new CheckoutException(ResultCodeEnum.PARAMETER_ERROR);
         }
         //获取用户信息
         UsersEntity usersEntity = usersServices.getById(userId);
