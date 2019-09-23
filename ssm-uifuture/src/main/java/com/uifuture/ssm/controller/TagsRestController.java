@@ -4,19 +4,19 @@ package com.uifuture.ssm.controller;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.uifuture.ssm.base.BaseController;
 import com.uifuture.ssm.base.page.Page;
-import com.uifuture.ssm.bo.RResourceSubjectQueryBo;
+import com.uifuture.ssm.bo.RResourceTagsQueryBo;
 import com.uifuture.ssm.convert.ResourceConvert;
 import com.uifuture.ssm.dto.ResourcePageDTO;
-import com.uifuture.ssm.entity.RResourceSubjectEntity;
+import com.uifuture.ssm.entity.RResourceTagsEntity;
 import com.uifuture.ssm.entity.ResourceEntity;
-import com.uifuture.ssm.entity.ResourceSubjectEntity;
+import com.uifuture.ssm.entity.TagsEntity;
 import com.uifuture.ssm.enums.DeleteEnum;
 import com.uifuture.ssm.enums.ResultCodeEnum;
 import com.uifuture.ssm.exception.CheckoutException;
 import com.uifuture.ssm.result.ResultModel;
-import com.uifuture.ssm.service.RResourceSubjectService;
+import com.uifuture.ssm.service.RResourceTagsService;
 import com.uifuture.ssm.service.ResourceService;
-import com.uifuture.ssm.service.ResourceSubjectService;
+import com.uifuture.ssm.service.TagsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,55 +31,58 @@ import java.util.List;
 
 /**
  * <p>
- * 资源专题表 前端控制器
+ * 标签表。 前端控制器
  * </p>
  *
  * @author chenhx
  * @since 2019-09-18
  */
 @RestController
-@RequestMapping("/resourceSubject")
-public class ResourceSubjectRestController extends BaseController {
+@RequestMapping("/tags")
+public class TagsRestController extends BaseController {
+
+
     @Autowired
-    private ResourceSubjectService resourceSubjectService;
+    private TagsService tagsService;
     @Autowired
     private ResourceService resourceService;
     @Autowired
-    private RResourceSubjectService rResourceSubjectService;
+    private RResourceTagsService rResourceTagsService;
 
     /**
-     * 获取专题的资源 列表，分页
+     * 获取标签的资源 列表，分页
      *
      * @return
      */
     @RequestMapping(value = "/pageList", method = RequestMethod.POST)
-    public ResultModel pageList(Integer subjectId, Integer pageNum, Integer pageSize, HttpServletRequest request, HttpServletResponse response) {
+    public ResultModel pageList(Integer tagsId, Integer pageNum, Integer pageSize, HttpServletRequest
+            request, HttpServletResponse response) {
         if (pageNum == null || pageNum < 1) {
             pageNum = 1;
         }
         if (pageSize == null || pageSize < 1) {
             pageSize = 20;
         }
-        if (subjectId == null || subjectId < 0) {
+        if (tagsId == null || tagsId < 0) {
             throw new CheckoutException(ResultCodeEnum.PARAMETER_ERROR);
         }
-        //获取专题
-        ResourceSubjectEntity resourceSubjectEntity = resourceSubjectService.getById(subjectId);
-        if (resourceSubjectEntity == null) {
+        //获取分类
+        TagsEntity tagsEntity = tagsService.getById(tagsId);
+        if (tagsEntity == null) {
             throw new CheckoutException(ResultCodeEnum.PARAMETER_ERROR);
         }
-        if (!DeleteEnum.NO_DELETE.getValue().equals(resourceSubjectEntity.getDeleteTime())) {
+        if (!DeleteEnum.NO_DELETE.getValue().equals(tagsEntity.getDeleteTime())) {
             throw new CheckoutException(ResultCodeEnum.DATA_DOES_NOT_EXIST);
         }
 
-        RResourceSubjectQueryBo rResourceSubjectQueryBo = new RResourceSubjectQueryBo();
-        rResourceSubjectQueryBo.setSubjectId(subjectId);
-        rResourceSubjectQueryBo.buildQuery();
-        IPage<RResourceSubjectEntity> entityIPage = rResourceSubjectService.getPage(pageNum, pageSize, rResourceSubjectQueryBo);
+        RResourceTagsQueryBo rResourceTagsQueryBo = new RResourceTagsQueryBo();
+        rResourceTagsQueryBo.setTagsId(tagsId);
+        rResourceTagsQueryBo.buildQuery();
+        IPage<RResourceTagsEntity> entityIPage = rResourceTagsService.getPage(pageNum, pageSize, rResourceTagsQueryBo);
 
-        List<RResourceSubjectEntity> rResourceSubjectEntities = entityIPage.getRecords();
+        List<RResourceTagsEntity> rResourceSubjectEntities = entityIPage.getRecords();
         List<Integer> resourceIds = new ArrayList<>();
-        for (RResourceSubjectEntity rResourceSubjectEntity : rResourceSubjectEntities) {
+        for (RResourceTagsEntity rResourceSubjectEntity : rResourceSubjectEntities) {
             //资源id
             resourceIds.add(rResourceSubjectEntity.getResourceId());
         }

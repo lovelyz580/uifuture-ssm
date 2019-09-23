@@ -13,7 +13,7 @@ import com.uifuture.ssm.dto.FileOssUrlDTO;
 import com.uifuture.ssm.dto.ResourceContentDTO;
 import com.uifuture.ssm.dto.ResourceDTO;
 import com.uifuture.ssm.dto.TagsDTO;
-import com.uifuture.ssm.entity.RResourcesTagsEntity;
+import com.uifuture.ssm.entity.RResourceTagsEntity;
 import com.uifuture.ssm.entity.ResourceContentEntity;
 import com.uifuture.ssm.entity.ResourceEntity;
 import com.uifuture.ssm.entity.ResourceSubjectEntity;
@@ -25,7 +25,7 @@ import com.uifuture.ssm.enums.ResultCodeEnum;
 import com.uifuture.ssm.redis.RedisClient;
 import com.uifuture.ssm.req.ResourceReq;
 import com.uifuture.ssm.result.ResultModel;
-import com.uifuture.ssm.service.RResourcesTagsService;
+import com.uifuture.ssm.service.RResourceTagsService;
 import com.uifuture.ssm.service.ResourceContentService;
 import com.uifuture.ssm.service.ResourceService;
 import com.uifuture.ssm.service.ResourceSubjectService;
@@ -83,7 +83,7 @@ public class ResourceRestController extends BaseController {
     @Autowired
     private SysConfig sysConfig;
     @Autowired
-    private RResourcesTagsService rResourcesTagsService;
+    private RResourceTagsService rResourceTagsService;
 
     @Autowired
     private TagsService tagsService;
@@ -301,9 +301,9 @@ public class ResourceRestController extends BaseController {
         ResourceDTO resourceDTO = ResourceConvert.INSTANCE.entityToDto(resourceEntity);
 
         //查询标签
-        List<RResourcesTagsEntity> rResourcesTagsEntities = rResourcesTagsService.listByResourceId(resourceEntity.getId());
+        List<RResourceTagsEntity> rResourcesTagsEntities = rResourceTagsService.listByResourceId(resourceEntity.getId());
         List<Integer> tagsId = new ArrayList<>();
-        for (RResourcesTagsEntity rResourcesTagsEntity : rResourcesTagsEntities) {
+        for (RResourceTagsEntity rResourcesTagsEntity : rResourcesTagsEntities) {
             tagsId.add(rResourcesTagsEntity.getTagsId());
         }
         if (!CollectionUtils.isEmpty(tagsId)) {

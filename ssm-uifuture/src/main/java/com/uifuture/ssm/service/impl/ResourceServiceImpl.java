@@ -3,8 +3,8 @@ package com.uifuture.ssm.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.uifuture.ssm.entity.RResourceSubjectEntity;
+import com.uifuture.ssm.entity.RResourceTagsEntity;
 import com.uifuture.ssm.entity.RResourceTypeEntity;
-import com.uifuture.ssm.entity.RResourcesTagsEntity;
 import com.uifuture.ssm.entity.ResourceContentEntity;
 import com.uifuture.ssm.entity.ResourceEntity;
 import com.uifuture.ssm.entity.TagsEntity;
@@ -15,8 +15,8 @@ import com.uifuture.ssm.exception.ServiceException;
 import com.uifuture.ssm.mapper.ResourceContentMapper;
 import com.uifuture.ssm.mapper.ResourceMapper;
 import com.uifuture.ssm.service.RResourceSubjectService;
+import com.uifuture.ssm.service.RResourceTagsService;
 import com.uifuture.ssm.service.RResourceTypeService;
-import com.uifuture.ssm.service.RResourcesTagsService;
 import com.uifuture.ssm.service.ResourceService;
 import com.uifuture.ssm.service.TagsService;
 import com.uifuture.ssm.util.CollectionUtils;
@@ -65,7 +65,7 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, ResourceEnt
     @Autowired
     private TagsService tagsService;
     @Autowired
-    private RResourcesTagsService rResourcesTagsService;
+    private RResourceTagsService rResourceTagsService;
 
     @Autowired
     private ResourceMapper resourceMapper;
@@ -128,9 +128,9 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, ResourceEnt
         List<String> oldTagsNames = oldTags.stream().map(TagsEntity::getName).collect(Collectors.toList());
         Set<String> oldTagsNameSet = CollectionUtils.listToSet(oldTagsNames);
 
-        List<RResourcesTagsEntity> rResourcesTagsEntities = new ArrayList<>();
+        List<RResourceTagsEntity> rResourcesTagsEntities = new ArrayList<>();
         for (String tagsName : tagsNames) {
-            RResourcesTagsEntity rResourcesTagsEntity = new RResourcesTagsEntity();
+            RResourceTagsEntity rResourcesTagsEntity = new RResourceTagsEntity();
             rResourcesTagsEntity.setResourceId(resourceEntity.getId());
             if (oldTagsNameSet.contains(tagsName)) {
                 //原来存在的数据
@@ -154,7 +154,7 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, ResourceEnt
             }
             rResourcesTagsEntities.add(rResourcesTagsEntity);
         }
-        rResourcesTagsService.saveBatch(rResourcesTagsEntities);
+        rResourceTagsService.saveBatch(rResourcesTagsEntities);
         return 1;
     }
 

@@ -56,6 +56,7 @@ public enum ResultCodeEnum {
     THE_USER_HAS_BEEN_DELETED("用户已被删除", 9984),
     BUSINESS_PROCESS_FAILED("业务处理失败", 9983),
     PLEASE_UPLOAD_THE_RESOURCE_FILE_FIRST("请先上传资源文件", 9982),
+    DATA_DOES_NOT_EXIST("数据不存在", 9981),
     ;
 
     private String name;
