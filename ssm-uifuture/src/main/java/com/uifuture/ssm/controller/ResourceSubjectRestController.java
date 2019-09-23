@@ -37,7 +37,7 @@ import java.util.List;
  * @since 2019-09-18
  */
 @RestController
-@RequestMapping("/resource-subject")
+@RequestMapping("/resourceSubject")
 public class ResourceSubjectRestController extends BaseController {
     @Autowired
     private ResourceSubjectService resourceSubjectService;
