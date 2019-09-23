@@ -19,6 +19,8 @@ import com.uifuture.ssm.service.ResourceService;
 import com.uifuture.ssm.service.UsersCommentService;
 import com.uifuture.ssm.service.UsersService;
 import com.uifuture.ssm.util.ValidateUtils;
+import com.uifuture.ssm.util.XssUtils;
+import com.uifuture.ssm.util.word.WordFilterUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -71,8 +73,11 @@ public class UsersCommentRestController extends BaseController {
 
         UsersCommentEntity usersCommentEntity = UsersCommentConvert.INSTANCE.reqToEntity(usersCommentReq);
         usersCommentEntity.setUserId(usersEntity.getId());
-        //TODO 敏感词需要过滤
-        usersCommentEntity.setDetails(usersCommentReq.getRealDetails());
+
+        //  敏感词需要过滤
+        String details = commentFilter(usersCommentEntity);
+
+        usersCommentEntity.setDetails(details);
         usersCommentEntity.setState(UsersCommentEnum.NORMAL.getValue());
         usersCommentService.save(usersCommentEntity);
         return ResultModel.success();
@@ -139,10 +144,25 @@ public class UsersCommentRestController extends BaseController {
         UsersCommentEntity newUsersCommentEntity = new UsersCommentEntity();
         newUsersCommentEntity.setId(usersCommentEntity.getId());
         newUsersCommentEntity.setRealDetails(usersCommentEntity.getRealDetails());
-        //TODO 敏感词需要过滤
-        usersCommentEntity.setDetails(usersCommentEntity.getRealDetails());
+        String details = commentFilter(usersCommentEntity);
+
+        usersCommentEntity.setDetails(details);
         usersCommentService.updateById(usersCommentEntity);
         return ResultModel.success();
+    }
+
+    /**
+     * 敏感词过滤，XSS攻击防范
+     *
+     * @param usersCommentEntity
+     * @return
+     */
+    private String commentFilter(UsersCommentEntity usersCommentEntity) {
+        //  敏感词需要过滤
+        String details = WordFilterUtils.doFilter(usersCommentEntity.getRealDetails());
+        //XSS过滤
+        details = XssUtils.xssEncode(details);
+        return details;
     }
 
     /**

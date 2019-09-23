@@ -1,6 +1,7 @@
 package com.uifuture.ssm.req;
 
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
@@ -34,5 +35,6 @@ public class UsersCommentReq implements Serializable {
      * 实际的评论内容
      */
     @NotEmpty(message = "评论内容不能为空")
+    @Length(max = 1000, message = "评论内容最长1000个字符")
     private String realDetails;
 }
