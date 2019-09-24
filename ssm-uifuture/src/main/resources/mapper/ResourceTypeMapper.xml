@@ -10,6 +10,7 @@
         <result column="delete_time" property="deleteTime"/>
         <result column="name" property="name"/>
         <result column="pid" property="pid"/>
+        <result column="hierarchy" property="hierarchy"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -18,7 +19,7 @@
         create_time,
         update_time,
         delete_time,
-        name, pid
+        name, pid,hierarchy
     </sql>
 
 </mapper>

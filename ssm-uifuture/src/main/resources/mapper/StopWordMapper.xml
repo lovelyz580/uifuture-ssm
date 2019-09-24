@@ -6,12 +6,18 @@
     <resultMap id="BaseResultMap" type="com.uifuture.ssm.entity.StopWordEntity">
         <result column="id" property="id"/>
         <result column="word" property="word"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="delete_time" property="deleteTime"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id,
-        word
+        word,
+        create_time,
+        update_time,
+        delete_time,
     </sql>
 
 </mapper>

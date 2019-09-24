@@ -1,12 +1,12 @@
 package com.uifuture.ssm.controller;
 
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.uifuture.ssm.base.BaseController;
 import com.uifuture.ssm.base.page.Page;
 import com.uifuture.ssm.bo.RResourceTypeQueryBo;
 import com.uifuture.ssm.convert.ResourceConvert;
 import com.uifuture.ssm.dto.ResourcePageDTO;
+import com.uifuture.ssm.dto.ResourceTypeDTO;
 import com.uifuture.ssm.entity.RResourceTypeEntity;
 import com.uifuture.ssm.entity.ResourceEntity;
 import com.uifuture.ssm.entity.ResourceTypeEntity;
@@ -28,7 +28,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -101,6 +103,74 @@ public class ResourceTypeRestController extends BaseController {
         List<ResourcePageDTO> resourcePageDTOS = ResourceConvert.INSTANCE.entityToPageList(resourceEntities);
         resourcePageDTOPage.setItems(resourcePageDTOS);
         return ResultModel.success(resourcePageDTOPage);
+    }
+
+
+    /**
+     * 获取分类的所有数据
+     *
+     * @return
+     */
+    @RequestMapping(value = "/all", method = RequestMethod.POST)
+    public ResultModel all(HttpServletRequest request, HttpServletResponse response) {
+        List<ResourceTypeDTO> resourceTypeDTOList = new ArrayList<>();
+
+        Collection<ResourceTypeEntity> resourceTypeEntities = resourceTypeService.list();
+
+        Map<Integer, List<ResourceTypeEntity>> resourceTypeListMap = new HashMap<>();
+        for (ResourceTypeEntity resourceTypeEntity : resourceTypeEntities) {
+            if (resourceTypeListMap.containsKey(resourceTypeEntity.getPid())) {
+                List<ResourceTypeEntity> resourceTypeEntityList = resourceTypeListMap.get(resourceTypeEntity.getPid());
+                //由于是引用，不用再重新put集合到Map中去了
+                resourceTypeEntityList.add(resourceTypeEntity);
+            } else {
+                List<ResourceTypeEntity> resourceTypeEntityList = new ArrayList<>();
+                resourceTypeEntityList.add(resourceTypeEntity);
+                resourceTypeListMap.put(resourceTypeEntity.getPid(), resourceTypeEntityList);
+            }
+        }
+        //按照结构分层,首先是获取最上层的数据
+        Integer pid = 0;
+        List<ResourceTypeEntity> resourceTypeEntityList = resourceTypeListMap.get(pid);
+        if (!CollectionUtils.isEmpty(resourceTypeEntityList)) {
+            for (ResourceTypeEntity resourceTypeEntity : resourceTypeEntityList) {
+                ResourceTypeDTO resourceTypeDTO = new ResourceTypeDTO();
+                resourceTypeDTO.setId(resourceTypeEntity.getId());
+                resourceTypeDTO.setName(resourceTypeEntity.getName());
+                resourceTypeDTOList.add(resourceTypeDTO);
+            }
+        }
+
+        //遍历第一层的节点
+        for (ResourceTypeDTO resourceTypeDTO : resourceTypeDTOList) {
+            List<ResourceTypeDTO> cResourceTypeDTOList = addChildNode(resourceTypeDTO, resourceTypeListMap);
+            resourceTypeDTO.setResourceTypeDTOS(cResourceTypeDTOList);
+        }
+
+        return ResultModel.success(resourceTypeDTOList);
+    }
+
+    /**
+     * 递归无限的分类层级
+     *
+     * @param resourceTypeDTO
+     * @param resourceTypeListMap
+     * @return
+     */
+    private List<ResourceTypeDTO> addChildNode(ResourceTypeDTO resourceTypeDTO, Map<Integer, List<ResourceTypeEntity>> resourceTypeListMap) {
+        List<ResourceTypeDTO> cResourceTypeDTOList = new ArrayList<>();
+        List<ResourceTypeEntity> resourceTypeEntityList = resourceTypeListMap.get(resourceTypeDTO.getId());
+        if (!CollectionUtils.isEmpty(resourceTypeEntityList)) {
+            for (ResourceTypeEntity resourceTypeEntity : resourceTypeEntityList) {
+                ResourceTypeDTO resourceTypeDTO1 = new ResourceTypeDTO();
+                resourceTypeDTO1.setId(resourceTypeEntity.getId());
+                resourceTypeDTO1.setName(resourceTypeEntity.getName());
+                List<ResourceTypeDTO> resourceTypeDTOList = addChildNode(resourceTypeDTO1, resourceTypeListMap);
+                resourceTypeDTO1.setResourceTypeDTOS(resourceTypeDTOList);
+                cResourceTypeDTOList.add(resourceTypeDTO1);
+            }
+        }
+        return cResourceTypeDTOList;
     }
 
 
