@@ -14,7 +14,7 @@ import lombok.Data;
  * @version UsersFocusQueryBo.java, v 0.1 2019-09-20 17:31 chenhx
  */
 @Data
-public class RResourceTypeQueryBo extends BaseQueryBo {
+public class RResourceTypeQueryBo extends BaseQueryBo<RResourceTypeEntity> {
     /**
      * 资源id
      */
@@ -24,6 +24,7 @@ public class RResourceTypeQueryBo extends BaseQueryBo {
      */
     private Integer resourceTypeId;
 
+    @Override
     public QueryWrapper<RResourceTypeEntity> buildQuery() {
         QueryWrapper<RResourceTypeEntity> queryWrapper = new QueryWrapper<>();
         if (resourceId != null) {
@@ -32,7 +33,6 @@ public class RResourceTypeQueryBo extends BaseQueryBo {
         }
         if (resourceTypeId != null) {
             queryWrapper.eq(RResourceTypeEntity.RESOURCE_TYPE_ID, resourceTypeId);
-
         }
         addSortQuery(queryWrapper);
         addIncludeDeleted(queryWrapper);

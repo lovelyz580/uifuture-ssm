@@ -14,7 +14,7 @@ import lombok.Data;
  * @since 2019-09-21
  */
 @Data
-public class RUsersCollectionsQueryBo extends BaseQueryBo {
+public class RUsersCollectionsQueryBo extends BaseQueryBo<RUsersCollectionsEntity> {
     /**
      * 用户id
      */
@@ -25,6 +25,7 @@ public class RUsersCollectionsQueryBo extends BaseQueryBo {
      */
     private Integer resourceId;
 
+    @Override
     public QueryWrapper<RUsersCollectionsEntity> buildQuery() {
         QueryWrapper<RUsersCollectionsEntity> queryWrapper = new QueryWrapper<>();
         if (userId != null) {

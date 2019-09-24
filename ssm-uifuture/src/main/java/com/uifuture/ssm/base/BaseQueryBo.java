@@ -17,7 +17,7 @@ import java.util.List;
  * @version BaseQueryBo.java, v 0.1 2019-09-20 17:31 chenhx
  */
 @Data
-public class BaseQueryBo {
+public abstract class BaseQueryBo<T> {
     /**
      * 主键ID
      */
@@ -80,4 +80,10 @@ public class BaseQueryBo {
         }
     }
 
+    /**
+     * 构造查询条件
+     *
+     * @return
+     */
+    protected abstract QueryWrapper<T> buildQuery();
 }

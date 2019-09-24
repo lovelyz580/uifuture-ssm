@@ -14,7 +14,7 @@ import lombok.Data;
  * @version UsersFocusQueryBo.java, v 0.1 2019-09-20 17:31 chenhx
  */
 @Data
-public class UsersFocusQueryBo extends BaseQueryBo {
+public class UsersFocusQueryBo extends BaseQueryBo<UsersFocusEntity> {
 
     /**
      * 用户id-关注者id
@@ -25,6 +25,7 @@ public class UsersFocusQueryBo extends BaseQueryBo {
      */
     private Integer focusedUserId;
 
+    @Override
     public QueryWrapper<UsersFocusEntity> buildQuery() {
         QueryWrapper<UsersFocusEntity> queryWrapper = new QueryWrapper<>();
         if (userId != null) {

@@ -16,7 +16,7 @@ import lombok.Data;
  * @version UsersFocusQueryBo.java, v 0.1 2019-09-20 17:31 chenhx
  */
 @Data
-public class UsersCommentQueryBo extends BaseQueryBo {
+public class UsersCommentQueryBo extends BaseQueryBo<UsersCommentEntity> {
 
     /**
      * 用户id
@@ -27,6 +27,7 @@ public class UsersCommentQueryBo extends BaseQueryBo {
      */
     private Integer resourceId;
 
+    @Override
     public QueryWrapper<UsersCommentEntity> buildQuery() {
         QueryWrapper<UsersCommentEntity> queryWrapper = new QueryWrapper<>();
         if (userId != null) {
