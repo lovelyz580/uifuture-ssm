@@ -6,7 +6,9 @@ import com.uifuture.ssm.base.BaseController;
 import com.uifuture.ssm.base.page.Page;
 import com.uifuture.ssm.bo.RResourceSubjectQueryBo;
 import com.uifuture.ssm.convert.ResourceConvert;
+import com.uifuture.ssm.convert.ResourceSubjectConvert;
 import com.uifuture.ssm.dto.ResourcePageDTO;
+import com.uifuture.ssm.dto.ResourceSubjectDTO;
 import com.uifuture.ssm.entity.RResourceSubjectEntity;
 import com.uifuture.ssm.entity.ResourceEntity;
 import com.uifuture.ssm.entity.ResourceSubjectEntity;
@@ -96,6 +98,18 @@ public class ResourceSubjectRestController extends BaseController {
         List<ResourcePageDTO> resourcePageDTOS = ResourceConvert.INSTANCE.entityToPageList(resourceEntities);
         resourcePageDTOPage.setItems(resourcePageDTOS);
         return ResultModel.success(resourcePageDTOPage);
+    }
+
+    /**
+     * 获取专题
+     *
+     * @return
+     */
+    @RequestMapping(value = "/all", method = RequestMethod.POST)
+    public ResultModel all() {
+        Collection<ResourceSubjectEntity> resourceSubjectEntities = resourceSubjectService.listNoDelete();
+        List<ResourceSubjectDTO> resourceSubjectDTOS = ResourceSubjectConvert.INSTANCE.entityTo(resourceSubjectEntities);
+        return ResultModel.success(resourceSubjectDTOS);
     }
 
 

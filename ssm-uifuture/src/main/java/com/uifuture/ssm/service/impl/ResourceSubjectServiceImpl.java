@@ -1,10 +1,14 @@
 package com.uifuture.ssm.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.uifuture.ssm.base.BaseEntity;
 import com.uifuture.ssm.entity.ResourceSubjectEntity;
 import com.uifuture.ssm.mapper.ResourceSubjectMapper;
 import com.uifuture.ssm.service.ResourceSubjectService;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
 
 /**
  * <p>
@@ -17,4 +21,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class ResourceSubjectServiceImpl extends ServiceImpl<ResourceSubjectMapper, ResourceSubjectEntity> implements ResourceSubjectService {
 
+    @Override
+    public Collection<ResourceSubjectEntity> listNoDelete() {
+        QueryWrapper<ResourceSubjectEntity> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq(BaseEntity.DELETE_TIME, 0);
+        return this.list(queryWrapper);
+    }
 }

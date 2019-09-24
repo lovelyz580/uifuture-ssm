@@ -71,5 +71,12 @@ public class RedisConstants {
         return REDIS_PREFIX + "getUploadFileTimesKey." + username;
     }
 
-
+    /**
+     * 获取资源分类
+     *
+     * @return
+     */
+    public static String getAllResourceTypeKey() {
+        return REDIS_PREFIX + "getAllResourceTypeKey";
+    }
 }

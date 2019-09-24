@@ -4,7 +4,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.uifuture.ssm.base.BaseController;
 import com.uifuture.ssm.base.page.Page;
 import com.uifuture.ssm.bo.RResourceTypeQueryBo;
+import com.uifuture.ssm.common.RedisConstants;
 import com.uifuture.ssm.convert.ResourceConvert;
+import com.uifuture.ssm.convert.ResourceTypeConvert;
 import com.uifuture.ssm.dto.ResourcePageDTO;
 import com.uifuture.ssm.dto.ResourceTypeDTO;
 import com.uifuture.ssm.entity.RResourceTypeEntity;
@@ -13,6 +15,7 @@ import com.uifuture.ssm.entity.ResourceTypeEntity;
 import com.uifuture.ssm.enums.DeleteEnum;
 import com.uifuture.ssm.enums.ResultCodeEnum;
 import com.uifuture.ssm.exception.CheckoutException;
+import com.uifuture.ssm.redis.RedisClient;
 import com.uifuture.ssm.result.ResultModel;
 import com.uifuture.ssm.service.RResourceSubjectService;
 import com.uifuture.ssm.service.RResourceTypeService;
@@ -52,6 +55,8 @@ public class ResourceTypeRestController extends BaseController {
 
     @Autowired
     private RResourceTypeService rResourceTypeService;
+    @Autowired
+    private RedisClient redisClient;
 
     /**
      * 获取分类的资源 列表，分页
@@ -113,9 +118,12 @@ public class ResourceTypeRestController extends BaseController {
      */
     @RequestMapping(value = "/all", method = RequestMethod.POST)
     public ResultModel all(HttpServletRequest request, HttpServletResponse response) {
-        List<ResourceTypeDTO> resourceTypeDTOList = new ArrayList<>();
+        List<ResourceTypeDTO> resourceTypeDTOList = redisClient.get(RedisConstants.getAllResourceTypeKey()).getList(ResourceTypeDTO.class);
+        if (!CollectionUtils.isEmpty(resourceTypeDTOList)) {
+            return ResultModel.success(resourceTypeDTOList);
+        }
 
-        Collection<ResourceTypeEntity> resourceTypeEntities = resourceTypeService.list();
+        Collection<ResourceTypeEntity> resourceTypeEntities = resourceTypeService.listNoDelete();
 
         Map<Integer, List<ResourceTypeEntity>> resourceTypeListMap = new HashMap<>();
         for (ResourceTypeEntity resourceTypeEntity : resourceTypeEntities) {
@@ -134,9 +142,7 @@ public class ResourceTypeRestController extends BaseController {
         List<ResourceTypeEntity> resourceTypeEntityList = resourceTypeListMap.get(pid);
         if (!CollectionUtils.isEmpty(resourceTypeEntityList)) {
             for (ResourceTypeEntity resourceTypeEntity : resourceTypeEntityList) {
-                ResourceTypeDTO resourceTypeDTO = new ResourceTypeDTO();
-                resourceTypeDTO.setId(resourceTypeEntity.getId());
-                resourceTypeDTO.setName(resourceTypeEntity.getName());
+                ResourceTypeDTO resourceTypeDTO = ResourceTypeConvert.INSTANCE.entityTo(resourceTypeEntity);
                 resourceTypeDTOList.add(resourceTypeDTO);
             }
         }
@@ -146,7 +152,8 @@ public class ResourceTypeRestController extends BaseController {
             List<ResourceTypeDTO> cResourceTypeDTOList = addChildNode(resourceTypeDTO, resourceTypeListMap);
             resourceTypeDTO.setResourceTypeDTOS(cResourceTypeDTOList);
         }
-
+        //增加缓存
+        redisClient.set(RedisConstants.getAllResourceTypeKey(), resourceTypeDTOList, RedisConstants.REG_MAX_TIME_1_DAY);
         return ResultModel.success(resourceTypeDTOList);
     }
 
@@ -162,9 +169,7 @@ public class ResourceTypeRestController extends BaseController {
         List<ResourceTypeEntity> resourceTypeEntityList = resourceTypeListMap.get(resourceTypeDTO.getId());
         if (!CollectionUtils.isEmpty(resourceTypeEntityList)) {
             for (ResourceTypeEntity resourceTypeEntity : resourceTypeEntityList) {
-                ResourceTypeDTO resourceTypeDTO1 = new ResourceTypeDTO();
-                resourceTypeDTO1.setId(resourceTypeEntity.getId());
-                resourceTypeDTO1.setName(resourceTypeEntity.getName());
+                ResourceTypeDTO resourceTypeDTO1 = ResourceTypeConvert.INSTANCE.entityTo(resourceTypeEntity);
                 List<ResourceTypeDTO> resourceTypeDTOList = addChildNode(resourceTypeDTO1, resourceTypeListMap);
                 resourceTypeDTO1.setResourceTypeDTOS(resourceTypeDTOList);
                 cResourceTypeDTOList.add(resourceTypeDTO1);
