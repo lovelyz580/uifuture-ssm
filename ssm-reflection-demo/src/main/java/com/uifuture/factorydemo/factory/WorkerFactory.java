@@ -43,15 +43,7 @@ public class WorkerFactory {
             Class c = Class.forName(className);
             //通过反射获取对象的实例化
             worker = (Worker) c.newInstance();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (InstantiationException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return worker;
