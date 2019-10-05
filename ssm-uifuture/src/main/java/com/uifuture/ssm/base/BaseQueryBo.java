@@ -41,11 +41,11 @@ public abstract class BaseQueryBo<T> {
      * @param query
      */
     protected void addSortQuery(QueryWrapper<?> query) {
-        //default 更新时间倒序
+        //default id倒序
         if (CollectionUtils.isEmpty(sorts)) {
             sorts = new ArrayList<>();
             SortQueryBo sortQueryBo = new SortQueryBo();
-            sortQueryBo.setFieldName(BaseEntity.CREATE_TIME);
+            sortQueryBo.setFieldName(BaseEntity.ID);
             sortQueryBo.setSortTypeEnum(SortQueryBo.SortTypeEnum.DESC);
             sorts.add(sortQueryBo);
         }

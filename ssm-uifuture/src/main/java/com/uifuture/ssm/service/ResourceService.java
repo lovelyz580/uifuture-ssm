@@ -45,4 +45,5 @@ public interface ResourceService extends IService<ResourceEntity> {
      * @param token
      */
     void addViewsOne(String token);
+
 }

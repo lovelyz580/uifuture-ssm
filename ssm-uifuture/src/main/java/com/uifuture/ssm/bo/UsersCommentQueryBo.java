@@ -30,6 +30,7 @@ public class UsersCommentQueryBo extends BaseQueryBo<UsersCommentEntity> {
     @Override
     public QueryWrapper<UsersCommentEntity> buildQuery() {
         QueryWrapper<UsersCommentEntity> queryWrapper = new QueryWrapper<>();
+        addId(queryWrapper);
         if (userId != null) {
             queryWrapper.eq(UsersCommentEntity.USER_ID, userId);
 

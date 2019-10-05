@@ -28,6 +28,7 @@ public class RUsersCollectionsQueryBo extends BaseQueryBo<RUsersCollectionsEntit
     @Override
     public QueryWrapper<RUsersCollectionsEntity> buildQuery() {
         QueryWrapper<RUsersCollectionsEntity> queryWrapper = new QueryWrapper<>();
+        addId(queryWrapper);
         if (userId != null) {
             queryWrapper.eq(RUsersCollectionsEntity.USER_ID, userId);
 

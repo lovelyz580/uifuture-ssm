@@ -28,9 +28,9 @@ public class UsersFocusQueryBo extends BaseQueryBo<UsersFocusEntity> {
     @Override
     public QueryWrapper<UsersFocusEntity> buildQuery() {
         QueryWrapper<UsersFocusEntity> queryWrapper = new QueryWrapper<>();
+        addId(queryWrapper);
         if (userId != null) {
             queryWrapper.eq(UsersFocusEntity.USER_ID, userId);
-
         }
         if (focusedUserId != null) {
             queryWrapper.eq(UsersFocusEntity.FOCUSED_USER_ID, focusedUserId);

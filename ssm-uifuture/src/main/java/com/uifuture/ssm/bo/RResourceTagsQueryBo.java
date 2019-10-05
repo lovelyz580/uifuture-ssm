@@ -28,6 +28,7 @@ public class RResourceTagsQueryBo extends BaseQueryBo<RResourceTagsEntity> {
     @Override
     public QueryWrapper<RResourceTagsEntity> buildQuery() {
         QueryWrapper<RResourceTagsEntity> queryWrapper = new QueryWrapper<>();
+        addId(queryWrapper);
         if (resourceId != null) {
             //资源id条件
             queryWrapper.eq(RResourceTagsEntity.RESOURCE_ID, resourceId);

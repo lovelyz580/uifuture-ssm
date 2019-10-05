@@ -18,4 +18,16 @@ import java.io.Serializable;
 public class TagsDTO implements Serializable {
 
     private static final long serialVersionUID = -4277580515071868734L;
+
+
+    /**
+     * 标签名
+     */
+    private String name;
+    /**
+     * 属于该标签的资源访问量
+     */
+    private Integer visitTimes;
+
+    private Integer id;
 }

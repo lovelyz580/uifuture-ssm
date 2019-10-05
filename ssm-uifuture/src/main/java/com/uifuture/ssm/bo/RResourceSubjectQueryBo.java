@@ -28,6 +28,7 @@ public class RResourceSubjectQueryBo extends BaseQueryBo<RResourceSubjectEntity>
     @Override
     public QueryWrapper<RResourceSubjectEntity> buildQuery() {
         QueryWrapper<RResourceSubjectEntity> queryWrapper = new QueryWrapper<>();
+        addId(queryWrapper);
         if (resourceId != null) {
             //构造资源id的查询条件
             queryWrapper.eq(RResourceSubjectEntity.RESOURCE_ID, resourceId);

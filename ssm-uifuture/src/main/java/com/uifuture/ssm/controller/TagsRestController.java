@@ -1,12 +1,14 @@
 package com.uifuture.ssm.controller;
 
-
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.uifuture.ssm.base.BaseController;
 import com.uifuture.ssm.base.page.Page;
 import com.uifuture.ssm.bo.RResourceTagsQueryBo;
+import com.uifuture.ssm.bo.TagsQueryBo;
 import com.uifuture.ssm.convert.ResourceConvert;
+import com.uifuture.ssm.convert.TagsConvert;
 import com.uifuture.ssm.dto.ResourcePageDTO;
+import com.uifuture.ssm.dto.TagsDTO;
 import com.uifuture.ssm.entity.RResourceTagsEntity;
 import com.uifuture.ssm.entity.ResourceEntity;
 import com.uifuture.ssm.entity.TagsEntity;
@@ -99,6 +101,34 @@ public class TagsRestController extends BaseController {
         List<ResourcePageDTO> resourcePageDTOS = ResourceConvert.INSTANCE.entityToPageList(resourceEntities);
         resourcePageDTOPage.setItems(resourcePageDTOS);
         return ResultModel.success(resourcePageDTOPage);
+    }
+
+    /**
+     * 获取标签的分页数据
+     *
+     * @return
+     */
+    @RequestMapping(value = "/pageTagsList", method = RequestMethod.POST)
+    public ResultModel pageTagsList(Integer pageNum, Integer pageSize, HttpServletRequest
+            request, HttpServletResponse response) {
+        if (pageNum == null || pageNum < 1) {
+            pageNum = 1;
+        }
+        if (pageSize == null || pageSize < 1) {
+            pageSize = 20;
+        }
+        TagsQueryBo tagsQueryBo = new TagsQueryBo();
+        //查询分页数据
+        IPage<TagsEntity> tagsEntityIPage = tagsService.getPage(pageNum, pageSize, tagsQueryBo);
+        //设置分页数据
+        Page<TagsDTO> tagsDTOPage = new Page<>();
+        tagsDTOPage.setPageSize((int) tagsEntityIPage.getSize());
+        tagsDTOPage.setCurrentIndex((int) tagsEntityIPage.getCurrent());
+        tagsDTOPage.setTotalNumber((int) tagsEntityIPage.getTotal());
+        //拷贝集合数据
+        List<TagsDTO> resourcePageDTOS = TagsConvert.INSTANCE.entityToDTOList(tagsEntityIPage.getRecords());
+        tagsDTOPage.setItems(resourcePageDTOS);
+        return ResultModel.success(tagsDTOPage);
     }
 
 

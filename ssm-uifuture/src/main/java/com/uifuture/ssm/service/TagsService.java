@@ -1,6 +1,8 @@
 package com.uifuture.ssm.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.uifuture.ssm.bo.TagsQueryBo;
 import com.uifuture.ssm.entity.TagsEntity;
 
 import java.util.Collection;
@@ -31,4 +33,15 @@ public interface TagsService extends IService<TagsEntity> {
      * @return
      */
     TagsEntity getByName(String name);
+
+
+    /**
+     * 获取分页的标签数据
+     *
+     * @param pageNum
+     * @param pageSize
+     * @param tagsQueryBo
+     * @return
+     */
+    IPage<TagsEntity> getPage(Integer pageNum, Integer pageSize, TagsQueryBo tagsQueryBo);
 }

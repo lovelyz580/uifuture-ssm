@@ -14,7 +14,7 @@ import java.io.Serializable;
  */
 @Data
 public class ResourceSubjectDTO implements Serializable {
-    private String id;
+    private Integer id;
     /**
      * 专题名
      */

@@ -27,6 +27,7 @@ public class RResourceTypeQueryBo extends BaseQueryBo<RResourceTypeEntity> {
     @Override
     public QueryWrapper<RResourceTypeEntity> buildQuery() {
         QueryWrapper<RResourceTypeEntity> queryWrapper = new QueryWrapper<>();
+        addId(queryWrapper);
         if (resourceId != null) {
             queryWrapper.eq(RResourceTypeEntity.RESOURCE_ID, resourceId);
 
