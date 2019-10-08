@@ -15,13 +15,20 @@ https://github.com/chenhaoxiang/uifuture-ssm/tree/master/ssm-classLoader
 ### 2.2-反射机制 
 ssm-reflection-demo  
 项目地址：
+https://github.com/chenhaoxiang/uifuture-ssm/tree/master/ssm-reflection-demo  
 
 
+### 2.3-动态代理
+ssm-proxy
+项目地址：
+https://github.com/chenhaoxiang/uifuture-ssm/tree/master/ssm-proxy  
 
-2.3 ssm-proxy
-动态代理
-3.X ssm-design-pattern
-设计模式
+
+### 3-设计模式
+ssm-design-pattern 
+项目地址：
+https://github.com/chenhaoxiang/uifuture-ssm/tree/master/ssm-design-pattern  
+
 
 14  
 ssm-spring-ioc-demo  

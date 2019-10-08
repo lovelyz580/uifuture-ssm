@@ -4,8 +4,27 @@
  */
 package com.uifuture.factory.method;
 
+import com.uifuture.factory.abstractfactory.abstractproduct.AliPay;
+import com.uifuture.factory.abstractfactory.abstractproduct.WxPay;
+import com.uifuture.factory.abstractfactory.concreatefactory.AndroidPayFactory;
+import com.uifuture.factory.abstractfactory.concreatefactory.IOSFactory;
+import com.uifuture.factory.abstractfactory.concreteproduct.AndroidAliPay;
+import com.uifuture.factory.abstractfactory.concreteproduct.AndroidWxPay;
+import com.uifuture.factory.abstractfactory.concreteproduct.IOSAliPay;
+import com.uifuture.factory.abstractfactory.concreteproduct.IOSWxPay;
 import com.uifuture.factory.method.impl.AliPayImplFactory;
 import com.uifuture.factory.method.impl.WxPayImplFactory;
+import com.uifuture.mvc.UserController;
+import com.uifuture.mvc.UserView;
+import com.uifuture.strategy.Strategy;
+import com.uifuture.strategy.impl.EveningStrategyImpl;
+import com.uifuture.strategy.impl.MorningStrategyImpl;
+import com.uifuture.strategy.impl.NooningStrategyImpl;
+import com.uifuture.template.AbstractTemplateRole;
+import com.uifuture.template.impl.BlackTeaImpl;
+import com.uifuture.template.impl.GreenTeaImpl;
+
+import java.math.BigDecimal;
 
 /**
  * 工厂方法模式测试类
@@ -25,3 +44,4 @@ public class TestPayFactory {
         pay2.pay();
     }
 }
+
