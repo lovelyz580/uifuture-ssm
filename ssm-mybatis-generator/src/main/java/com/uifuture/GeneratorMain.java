@@ -5,6 +5,7 @@
 package com.uifuture;
 
 import org.mybatis.generator.api.MyBatisGenerator;
+import org.mybatis.generator.api.ShellRunner;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
@@ -33,3 +34,4 @@ public class GeneratorMain {
     }
 
 }
+

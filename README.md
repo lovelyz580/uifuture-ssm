@@ -30,23 +30,50 @@ ssm-design-pattern
 https://github.com/chenhaoxiang/uifuture-ssm/tree/master/ssm-design-pattern  
 
 
-14  
-ssm-spring-ioc-demo  
+### 5-Spring MVC基础演示项目
+### 6-深入Spring MVC的九大组件
+### 7-Spring MVC基础应用
+### 8-Spring MVC核心应用
+ssm-spring-mvc
+项目地址：
+https://github.com/chenhaoxiang/uifuture-ssm/tree/master/ssm-spring-mvc  
 
-15  
-ssm-spring-core-bean  
 
-15.7  
+### 10-MyBatis的XML配置文件  
+### 11-MyBatis的XML映射文件  
+### 12-动态SQL（Dynamic SQL）  
+ssm-mybatis-xml-config
+项目地址：
+https://github.com/chenhaoxiang/uifuture-ssm/tree/master/ssm-mybatis-xml-config  
+
+### 13-MyBatis Generator逆向代码生成工具
+ssm-mybatis-generator
+项目地址：
+https://github.com/chenhaoxiang/uifuture-ssm/tree/master/ssm-mybatis-generator   
+### 14-IoC（控制反转）与DI（依赖注入）  
+ssm-spring-ioc-demo    
+项目地址：
+https://github.com/chenhaoxiang/uifuture-ssm/tree/master/ssm-spring-ioc-demo  
+
+### 15-Spring的核心机制
+ssm-spring-core-bean    
+项目地址：
+https://github.com/chenhaoxiang/uifuture-ssm/tree/master/ssm-spring-core-bean  
+
+#### 15.7  
 task 
-
-15.8  
+#### 15.8  
 spel  
 
-16 Spring AOP
-模块：ssm-spring-aop  
+### 16-Spring AOP（面向切面编程）  
+ssm-spring-aop    
+项目地址：
+https://github.com/chenhaoxiang/uifuture-ssm/tree/master/ssm-spring-aop  
 
+### 17-Spring的数据库事务管理
 ssm-mybatis-transaction 
-事务的操作  
+项目地址：
+https://github.com/chenhaoxiang/uifuture-ssm/tree/master/ssm-mybatis-transaction  
 
 ## 作者 
 陈浩翔  

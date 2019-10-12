@@ -1,6 +1,43 @@
 package com.uifuture.chapter12.entity;
 
 import com.uifuture.chapter12.base.BaseEntity;
+import com.uifuture.chapter12.dao.UsersMapper;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.builder.BuilderException;
+import org.apache.ibatis.builder.CacheRefResolver;
+import org.apache.ibatis.builder.IncompleteElementException;
+import org.apache.ibatis.cache.Cache;
+import org.apache.ibatis.cache.CacheKey;
+import org.apache.ibatis.executor.BatchExecutor;
+import org.apache.ibatis.executor.CachingExecutor;
+import org.apache.ibatis.executor.ExecutorException;
+import org.apache.ibatis.executor.ReuseExecutor;
+import org.apache.ibatis.executor.SimpleExecutor;
+import org.apache.ibatis.executor.parameter.ParameterHandler;
+import org.apache.ibatis.io.Resources;
+import org.apache.ibatis.mapping.BoundSql;
+import org.apache.ibatis.mapping.MappedStatement;
+import org.apache.ibatis.mapping.ParameterMapping;
+import org.apache.ibatis.mapping.ParameterMode;
+import org.apache.ibatis.mapping.SqlSource;
+import org.apache.ibatis.parsing.XNode;
+import org.apache.ibatis.reflection.MetaObject;
+import org.apache.ibatis.session.ExecutorType;
+import org.apache.ibatis.session.RowBounds;
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
+import org.apache.ibatis.transaction.Transaction;
+import org.apache.ibatis.type.TypeHandlerRegistry;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Serializable;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.Properties;
 
 /**
  * table name: blog
@@ -62,3 +99,6 @@ public class Blog extends BaseEntity {
         return sb.toString();
     }
 }
+
+
+

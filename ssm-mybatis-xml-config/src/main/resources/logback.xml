@@ -28,9 +28,6 @@
         </encoder>
     </appender>
 
-    <!--建立一个默认的root的logger-->
-    <root level="DEBUG">
-        <appender-ref ref="console"/>
-    </root>
 
 </configuration>
+
